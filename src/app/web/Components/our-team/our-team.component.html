@@ -1,0 +1,35 @@
+<div class="body">
+    <div class="header">
+      <h1>KPR TEAM</h1>
+      <p>Food Revolution Business</p>
+    </div>
+    <div class="team-container">
+      <div class="card">
+        <div class="team-card" [@cardHover]="isHovered[0] ? 'hovered' : 'notHovered'" (mouseenter)="toggleHover(0)"
+          (mouseleave)="toggleHover(0)">
+          <img src="https://via.placeholder.com/300x200" alt="Team Member 1">
+          <h1>Mr. xxxxxxxxx</h1>
+          <h2>Position</h2>
+        </div>
+        <div class="social-icons" *ngIf="isHovered[0]" [@socialIconsFade]>
+          <a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a>
+          <a href=""><i class="fa fa-instagram" aria-hidden="true"></i></a>
+          <a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="team-card" [@cardHover]="isHovered[1] ? 'hovered' : 'notHovered'" (mouseenter)="toggleHover(1)"
+          (mouseleave)="toggleHover(1)">
+          <img src="https://via.placeholder.com/300x200" alt="Team Member 2">
+          <h1>Mr. xxxxxxxxx</h1>
+          <h2>Position</h2>
+        </div>
+        <div class="social-icons" *ngIf="isHovered[1]" [@socialIconsFade]>
+          <a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a>
+          <a href=""><i class="fa fa-instagram" aria-hidden="true"></i></a>
+          <a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  

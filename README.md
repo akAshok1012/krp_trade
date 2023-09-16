@@ -1,1 +1,1 @@
-# krp_trade
+# xylo-trade-manager-UI

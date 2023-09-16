@@ -1,0 +1,80 @@
+.general-notification-grid {
+  border-radius: 3px;
+  position: relative;
+  line-height: 20px;
+  color: #000 !important;
+}
+
+.general-alert {
+  top: 0 !important;
+  border-radius: 3px;
+  position: relative;
+  padding: 0.5rem 1.25rem;
+  transition: 0s;
+  color: #000 !important;
+}
+
+.general-alert:hover {
+  top: -2px !important;
+  cursor: pointer;
+}
+
+.general-alert-info {
+  box-shadow: 0 4px 20px #00000024, 0 7px 10px -5px #00bcd466;
+}
+.general-alert-info {
+}
+
+::ng-deep .general-notification-grid .mat-expansion-panel {
+  background: #f9f9f9 !important;
+  overflow: inherit;
+}
+
+::ng-deep .general-notification-grid .mat-expansion-panel-body {
+  height: 70vh;
+  overflow: auto;
+}
+
+::ng-deep .general-notification-grid
+  .mat-expansion-panel-body::-webkit-scrollbar {
+  width: 0px;
+}
+::ng-deep .general-notification-grid
+  .mat-expansion-panel-body::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 5px blue;
+  border-radius: 10px;
+}
+
+::ng-deep .general-notification-grid
+  .mat-expansion-panel-body:hover::-webkit-scrollbar {
+  width: 4px;
+}
+
+.notification-count {
+    position: absolute;
+    top: -10px;
+    border: 1px solid #FFF;
+    right: 10px;
+    font-size: 25px;
+    color: #fff;
+    min-width: 30px;
+    padding: 0 5px;
+    height: 30px;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 30px;
+    vertical-align: middle;
+    display: block;
+}
+
+.notification-count-primary {
+  background: #1b27cf;
+}
+
+.notification-count-danger {
+  background: #f44336;
+}
+
+.notification-count-warning {
+  background: #ebd726;
+}

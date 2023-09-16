@@ -1,0 +1,68 @@
+<div class="brand-container row mx-xl-5 mx-lg-5 mx-md-3 mx-sm-2 mx-0 px-2">
+     <div class="web-sidebar col-lg-2 col-md-3 col-sm-12 col-xs-12 m-1">
+         <h2>Brands</h2>
+         <hr class="mt-0"/>
+         <h4 *ngIf="brands?.length === 0">No Result Found!</h4>
+         <mat-form-field *ngIf="isMobile" appearance="outline">
+           <mat-label>Filter By Brand</mat-label>
+           <mat-select>
+            <mat-option (click)="selectBrand('')" value="All">
+             All
+            </mat-option>
+             <mat-option *ngFor="let brand of brands" (click)="selectBrand(brand)" [value]="brand.name">
+               {{brand.name}}
+             </mat-option>
+           </mat-select>
+         </mat-form-field>
+         <ul *ngIf="brands && !isMobile">
+          <li (click)="selectBrand('')" [class]="selectedBrand.id ? '' : 'active'">
+            All
+          </li>
+           <li *ngFor="let brand of brands" (click)="selectBrand(brand)" [class]="brand.id != selectedBrand.id ? '' : 'active'">
+             {{ brand.name }}
+           </li>
+         </ul>
+       </div>
+
+       <div class="main-content col-lg-10 col-md-9 col-sm-12 col-xs-12 m-1"  (scroll)="scrollEvent($event)">
+         <h2>Products</h2>
+         <hr class="mt-0"/>
+         <h4 *ngIf="productList?.length === 0">No Result Found!</h4>
+         <div *ngIf="productList?.length > 0" class="row"
+         >
+           <div
+             class="col-xl-4 col-lg-4 col-md-6 col-sm-6"
+             *ngFor="let item of productList"
+           >
+             <div class="card products-details">
+               <div class="card-header card-header-success">
+                 <div class="row">
+                   <div class="col-6">
+                     <img
+                     [src]="item.itemImageString?.substring(0,4) === 'data' ? item.itemImageString : noImg"
+                       alt="No Image"
+                       style="height: 130px; width: 100%"
+                     />
+                   </div>
+                   <div class="col-6 cart-item-details">
+                     <h6 class="card-title" style="font-weight: 600">
+                       {{ item.brand.name }}
+                     </h6>
+                     <h4 class="card-title fw-bold" style="font-weight: 400">
+                       {{ item.itemName }}
+                     </h4>
+                     <h5 class="text-white" style="font-weight: 600">
+                       Rs.{{ item.fixedPrice }}
+                     </h5>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+         <ngx-spinner bdColor="rgba(0, 0, 0, 0.60)" size="medium" color="#fff" type="ball-clip-rotate-pulse" [fullScreen]="false">
+           <p style="color: white"> {{message}} </p>
+         </ngx-spinner>
+       </div>
+   </div>
+   

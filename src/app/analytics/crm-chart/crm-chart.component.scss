@@ -1,0 +1,14 @@
+.rows {
+    display: flex;
+    margin-right: -20px;
+    margin-left: 2px;
+    flex-wrap: wrap;
+}
+
+.chart1-area{
+    overflow-y: scroll;
+}
+
+#LeadCountChart{
+    min-width: 400px !important;
+}

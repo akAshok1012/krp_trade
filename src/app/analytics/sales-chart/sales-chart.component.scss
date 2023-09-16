@@ -1,0 +1,16 @@
+.rows {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -16px;
+    margin-left: 12px;
+}
+
+
+.chart1-area{
+    overflow-y: scroll;
+}
+
+#orderAndSalesCountChart{
+    min-width: 400px !important;
+}
+

@@ -1,0 +1,29 @@
+.web-footer{
+  z-index: 104;
+  position: absolute;
+  bottom: 100;
+  width: 100%;
+  display: flex;
+  background-color: rgb(31, 31, 31);
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 10px 0 0 0;
+}
+
+h1{
+  font-size: 18px;
+}
+a{
+  text-decoration: none;  
+}
+
+@media (max-width: 954px){
+  h1{
+    font-size: 13px;
+  }
+  .web-footer{
+    position: absolute;
+  
+  }
+}

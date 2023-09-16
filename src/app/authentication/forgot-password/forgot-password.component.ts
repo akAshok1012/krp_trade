@@ -1,0 +1,39 @@
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+@Component({
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.scss'],
+})
+export class ForgotPasswordComponent implements OnInit {
+  authForm: UntypedFormGroup;
+  submitted = false;
+  returnUrl: string;
+  constructor(
+    private formBuilder: UntypedFormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+  ngOnInit() {
+    this.authForm = this.formBuilder.group({
+      number: [
+        [Validators.required],
+      ],
+    });
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+  get f() {
+    return this.authForm.controls;
+  }
+  onSubmit() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.authForm.invalid) {
+      return;
+    } else {
+      // this.router.navigate(['/dashboard/maindashboard']);
+    }
+  }
+}

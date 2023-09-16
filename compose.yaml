@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  kprui:
+    build: ./
+    image: kpr:fornt-end
+    container_name: trade-ui
+    ports:
+      - '81:4200'
+   # command: ["npm", "start"]
+       
+       
+ # docker-nginx:
+ #   container_name: docker-nginx
+  #  build: ./
+   # ports: 
+   #    - 80:8080
+   # command: ["nginx", "-g", "daemon off;"]
+   # depends_on:
+   #   - kprui
+
+
+
+
+  
+ 

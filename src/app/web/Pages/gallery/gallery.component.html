@@ -1,0 +1,12 @@
+<div *ngIf="galleryItems" class="gallery-container">
+   <div *ngFor="let item of galleryItems" class="gallery-item" [ngClass]="{'item-left': item.isLeft, 'item-right': !item.isLeft}">
+     <div class="image-container">
+       <img [src]="item.image.url" alt="Gallery Image">
+     </div>
+     <div class="paragraph-container">
+       <h1>{{ item.head }}</h1>
+       <p>{{ item.paragraph }}</p>
+     </div>
+   </div>
+ </div>
+ 
