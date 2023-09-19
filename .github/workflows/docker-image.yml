@@ -39,7 +39,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ashokxylo
-          password: A@shokak110299
+          password: A@shokak101299
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
