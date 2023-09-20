@@ -20,10 +20,11 @@ jobs:
         run: |
           docker build -t ashokxylo/kprui:latest .
           docker tag ashokxylo/kprui:latest ashokxylo/kprui:${{ github.sha }}
-        working-directory: .D0
+        working-directory: .Dokcer
 
       - name: Push Docker Image
         run: |
           docker push ashokxylo/kprui:latest
           docker push ashokxylo/kprui:${{ github.sha }}
+/home/runner/work/krp_trade/krp_trade/./path/to/your/Dockerfile-directory'. No such file or directory
 
