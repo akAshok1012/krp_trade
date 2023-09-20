@@ -26,9 +26,9 @@ jobs:
             ashokxylo/kprui
           tags: |
              tags: |
+             tags: |
                type=semver,pattern={{version}}
-               type=semver,pattern={{major}}.{{minor}}
-               type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
+               type=semver,pattern={{version}},value=v1.0.0
       -
         name: Login to DockerHub
         if: github.event_name != 'pull_request'
