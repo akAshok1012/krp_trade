@@ -4,7 +4,7 @@ on:
     branches:
       - main
     tags:
-      - v*
+      - v 0.0.0.1
 jobs:
   docker:
     runs-on: ubuntu-latest
