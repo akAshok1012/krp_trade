@@ -43,13 +43,13 @@ jobs:
         with:
           username: ashokxylo
           password: A@shokak101299
-      - name: Login to GHCR
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: akAshok1012
-          password: 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 
+  #    - name: Login to GHCR
+  #      if: github.event_name != 'pull_request'
+   #     uses: docker/login-action@v3
+   #     with:
+     #     registry: ghcr.io
+    #      username: akAshok1012
+    #      password: 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 
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
