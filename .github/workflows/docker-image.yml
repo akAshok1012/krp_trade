@@ -20,7 +20,7 @@ jobs:
         run: |
           docker build -t ashokxylo/kprui:latest .
           docker tag ashokxylo/kprui:latest ashokxylo/kprui:${{ github.sha }}
-        working-directory: /akAshok1012/krp_trade/blob/main/Dockerfile
+        working-directory: /home/runner/work/krp_trade/Dockerfile
 
       - name: Push Docker Image
         run: |
