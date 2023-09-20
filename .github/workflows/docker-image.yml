@@ -19,7 +19,7 @@ jobs:
         env:
           DOCKER_USERNAME: ashokxylo
           DOCKER_PASSWORD: A@shokak101299
-          IMAGE_NAME: your-image-name
+          IMAGE_NAME: ashokxylo/kprui
           VERSION: v${{ github.run_number }}
         run: |
           echo "Logging in to Docker Hub"
