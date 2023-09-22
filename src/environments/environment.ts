@@ -7,8 +7,8 @@ export const environment = {
   production: false,
   // apiUrl:"http://demo.xyloinc.com/test-tm-api"
   // apiUrl:"http://106.51.152.163:9004/tm"
-   //apiUrl:"http://localhost:9004/tm"
- apiUrl:"http://127.0.0.1:34909/tm"  // Kubernetes port
+   apiUrl:"http://localhost:9004/tm"
+// apiUrl:"http://127.0.0.1:34909/tm"  // Kubernetes port
   // apiUrl:"http://192.168.0.112:9004/tm"
   //  apiUrl:"http://192.168.29.118:9004/tm"  // pmo
     // apiUrl:"http://192.168.29.121:9004/tm"   // praveen
