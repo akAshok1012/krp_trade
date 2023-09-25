@@ -52,16 +52,14 @@ jobs:
           host: 106.51.152.163
           user: kafka
           password: Xyloinc@123
-  deploy:
-    runs-on: ubuntu-latest    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2     
-      - name: Set up Kubectl 
-        with:
+ 
+    - name: Checkout code
+      uses: actions/checkout@v2     
+    - name: Set up Kubectl 
+      with:
           kubeconfig: ${{ secrets.KUBECONFIG }}      
-      - name: Deploy to Kubernetes
-        run: |
+    - name: Deploy to Kubernetes
+      run: |
           kubectl apply -f Kubernetes/deployment.yaml
        
 
