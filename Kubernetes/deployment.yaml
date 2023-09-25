@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kpr
+spec:
+  selector:
+    matchLabels:
+      app: kpr
+  replicas: 2      # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: kpr
+    spec:
+      containers:
+      - name: tradeui
+        image: ashokxylo/kprui:43
+        ports:
+        - containerPort: 80
+        resources:
+         limits:
+           cpu: 500m
+         requests:
+           cpu: 200m
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service-kpr
+spec:
+  selector:
+    app: kpr
+  ports:
+    - name: kpr-port
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30010
+  type: NodePort    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+ 
+      
+
