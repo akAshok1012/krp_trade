@@ -53,14 +53,14 @@ jobs:
           user: kafka
           password: Xyloinc@123
  
-    - name: Checkout code
-      uses: actions/checkout@v2     
-    - name: Set up Kubectl 
-      with:
-          kubeconfig: ${{ secrets.KUBECONFIG }}      
-    - name: Deploy to Kubernetes
-      run: |
-          kubectl apply -f Kubernetes/deployment.yaml
+ #   - name: Checkout code
+  #    uses: actions/checkout@v2     
+   # - name: Set up Kubectl 
+     # with:
+     #     kubeconfig: ${{ secrets.KUBECONFIG }}      
+   # - name: Deploy to Kubernetes
+    #  run: |
+    #      kubectl apply -f Kubernetes/deployment.yaml
        
 
       
