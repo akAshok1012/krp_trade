@@ -3,12 +3,12 @@ name: ci
 on:
   push:
     branches:
-      - 'main'
+      - 'uat'
     tags:
       - 'v*'
   pull_request:
     branches:
-      - 'main'
+      - 'uat'
   workflow_dispatch:
 
   
