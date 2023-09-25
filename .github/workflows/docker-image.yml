@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - 'uat'
+      - 'main'
     tags:
       - 'v*'
   pull_request:
@@ -45,4 +45,25 @@ jobs:
     - name: Push Image to Docker Hub
       run:
         docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER
+
+    - name: ssh-job
+      uses: nekiro/ssh-job@v1.0.3
+      with:
+          host: 106.51.152.163
+    # Port to use while connecting
+          user: kafka
+          password: Xyloinc@123
+         
+    - name: Set up kubectl
+      uses: steebchen/kubectl@v1
+      with:
+          version: latest
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+    - name: Deploy to Kubernetes
+      run: |
+          kubectl apply -f Kubernetes/deployment.yaml.yml
+        # Replace 'your-kubernetes-manifest.yml' with the path to your Kubernetes manifest.
+
+      
         
