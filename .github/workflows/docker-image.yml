@@ -50,7 +50,6 @@ jobs:
       uses: nekiro/ssh-job@v1.0.3
       with:
           host: 106.51.152.163
-    # Port to use while connecting
           user: kafka
           password: Xyloinc@123
   deploy:
@@ -64,7 +63,7 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f Kubernetes/deployment.yaml.yml
-        # Replace 'your-kubernetes-manifest.yml' with the path to your Kubernetes manifest.
+       
 
       
         
