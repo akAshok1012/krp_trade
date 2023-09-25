@@ -45,23 +45,24 @@ jobs:
     - name: Push Image to Docker Hub
       run:
         docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER
+        
+  deploy_to_kubernetes_cluster:
+    name: Deploy to Kubernetes Cluster
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Set Kubernetes Context
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }} # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
+      - name: Deploy to Cluster
+        run: |
+          sed -i'' -e 's/IMAGE_LABEL/${{env.IMAGE_NAME }}/g' deployment.yml
+           kubectl apply -f /kubernetes/deployment.yml    
 
-    - name: ssh-job
-      uses: nekiro/ssh-job@v1.0.3
-      with:
-          host: 106.51.152.163
-          user: kafka
-          password: Xyloinc@123
- 
- #   - name: Checkout code
-  #    uses: actions/checkout@v2     
-   # - name: Set up Kubectl 
-     # with:
-     #     kubeconfig: ${{ secrets.KUBECONFIG }}      
-   # - name: Deploy to Kubernetes
-    #  run: |
-    #      kubectl apply -f Kubernetes/deployment.yaml
-       
+
 
       
         
