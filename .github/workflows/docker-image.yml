@@ -52,4 +52,4 @@ jobs:
       with:
         k8s_config: ${{ secrets.KUBE_CONFIG }}
         k8s_namespace: default # Replace with your Kubernetes namespace
-        k8s_manifest: /home/runner/work/krp_trade/Kubernetes/deployment.yaml # Update to your deployment manifest path
+        k8s_manifest: /home/runner/akAshok1012/krp_trade/Kubernetes/deployment.yaml # Update to your deployment manifest path
