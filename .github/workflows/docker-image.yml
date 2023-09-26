@@ -46,8 +46,9 @@ jobs:
       run:
         docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER
 
-    - name: Deploy to Kubernetes
-      uses: appleboy/kubernetes-action@v2.309.0
+   
+    - name: Kubernetes Deployment
+      uses: TanmoySG/k-deploy-action@v0.2.2-alpha
       with:
         k8s_config: ${{ secrets.KUBE_CONFIG }}
         k8s_namespace: default # Replace with your Kubernetes namespace
