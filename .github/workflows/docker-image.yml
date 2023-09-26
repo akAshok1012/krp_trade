@@ -54,7 +54,7 @@ jobs:
 
       - name: Login to the Kubernetes cluster
         run: |
-          echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
+          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > kubeconfig.yaml
           kubectl config set-context my-cluster --cluster=my-cluster --user=my-user
           kubectl config use-context my-cluster
 
