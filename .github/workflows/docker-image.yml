@@ -48,23 +48,15 @@ jobs:
         
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Kubernetes
-        uses: azure/setup-k8s@v1
-        with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
-      - name: Deploy Helm Chart
+      - name: Login to the Kubernetes cluster
         run: |
-          helm upgrade --install my-app ./path/to/helm/chart
-        env:
-          KUBECONFIG: ${{ secrets.KUBE_CONFIG}}
-
-
+          echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
+          kubectl config set-context my-cluster --cluster=my-cluster --user=my-user
+          kubectl config use-context my-cluster
 
 
       
