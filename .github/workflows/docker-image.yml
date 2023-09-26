@@ -46,11 +46,9 @@ jobs:
       run: |
         echo "${{ secrets.DOCKER_REPOSITORY_PASSWORD }}" | docker login -u $DOCKER_REPOSITORY --password-stdin
   
-    - uses: actions/checkout@v1
-    - uses: actions-hub/kubectl@master
+    - name: Deploy to Kubernetes Cluster
       env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-
-    - uses: actions-hub/kubectl@master
-      with:
-          args: get pods
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
+      run: |
+        echo "$KUBE_CONFIG | base64 -d > kubeconfig.yaml
+        kubectl config use-context my-cluster
