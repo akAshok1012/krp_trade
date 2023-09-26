@@ -23,6 +23,10 @@ jobs:
     steps:
     - name: Git Checkout
       uses: actions/checkout@v2
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v1
+      with:
+        kubeconfig: ~/.kube/config
   
     - name: Build Docker Image 
       run:
@@ -45,11 +49,6 @@ jobs:
     - name: Push Image to Docker Hub
       run:
         docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER
-
-   
-    - name: Kubernetes Deployment
-      uses: TanmoySG/k-deploy-action@v0.2.2-alpha
-      with:
-        k8s_config: ${{ secrets.KUBE_CONFIG }}
-        k8s_namespace: default # Replace with your Kubernetes namespace
-        k8s_manifest: /home/runner/akAshok1012/krp_trade/Kubernetes/deployment.yaml # Update to your deployment manifest path
+    - name: Deploy to Local Kubernetes
+      run: |
+          kubectl apply -f kubernetes/deployment.yaml  # Path to your Kubernetes manifest
