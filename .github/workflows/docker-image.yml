@@ -46,18 +46,19 @@ jobs:
       run:
         docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER
         
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Login to the Kubernetes cluster
-        run: |
-          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > kubeconfig.yaml
-          kubectl config set-context my-cluster --cluster=my-cluster --user=my-user
-          kubectl config use-context my-cluster
-
-
+    - uses: Azure/k8s-deploy@v4
+      with:
+        namespace: 'myapp'
+        images: '${{ env.DOCKER_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}'
+        imagepullsecrets: |
+         image-pull-secret1
+         image-pull-secret2
+        manifests: |
+         deployment.yaml
+         service.yaml
+         dir/Kubernetes
+        strategy: canary
+        action: deploy
+        percentage: 20
       
         
