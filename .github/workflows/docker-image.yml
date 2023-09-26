@@ -46,9 +46,11 @@ jobs:
       run: |
         echo "${{ secrets.DOCKER_REPOSITORY_PASSWORD }}" | docker login -u $DOCKER_REPOSITORY --password-stdin
   
-    - name: Push Image to Docker Hub
-      run:
-        docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER
-    - name: Deploy to Local Kubernetes
-      run: |
-          kubectl apply -f kubernetes/deployment.yaml  # Path to your Kubernetes manifest
+    - uses: actions/checkout@v1
+    - uses: actions-hub/kubectl@master
+      env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+
+    - uses: actions-hub/kubectl@master
+      with:
+          args: get pods
