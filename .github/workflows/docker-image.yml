@@ -22,10 +22,6 @@ jobs:
     steps:
     - name: Git Checkout
       uses: actions/checkout@v2
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v1
-      with:
-        kubeconfig: ${{ secrets.KUBE_CONFIG }}
   
     - name: Build Docker Image 
       run:
@@ -51,5 +47,5 @@ jobs:
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
       run: |
-        echo "$KUBE_CONFIG | base64 -d >     /Kubernetes/deployment.yaml
+        echo "$KUBE_CONFIG_DATA | base64 -d >     /Kubernetes/deployment.yaml
         kubectl config use-context my-cluster
