@@ -48,7 +48,7 @@ jobs:
         
     - uses: Azure/k8s-deploy@v4
       with:
-        namespace: 'myapp'
+        namespace: 'kpr'
         images: '${{ env.DOCKER_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}'
         imagepullsecrets: |
          image-pull-secret1
