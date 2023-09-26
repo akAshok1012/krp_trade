@@ -52,7 +52,7 @@ jobs:
         release: 'nginx'
         namespace: 'default'
         chart: 'app'
-        token: '${{ github.token }}'
+        token: '${{ secrets.GIT_TOKEN }}'
         values: |
           name: foobar
         value-files: >-
