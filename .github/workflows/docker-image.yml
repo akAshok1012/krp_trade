@@ -46,21 +46,25 @@ jobs:
       run:
         docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER
         
-  deploy_to_kubernetes_cluster:
-    name: Deploy to Kubernetes Cluster
+jobs:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repo
+      - name: Checkout Code
         uses: actions/checkout@v2
-      - name: Set Kubernetes Context
-        uses: azure/k8s-set-context@v1
+
+      - name: Setup Kubernetes
+        uses: azure/setup-k8s@v1
         with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBE_CONFIG }} # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
-      - name: Deploy to Cluster
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      - name: Deploy Helm Chart
         run: |
-          sed -i'' -e 's/IMAGE_LABEL/${{env.IMAGE_NAME }}/g' kubernetes/deployment.yaml
-           kubectl apply -f kubernetes/deployment.yaml    
+          helm upgrade --install my-app ./path/to/helm/chart
+        env:
+          KUBECONFIG: ${{ secrets.KUBE_CONFIG}}
+
 
 
 
