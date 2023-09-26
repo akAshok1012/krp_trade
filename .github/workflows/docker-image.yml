@@ -54,9 +54,9 @@ jobs:
          image-pull-secret1
          image-pull-secret2
         manifests: |
-         deployment.yaml
+         /home/runner/work/krp_trade/krp_trade/Kubernetes/deployment.yaml
          service.yaml
-         dir/Kubernetes
+         dir/home/runner/work/krp_trade/krp_trade/Kubernetes/
         strategy: canary
         action: deploy
         percentage: 20
