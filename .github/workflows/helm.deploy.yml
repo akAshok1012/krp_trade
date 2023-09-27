@@ -13,10 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v1
+      - name: Set up Kubernetes
+        uses: azure/k8s-set-context@v1
         with:
           kubeconfig: ${{ secrets.KUBECONFIG }}
+          cluster: minikube
 
       - name: Install Helm
         run: |
@@ -29,5 +30,7 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           helm upgrade --install kpr /kprchart
+        env:
+          KUBE_NAMESPACE: default
     
 
