@@ -65,3 +65,12 @@ jobs:
           cat /home/kafka/.minikube/profiles/minikube/client.crt
           cat /home/kafka/.minikube/profiles/minikube/client.key
           cat /home/kafka/.minikube/ca.crt 
+    - name: Configure Git
+      run: |
+          git config user.name "akAshok1012"
+          git config user.email "ashoks.xyloinc.2022@gmail.com"
+
+    - name: Run chart-releaser
+      uses: helm/chart-releaser-action@v1.5.0
+      env:
+        CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"    
