@@ -62,6 +62,9 @@ jobs:
       uses: azure/setup-kubectl@v1
       with:
           kubeconfig: ${{ secrets.KUBECONFIG }}
+    - name: Verify Kubeconfig Context
+      run: kubectl config current-context
+      
 
     - name: Deploy Helm chart
       run: |
