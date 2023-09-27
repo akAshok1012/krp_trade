@@ -59,15 +59,15 @@ jobs:
     - name: Deploy Helm chart
       run: |
           helm upgrade --install kprui ./akAshok1012/krp_trade/tree/main/kprchart --values /akAshok1012/krp_trade/blob/main/kprchart/values.yaml
-  #  - name: Configure Git
-  #    run: |
-      #    git config user.name "akAshok1012"
-     #     git config user.email "ashoks.xyloinc.2022@gmail.com"
-    #- name: Install Helm
-    #  uses: azure/setup-helm@v3
-    #  with:
-     #    charts_dir: /kprchart
-    #- name: Run chart-releaser
-   #   uses: helm/chart-releaser-action@v1.5.0
-  #    env:
- #       CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"    
+    - name: Configure Git
+      run: |
+          git config user.name "akAshok1012"
+          git config user.email "ashoks.xyloinc.2022@gmail.com"
+    - name: Install Helm
+      uses: azure/setup-helm@v3
+      with:
+         charts_dir: /kprchart
+    - name: Run chart-releaser
+      uses: helm/chart-releaser-action@v1.5.0
+      env:
+        CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"    
