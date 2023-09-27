@@ -17,6 +17,12 @@ jobs:
       uses: azure/setup-kubectl@v1
       with:
         version: 'latest'
+    - name: Configure Kubeconfig
+      run: |
+         echo "$KUBECONFIG_BASE64" | base64 -d > $HOME/.kube/config  
+      env:
+        KUBECONFIG_BASE64: ${{ secrets.KUBECONFIG}}
+    
 
     - name: Install Helm
       run: |
