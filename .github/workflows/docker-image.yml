@@ -61,7 +61,7 @@ jobs:
         release: 'kprui'
         namespace: 'actions-runner-system'
         chart: 'kprchart'
-        token: '${{ github.token }}'
+        token: '${{ secrets.GIT_TOKEN }}'
         values: |
           name: kpr
         value-files: >-
