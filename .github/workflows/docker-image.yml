@@ -55,6 +55,7 @@ jobs:
         password: Xyloinc@123
         port: 22
         script: whoami    
+        
     - name: deploy  cluster
       uses: wahyd4/kubectl-helm-action@master
       env:
