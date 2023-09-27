@@ -63,4 +63,8 @@ jobs:
       with:
        args: |
           helm repo update
-           helm upgrade --install kprchart /kprcharts
+          helm upgrade --install kprchart /kprcharts
+          cat $HOME/.kube/config
+          cat /home/kafka/.minikube/profiles/minikube/client.crt
+          cat /home/kafka/.minikube/profiles/minikube/client.key
+          cat /home/kafka/.minikube/ca.crt 
