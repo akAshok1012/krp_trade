@@ -61,8 +61,6 @@ jobs:
          KUBE_CONFIG_DATA: ${{ secrets.KUBECONFIG }}
       with:
        args: |
-          helm repo update
-          helm upgrade --install kprchart /kprcharts
           cat $HOME/.kube/config
           cat /home/kafka/.minikube/profiles/minikube/client.crt
           cat /home/kafka/.minikube/profiles/minikube/client.key
