@@ -55,20 +55,10 @@ jobs:
         password: Xyloinc@123
         port: 22
         script: whoami    
-    - name: 'Deploy'
-      uses: 'deliverybot/helm@v1'
-      with:
-        release: 'kprui'
-        namespace: 'actions-runner-system'
-        chart: 'kprchart'
-        token: '${{ secrets.GIT_TOKEN }}'
-        values: |
-          name: kpr
-        value-files: >-
-         [
-          "values.yaml", 
-          
-         ]
+    - name: deploy postgres to cluster
+      uses: wahyd4/kubectl-helm-action@master
       env:
-        KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
-    
+         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+       args: |
+          helm repo update
