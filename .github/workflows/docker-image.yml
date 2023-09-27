@@ -74,4 +74,4 @@ jobs:
         helm upgrade --install my-release ./kprchart \
         
       env:
-        KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
+        KUBECONFIG: ${{ secrets.KUBECONFIG }}
