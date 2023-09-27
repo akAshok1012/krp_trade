@@ -43,9 +43,22 @@ jobs:
       run: |
         echo "${{ secrets.DOCKER_REPOSITORY_PASSWORD }}" | docker login -u $DOCKER_REPOSITORY --password-stdin
   
-    - name: Deploy to Kubernetes Cluster
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v1
+      with:
+        version: 'latest'
+
+    - name: Configure kubeconfig
       run: |
-        echo "$KUBE_CONFIG_DATA | base64 -d >     /Kubernetes/deployment.yaml
-        kubectl config use-context my-cluster
+        echo "$KUBECONFIG" > $HOME/.kube/config
+        chmod 600 $HOME/.kube/config
+
+    - name: Deploy with Helm
+      run: |
+        helm upgrade --install my-release ./kprchart \
+        
+      env:
+        KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
