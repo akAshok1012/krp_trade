@@ -44,21 +44,7 @@ jobs:
         
     - name: Push Image to Docker Hub
       run:
-        docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER    
-         
-    - name: Set up Helm
-      uses: azure/setup-helm@v1
-      with:
-          version: '3.x'
-
-    - name: Configure kubectl
-      uses: azure/setup-kubectl@v1
-      with:
-          kubeconfig: ${{ secrets.KUBECONFIG }}
-
-    - name: Deploy Helm chart
-      run: |
-          helm upgrade --install kprui ./akAshok1012/krp_trade/tree/main/kprchart --values /akAshok1012/krp_trade/blob/main/kprchart/values.yaml
+        docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER   
     - name: Configure Git
       run: |
           git config user.name "akAshok1012"
@@ -70,4 +56,14 @@ jobs:
     - name: Run chart-releaser
       uses: helm/chart-releaser-action@v1.5.0
       env:
-        CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"    
+        CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"        
+
+    - name: Configure kubectl
+      uses: azure/setup-kubectl@v1
+      with:
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+
+    - name: Deploy Helm chart
+      run: |
+          helm upgrade --install kprui ./akAshok1012/krp_trade/tree/main/kprchart --values /akAshok1012/krp_trade/blob/main/kprchart/values.yaml
+    
