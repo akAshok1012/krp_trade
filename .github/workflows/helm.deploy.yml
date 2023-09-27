@@ -20,6 +20,6 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
-        helm upgrade --install kprchart /akAshok1012/krp_trade/tree/main/kprchart
+        helm upgrade --install kprchart /kprchart
       env:
         KUBECONFIG: ${{ secrets.KUBECONFIG }}
