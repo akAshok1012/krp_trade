@@ -46,6 +46,15 @@ jobs:
     - name: Push Image to Docker Hub
       run:
         docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER    
+        
+    - name: Deploy the package to the xylo server
+      uses: garygrossgarten/github-action-scp@release
+      with:
+         #local: ./dist/
+         remote: ${{ secrets.SERVER_PATH }}
+         host: 106.51.152.163
+         username: kafka
+         password: Xyloinc@123  
   
     - name: Checkout code
       uses: actions/checkout@v2
@@ -65,4 +74,4 @@ jobs:
         helm upgrade --install my-release ./kprchart \
         
       env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
