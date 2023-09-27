@@ -46,6 +46,15 @@ jobs:
     - name: Push Image to Docker Hub
       run:
         docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER    
+        
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: 106.51.152.163
+        username: kafka
+        password: Xyloinc@123
+        port: 22
+        script: whoami    
   
     - name: Checkout code
       uses: actions/checkout@v2
