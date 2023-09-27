@@ -62,10 +62,6 @@ jobs:
       uses: azure/setup-kubectl@v1
       with:
           kubeconfig: ${{ secrets.KUBECONFIG }}
-    - name: Verify Kubeconfig Context
-      run: kubectl config current-context
-      
-
     - name: Deploy Helm chart
       run: |
           helm upgrade --install kprui ./akAshok1012/krp_trade/tree/main/kprchart --values /akAshok1012/krp_trade/blob/main/kprchart/values.yaml
