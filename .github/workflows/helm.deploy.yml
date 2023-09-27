@@ -1,0 +1,31 @@
+name: Deploy with Helm
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v1
+      with:
+        version: 'latest'
+
+    - name: Install Helm
+      run: |
+        curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+        chmod 700 get_helm.sh
+        ./get_helm.sh
+
+    - name: Deploy with Helm
+      run: |
+        helm upgrade --install kprui /akAshok1012/krp_trade/tree/main/kprchart
+          --namespace actions-runner-system \
+          --values /akAshok1012/krp_trade/blob/main/kprchart/values.yaml
