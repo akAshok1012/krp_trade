@@ -1,24 +1,25 @@
-name: Deploy with Helm
+name: Deploy to Kubernetes
 
 on:
   push:
     branches:
-      - main
-jobs:
-  deployment:
-    runs-on: 'ubuntu-latest'
-    steps:
-    - uses: actions/checkout@v1
+      - main # Replace with your branch name
 
-    - name: 'Deploy'
-      uses: 'deliverybot/helm@v1'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Helm
+      uses: azure/setup-helm@v1
       with:
-        release: 'nginx'
-        track: canary
-        namespace: 'actions-runner-system'
-        chart: 'kprchart'
-        token: '${{ GIT_TOKEN}}'
-        values: |
-          name: foobar
+        helm-version: 'v3.6.0' # Replace with your desired Helm version
+
+    - name: Deploy to Kubernetes
+      run: |
+        helm upgrade --install kprchart /akAshok1012/krp_trade/tree/main/kprchart
       env:
-        KUBECONFIG_FILE: '${{ secrets.KUBECONFIG}}'
+        KUBECONFIG: ${{ secrets.KUBECONFIG }}
