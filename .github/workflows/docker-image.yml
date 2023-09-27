@@ -55,23 +55,20 @@ jobs:
         password: Xyloinc@123
         port: 22
         script: whoami    
-  
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v1
+    - name: 'Deploy'
+      uses: 'deliverybot/helm@v1'
       with:
-        version: 'latest'
-
-    - name: Configure kubeconfig
-      run: |
-        echo "$KUBECONFIG" > $HOME/.kube/config
-        chmod 600 $HOME/.kube/config
-
-    - name: Deploy with Helm
-      run: |
-        helm upgrade --install my-release ./kprchart \
-        
+        release: 'kprui'
+        namespace: 'actions-runner-system'
+        chart: 'kprchart'
+        token: '${{ github.token }}'
+        values: |
+          name: kpr
+        value-files: >-
+         [
+          "values.yaml", 
+          
+         ]
       env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
+    
