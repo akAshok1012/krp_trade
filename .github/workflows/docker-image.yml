@@ -10,6 +10,7 @@ on:
       - 'uat'
   workflow_dispatch:
 
+
 jobs:
   build-container:
     runs-on: self-hosted
