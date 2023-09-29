@@ -45,18 +45,16 @@ jobs:
         name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ashokxylo
-          password: dckr_pat_UvAuFZlNOzobAN6ARejQomwHovA
+          username: xyloincadmin
+          password: dckr_pat_9ELW_omG-q6-bOXlbz3p0qEfKm0
     -
         name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ashokxylo/tradeui:latest 
-      
-               
-  
+          tags: $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER   
+
     - name: Install Helm
       uses: azure/setup-helm@v3
       with:
