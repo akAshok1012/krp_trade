@@ -16,7 +16,7 @@ jobs:
     runs-on: self-hosted
     env:
       DOCKER_REPOSITORY: xyloincadmin
-      IMAGE_NAME: kprui
+      IMAGE_NAME: trademanager
       IMAGE_TAG: ${{ github.run_number }}
       
     steps:
@@ -45,18 +45,6 @@ jobs:
        with:
           username: $DOCKER_REPOSITORY
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-    
-    - name: Build and push
-      uses: docker/build-push-action@v5
-      with:
-          push: true
-          tags: $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER  
-        
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
-      with:
-          username: xyloincadmin
-          password: Xyloinc@123
           
     - name: Build Docker Image 
       run:
