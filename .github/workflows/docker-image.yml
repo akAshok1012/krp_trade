@@ -2,7 +2,7 @@ name: ci
 on:
   push:
     branches:
-      - 'uat'
+      - 'main'
     tags:
       - 'v*'
   pull_request:
@@ -44,10 +44,7 @@ jobs:
     - name: Push Image to Docker Hub
       run:
         docker push $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_RUN_NUMBER   
-    - name: Configure Git
-      run: |
-          git config user.name "akAshok1012"
-          git config user.email "ashoks.xyloinc.2022@gmail.com"
+  
     - name: Install Helm
       uses: azure/setup-helm@v3
       with:
