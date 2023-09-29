@@ -15,7 +15,7 @@ jobs:
   build-container:
     runs-on: self-hosted
     env:
-      DOCKER_REPOSITORY: ashokxylo # name of Docker Hub ID
+      DOCKER_REPOSITORY: xyloincadmin
       IMAGE_NAME: kprui
       IMAGE_TAG: ${{ github.run_number }}
       
