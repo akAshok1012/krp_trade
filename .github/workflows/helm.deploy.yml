@@ -3,7 +3,7 @@ name: Deploy to Kubernetes
 on:
   push:
     branches:
-      - main # Replace with your branch name
+      - uat # Replace with your branch name
 
 jobs:
   deploy:
