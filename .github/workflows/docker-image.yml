@@ -43,7 +43,7 @@ jobs:
       uses: docker/login-action@v3
       with:
           username: xyloincadmin
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: dckr_pat_9ELW_omG-q6-bOXlbz3p0qEfKm0
       
     - name: Build and push
       uses: docker/build-push-action@v5
