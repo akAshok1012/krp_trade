@@ -64,5 +64,6 @@ jobs:
           kubeconfig: ${{ secrets.KUBECONFIG }}
     - name: Deploy Helm chart
       run: |
-          helm upgrade --install kprchart --values /akAshok1012/krp_trade/blob/main/kprchart/values.yaml
+          helm install trademanager kprchart
+          helm template kprchart
     
