@@ -26,7 +26,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Login to Docker Hub
-        run: docker login -u ${{ DOCKER_REPOSITORY }} -p ${{ secrets.DOCKERPASSWORD }}
+        run: docker login -u ${{ env.DOCKER_REPOSITORY }} -p ${{ secrets.DOCKERPASSWORD }}
 
       - name: Build and Push Docker Image
         run: |
