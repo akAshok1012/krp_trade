@@ -2,7 +2,7 @@ name: ci
 on:
   push:
     branches:
-      - 'main'
+      - 'uat'
     tags:
       - 'v*'
   pull_request:
@@ -68,8 +68,16 @@ jobs:
         uses: azure/setup-kubectl@v1
         with:
           kubeconfig: ${{ secrets.KUBECONFIG }}
-      - name: Deploy Helm chart
+      - name: Check if Helm release exists & Install or Upgrade Helm Chart
+        id: check_release
         run: |
-          helm install trademanager kprchart
-          helm template kprchart
-    
+           RELEASE_NAME=trademanager
+           if helm get $RELEASE_NAME > /dev/null 2>&1; then
+               echo "Helm release $RELEASE_NAME already exists."
+                helm upgrade $RELEASE_NAME /kprchart
+               echo "::set-output name=release_exists::true"
+           else
+               echo "Helm release $RELEASE_NAME does not exist."
+                helm install $RELEASE_NAME kprchat /kprchart
+               echo "::set-output name=release_exists::false"
+           fi
