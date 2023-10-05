@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: ashokxylo/kprui
+  repository: xyloincadmin/tradeui
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "43"
+  tag: "137"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 8081
+  port: 8083
 
 ingress:
   enabled: false
