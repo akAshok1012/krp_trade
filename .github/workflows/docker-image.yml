@@ -74,10 +74,10 @@ jobs:
            RELEASE_NAME=trademanager
            if helm get $RELEASE_NAME > /dev/null 2>&1; then
                echo "Helm release $RELEASE_NAME already exists."
-                helm upgrade $RELEASE_NAME /kprchart
+                helm upgrade $RELEASE_NAME kprchart
                echo "::set-output name=release_exists::true"
            else
                echo "Helm release $RELEASE_NAME does not exist."
-                helm install $RELEASE_NAME kprchat /kprchart
+                helm install $RELEASE_NAME kprchat kprchart
                echo "::set-output name=release_exists::false"
            fi
