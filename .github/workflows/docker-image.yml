@@ -2,7 +2,7 @@ name: ci
 on:
   push:
     branches:
-      - 'uat'
+      - 'main'
     tags:
       - 'v*'
   pull_request:
@@ -78,6 +78,6 @@ jobs:
                echo "::set-output name=release_exists::true"
            else
                echo "Helm release $RELEASE_NAME does not exist."
-                helm install $RELEASE_NAME kprchat kprchart
+                helm install $RELEASE_NAME kprchat 
                echo "::set-output name=release_exists::false"
            fi
