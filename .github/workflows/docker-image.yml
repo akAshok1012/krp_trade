@@ -64,6 +64,7 @@ jobs:
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"        
 
+
       - name: Configure kubectl
         uses: azure/setup-kubectl@v1
         with:
