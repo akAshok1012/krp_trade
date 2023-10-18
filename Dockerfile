@@ -15,7 +15,7 @@ RUN npm install -g npm@9.6.7 && \
     npm i --force  
 
 # Build the Angular app
-RUN ng build --configuration=production			
+RUN ng build --configuration=kubeTest			
 
 # ng build --configuration=production      	#--output-path= xylo-trade-manager-UI/dist
 
