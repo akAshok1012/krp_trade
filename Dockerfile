@@ -23,5 +23,5 @@ FROM nginx:latest
 #COPY nginx.conf  /etc/nginx/conf.d/default.conf
 COPY --from=builder Demo/dist /usr/share/nginx/html
 
-EXPOSE 8081
+EXPOSE 6041
 CMD ["nginx","-g","daemon off;"]
