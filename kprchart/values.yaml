@@ -8,7 +8,7 @@ image:
   repository: xyloincadmin/tradeui
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "146"
+  tag: "149"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -39,6 +39,7 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  targetPort: 6041
 
 ingress:
   enabled: false
