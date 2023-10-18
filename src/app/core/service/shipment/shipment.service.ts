@@ -17,11 +17,11 @@ export class ShipmentService {
   }
 
   getShipmentListing(page:number, size:number, dir:string, sort:string, searchTerm: string): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/shipment-listing?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+    return this.http.get<any>(`${environment.apiUrl}/shipment-listing?page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
   }
 
   getShipmentListingWithCustomer(page:number, size:number, dir:string, sort:string, searchTerm: string): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/shipment-listing-customer?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+    return this.http.get<any>(`${environment.apiUrl}/shipment-listing-customer?page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
   }
 
   getShipmentListingBySalesId(page:number, size:number, dir:string, sort:string, searchTerm: string): Observable<any> {
@@ -60,7 +60,7 @@ export class ShipmentService {
   }
 
   getShipmentDetailsListing(page:number, size:number, dir:string, sort:string, searchTerm: string): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/shipment-details-listing?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+    return this.http.get<any>(`${environment.apiUrl}/shipment-details-listing?page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
   }
 
   getShipmentHistory(id:number): Observable<any> {
@@ -68,11 +68,11 @@ export class ShipmentService {
   }
 
   getShipmentStatus(data:any, page:number, size:number, dir:string, sort:string, searchTerm: string):Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/shipment-status?shipmentStatus=${data}&page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+    return this.http.get<any>(`${environment.apiUrl}/shipment-status?shipmentStatus=${data}&page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
    }
 
    getShipmentUserId(id:number,data:any, page:number, size:number, dir:string, sort:string, searchTerm: string):Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/shipment-userId?id=${id}&shipmentStatus=${data}&page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+    return this.http.get<any>(`${environment.apiUrl}/shipment-userId?id=${id}&shipmentStatus=${data}&page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
    }
 
    getShipmentUserSaleId(id:number,data:any, page:number, size:number, dir:string, sort:string, searchTerm: string):Observable<any> {

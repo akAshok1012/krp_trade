@@ -3,4 +3,5 @@ export class User {
     token: string;
     userId: number;
     userName: string;
+    isFL:boolean;
     }

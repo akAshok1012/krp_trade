@@ -32,7 +32,7 @@
                         </button>
                         <div>
                             <input class="form-control" placeholder="Search" type="text" #filter
-                                [(ngModel)]="searchTerm" (ngModelChange)="loadData()"
+                                [(ngModel)]="searchTerm" (ngModelChange)="search()"
                                 class="browser-default search-field" aria-label="Search box" />
 
                             <button type="button" class="btn btn-danger btn-sm mx-2" (click)="loadData()">

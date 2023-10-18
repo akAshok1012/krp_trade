@@ -43,7 +43,7 @@
                             </mat-form-field>
 
                             <input *ngIf="selectType === 'amount'" class="form-control" placeholder="Search by Amount"
-                                type="number" #filter [(ngModel)]="searchTerm" (ngModelChange)="loadData()"
+                                type="number" #filter [(ngModel)]="searchTerm" (ngModelChange)="search()"
                                 class="browser-default search-field" aria-label="Search box" />
 
                             <button mat-fab color="primary" class="download-btn ml-2 mt-2"

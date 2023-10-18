@@ -108,6 +108,19 @@ export class AddContractorComponent implements OnInit {
       this.cancelButton = "Reset"
     }
   }
+
+  onPanInput(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const cursorStart = inputElement.selectionStart;
+    const cursorEnd = inputElement.selectionEnd;
+  
+    const newValue = inputElement.value.toUpperCase();
+  
+    this.addContract.patchValue({ panNumber: newValue }, { emitEvent: false });
+  
+    // Restore the cursor position
+    inputElement.setSelectionRange(cursorStart, cursorEnd);
+  }
   
   ngOnDestroy() {
     this.shared.toEdit = null;

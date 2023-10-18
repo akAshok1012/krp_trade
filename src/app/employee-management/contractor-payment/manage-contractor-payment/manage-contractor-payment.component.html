@@ -1,10 +1,43 @@
 <div class="header bg-gradient-info pb-8 pt-5 pt-md-8">
-  <div class="container-fluid">
-    <div class="header-body">
-      <!-- Card stats -->
-    </div>
+</div>
 
-   
+<div *ngIf="hidePayHistory" class="d-flex gap-5 col-10 justify-content-center mx-auto">
+  <div class="card list-card" style="max-height: 70%">
+    <div class="d-flex justify-content-between">
+      <h4 class="text-bold">
+        Payment History of
+        <strong class="text-uppercase ml-2">{{ contractName }}</strong>
+      </h4>
+      <button mat-raised-button type="button" class="btn btn-link btn-sm btn-just-icon">
+        <i class="material-icons" (click)="hidePayHistory = false">close</i>
+      </button>
+    </div>
+    <table class="order-list-table" style="min-width: 400px; text-align: center">
+      <thead class="text-primary border-bottom">
+        <th>Payment Date</th>
+        <th>Total Amount</th>
+        <th>Paid Amount</th>
+        <!-- <th>Balance Amount</th> -->
+        <th>Payment Type</th>
+        <th>Notes</th>
+      </thead>
+      <th colspan="6" *ngIf="paymentList.length < 1">
+        <h4 class="mt-3">No Previous Payments !</h4>
+      </th>
+      <tbody>
+        <tr class="text-center border-bottom" *ngFor="let item of paymentList">
+          <td>{{ item.paymentDate | date:'dd-MM-yyyy' }}</td>
+          <td>{{ item.employeeContractPayment.totalAmount }}</td>
+          <td>{{ item.amountPaid }}</td>
+          <!-- <td>
+            {{ item.employeeContractPayment.amountBalance}}
+          </td> -->
+          <td> {{ item.paymentBasis }} </td>
+          <td> {{ item.notes }} </td>
+        </tr>
+      </tbody>
+      <tfoot class="text-center" style="border-top: 1px solid #eee !important"></tfoot>
+    </table>
   </div>
 </div>
 
@@ -14,12 +47,27 @@
       <div class="card">
         <div class="card-header card-header-default">
           <div class="materialTableHeader">
-            <button routerLink="/employee/add-contractor-payment" class="table-header-btn tbl-action-btn mx-2">
-              <i class="material-icons">add</i>Add Contract Payment
-            </button>
+            <mat-form-field
+            id="header-dropdown"
+            class="header-dropdown text-white"
+            appearance="outline"
+          >
+            <mat-label style="color: aliceblue"
+              >Select Status Type</mat-label
+            >
+            <mat-select [(ngModel)]="getStatus" class="header-dropdown text-white">
+              <mat-option
+                *ngFor="let item of status"
+                (click)="loadData()"
+                [value]="item.value"
+              >
+                {{ item.key }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
             <div>
               <input class="form-control" placeholder="Search by Contract Details" type="text" #filter
-                [(ngModel)]="searchTerm" (ngModelChange)="loadData()" class="browser-default search-field"
+                [(ngModel)]="searchTerm" (ngModelChange)="search()" class="browser-default search-field"
                 aria-label="Search box" />
 
               <button mat-fab color="primary" class="download-btn ml-2 mt-2" [matMenuTriggerFor]="aboveMenu">
@@ -53,7 +101,7 @@
                 <mat-header-cell *matHeaderCellDef class="thead-light" mat-sort-header
                   style="justify-content: center;">Payment Date</mat-header-cell>
                 <mat-cell *matCellDef="let row" style="justify-content: center;">
-                  {{row.paymentDate | date: 'dd-MM-yyyy'}}</mat-cell>
+                  {{row.paymentDate ? (row.paymentDate | date: 'dd-MM-yyyy') : '-'}}</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="totalAmount">
@@ -90,9 +138,9 @@
                 <mat-header-cell *matHeaderCellDef class="thead-light"
                   style="justify-content: center;">Actions</mat-header-cell>
                 <mat-cell *matCellDef="let row; let i=index;" class="pr-0" style="justify-content: center;">
-                  <button mat-icon-button (click)="$event.stopPropagation()" (click)="deleteCall(row)"
-                    class="tbl-action-btn mx-2">
-                    <i class="material-icons" style="color: red">delete_outline</i>
+                  <button (click)="$event.stopPropagation()" (click)="viewHistory(row)"
+                    class="btn btn-outline-success p-2">
+                    pay history
                   </button>
 
                 </mat-cell>

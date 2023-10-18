@@ -36,13 +36,13 @@
               <td>{{item.orderedQuantity}}</td>
               <td>{{item.unitOfMeasure.unitWeight * item.orderedQuantity}}Kg</td>
               <td>{{item.unitPrice}}</td>
-              <td>{{item.unitPrice * (item.unitOfMeasure.unitWeight * item.orderedQuantity)}}</td>
+              <td>{{item.unitPrice * (item.unitOfMeasure.unitWeight * item.orderedQuantity)  | currency : "INR" : "symbol-narrow"}}</td>
             </tr>
           </tbody>
           <tfoot class="text-center" style="border-top: 1px solid #eee !important;">
             <th colspan="5"></th>
             <th class="d-flex justify-content-end">Total : </th>
-            <th>Rs.{{total | number : '1.0-2'}}</th>
+            <th>{{total  | currency : "INR" : "symbol-narrow"}}</th>
           </tfoot>
         </table>
       </div>
@@ -80,7 +80,7 @@
                         : 'Search by Customer Name'" type="text" 
                          onmousewheel="return false;"
                         #filter [(ngModel)]="searchTerm"
-                          (ngModelChange)="loadData()"
+                          (ngModelChange)="search()"
                        class="browser-default search-field" aria-label="Search box" />
                       <!-- <button type="button" class="btn btn-danger btn-sm mx-2" (click)="loadData()">
                         Search

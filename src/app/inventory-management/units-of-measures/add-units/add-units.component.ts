@@ -117,7 +117,6 @@ export class AddUnitsComponent implements OnInit {
         }
         else {
           let message;
-          this.addUnit.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -148,8 +147,6 @@ export class AddUnitsComponent implements OnInit {
         }
         else {
           let message;
-          this.addUnit.reset();
-          this.selectedFile = ''
           this.notification.showNotification(
             'top',
             'right',

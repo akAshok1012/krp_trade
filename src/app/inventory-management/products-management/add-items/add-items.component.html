@@ -67,7 +67,7 @@
                 <mat-label>Today's Price</mat-label>              
                 <input type="number" matInput formControlName="fixedPrice" onmousewheel="return false;" min="1" maxlength="7" 
                 oninput="this.value.length > this.maxLength ? this.value = this.value.slice(0, this.maxLength): this.value"
-                required>
+                pattern="^[-+]?[0-9]*\.?[0-9]{0,2}([eE][-+]?[0-9]+)?$" required>
                <span matSuffix>&#8377;</span>
                 <mat-error *ngIf="addItem.get('fixedPrice').hasError('required')">
                   Fixed Price is required

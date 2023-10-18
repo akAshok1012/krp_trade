@@ -107,7 +107,6 @@ export class AddRejectReasonComponent implements OnInit {
         }
         else {
           let message;
-          this.addReason.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -135,7 +134,6 @@ export class AddRejectReasonComponent implements OnInit {
         }
         else {
           let message;
-          this.addReason.reset();
           this.notification.showNotification(
             'top',
             'right',

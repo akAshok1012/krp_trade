@@ -208,17 +208,21 @@ export class ManageDailyStatusComponent_A implements OnInit {
     doc.save("KPR_DailyStatus_" + this.currentDateTime);
   }
 
-
-
   sortData(event: Sort) {
-    this.sortEvent = event
-    this.sort.disableClear=true;
+    this.sortEvent = event;
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
     this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize
     this.pageIndex = event.pageIndex
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage()
     this.loadData();
   }
 

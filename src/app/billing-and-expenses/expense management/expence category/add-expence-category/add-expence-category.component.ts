@@ -103,7 +103,6 @@ buttonTitle: any;
         }
         else {
           let message;
-          this.addExpenceCategory.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -132,7 +131,6 @@ buttonTitle: any;
         }
         else {
           let message;
-          this.addExpenceCategory.reset();
           this.notification.showNotification(
             'top',
             'right',

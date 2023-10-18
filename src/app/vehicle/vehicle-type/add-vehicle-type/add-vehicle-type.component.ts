@@ -105,7 +105,6 @@ export class AddVehicleTypeComponent implements OnInit {
         }
         else {
           let message;
-          this.addVehicleType.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -133,7 +132,6 @@ export class AddVehicleTypeComponent implements OnInit {
         }
         else {
           let message;
-          this.addVehicleType.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -147,8 +145,5 @@ export class AddVehicleTypeComponent implements OnInit {
 
     }
   }
-
-
-
 }
 

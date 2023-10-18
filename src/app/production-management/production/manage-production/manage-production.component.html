@@ -19,7 +19,7 @@
             </button>
             <div>
               <input class="form-control" placeholder="Search by Item Name" type="text" #filter [(ngModel)]="searchTerm"
-                (ngModelChange)="loadData()" class="browser-default search-field" aria-label="Search box" />
+                (ngModelChange)="search()" class="browser-default search-field" aria-label="Search box" />
 
               <button mat-fab color="primary" class="download-btn ml-2 mt-2" [matMenuTriggerFor]="aboveMenu">
                 <mat-icon>download</mat-icon>
@@ -83,7 +83,7 @@
 
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-              <mat-row *matRowDef="let row; columns: displayedColumns" (click)="editCall(row)"
+              <mat-row *matRowDef="let row; columns: displayedColumns"
                 [style.cursor]="'pointer'" matRipple>
               </mat-row>
             </mat-table>

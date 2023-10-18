@@ -17,8 +17,6 @@ export class CustomerChartComponent implements OnInit {
   paymentChart: any;
   customerDetail: any;
   custId: any = '';
-  customer: any = '';
-
   chartType: boolean = true;
   chartTypes =  [
     { key: 'Order & Sales', value: true },
@@ -31,10 +29,12 @@ export class CustomerChartComponent implements OnInit {
   ) {}
   chart1: any;
   chart2: any;
+  customer:Array<any> = [''];
 
   ngOnInit() {
     this.isMobileMenu();
-    this.getData();
+    // this.getData();
+    this.loadData();
   }
 
   isMobileMenu() {
@@ -109,6 +109,7 @@ export class CustomerChartComponent implements OnInit {
         ],
       },
       options: {
+        responsive:true,
         aspectRatio: this.chart2Ratio,
         plugins: {
           title: {
@@ -143,6 +144,23 @@ export class CustomerChartComponent implements OnInit {
               display: true,
               text: "Total Payment",
             },
+            ticks: {
+              callback: function(value) {
+                 var ranges = [
+                    { divider: 1e7, suffix: 'C' },
+                    { divider: 1e5, suffix: 'L' }
+                 ];
+                 function formatNumber(n) {
+                    for (var i = 0; i < ranges.length; i++) {
+                       if (n >= ranges[i].divider) {
+                          return (n / ranges[i].divider).toString() + ranges[i].suffix;
+                       }
+                    }
+                    return n;
+                 }
+                 return '₹' + formatNumber(value);
+              }
+           }
           },
           y1: {
             display: true,
@@ -162,13 +180,13 @@ export class CustomerChartComponent implements OnInit {
     this.customersChart();
   }
 
-  onSelectCust(data){
+  onSelectCust(data?){
     if(this.custId){
       this.chart1.destroy();
      } else {
        this.chart2.destroy();
    }
-      this.custId = data ? data.id : ''
+    this.custId = data? data.id : ''
     this.loadData();
   }
 
@@ -212,16 +230,24 @@ export class CustomerChartComponent implements OnInit {
         if(this.custId){
           this.customerChart();
         } else {
+        this.customer = [];
+        this.customerDetail.map((a) => {
+        let cust = {
+        id: a.id,
+        name: a.clientName
+        }
+        this.customer.push(cust)
+        })
         this.customersChart();
       }
       }
     });
   }
 
-  getData() {
-    this.userService.getCustomer().subscribe((res) => {
-      this.customer = res.data;
-    });
-    this.loadData();
-  }
+  // getData() {
+  //   this.userService.getCustomer().subscribe((res) => {
+  //     this.customer = res.data;
+  //   });
+  //   this.loadData();
+  // }
 }

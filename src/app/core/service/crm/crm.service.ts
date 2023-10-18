@@ -23,7 +23,7 @@ export class CrmService {
     return this.http.get<any>(`${environment.apiUrl}/lead-generations`)
   }
   getLeadGenerationList(page:number, size:number, sort:string, dir:string, searchTerm:string): Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}/lead-generations-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`)
+    return this.http.get<any>(`${environment.apiUrl}/lead-generations-list?page=${page}&size=${size}&sortByField=${sort}&search=${searchTerm}&sortBy=${dir}`)
   }
   getLeadGenerationById(id:number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/lead-generation/${id}`);
@@ -46,8 +46,8 @@ export class CrmService {
   getLeadFollowup(){
     return this.http.get<any>(`${environment.apiUrl}/lead-follow-up`)
   }
-  getLeadFollowupList(page:number, size:number, sort:string, dir:string, searchTerm:string): Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}/lead-follow-up-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`)
+  getLeadFollowupList(page:number, size:number, sort:string, dir:string, status:string, searchTerm:string): Observable<any>{
+    return this.http.get<any>(`${environment.apiUrl}/lead-follow-up-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}&leadStatus=${status}`)
   }
   getLeadFollowupById(id:number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/lead-follow-up/${id}`);

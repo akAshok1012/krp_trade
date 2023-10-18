@@ -228,8 +228,6 @@ export class AddExpenseComponent implements OnInit {
         }
         else {
           let message;
-          this.addExpenseType.reset();
-          this.employeeControl.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -258,7 +256,6 @@ export class AddExpenseComponent implements OnInit {
         }
         else {
           let message;
-          this.addExpenseType.reset();
           this.notification.showNotification(
             'top',
             'right',

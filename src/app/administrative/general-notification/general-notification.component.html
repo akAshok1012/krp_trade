@@ -11,14 +11,15 @@
         <i class="material-icons">refresh</i>
       </button>
       </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-4 general-notification-grid">
-            <mat-accordion>
-              <mat-expansion-panel [expanded]="spareNotification.length > 0">
-                <mat-expansion-panel-header>
+      <div class="rotate mt-1">
+      <div class="card-body notification-card-body">
+          <div class="general-notification-grid" [ngClass]="spareNotificationEnable ? 'general-notification-grid-enable' : ''">
+            <mat-accordion  [ngClass]="spareNotificationEnable ? '' : 'general-notification-grid-disable'">
+              <mat-expansion-panel [expanded]="spareNotification.length > 0"
+                (closed)="close('spare')" (opened)="open('spare')">
+                <mat-expansion-panel-header #panelSN (click)="spareNotification.length > 0 ? '' : panelSN._toggle()">
                   <mat-panel-title>
-                    <h4> Spare Notification </h4>
+                    <h4 class="bold"> Spare Notification </h4>
                     <span class="notification-count notification-count-danger">{{spareNotification.length}}</span>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
@@ -32,12 +33,13 @@
             </mat-accordion>
           </div>
 
-          <div class="col-md-4 general-notification-grid">
-            <mat-accordion>
-              <mat-expansion-panel [expanded]="leadNotification.length > 0">
-                <mat-expansion-panel-header>
+          <div class="general-notification-grid" [ngClass]="leadNotificationEnable ? 'general-notification-grid-enable' : ''">
+            <mat-accordion [ngClass]="leadNotificationEnable ? '' : 'general-notification-grid-disable'">
+              <mat-expansion-panel [expanded]="leadNotification.length > 0"
+                (closed)="close('lead')" (opened)="open('lead')">
+                <mat-expansion-panel-header #panelLN (click)="spareNotification.length > 0 ? '' : panelLN._toggle()">
                   <mat-panel-title>
-                    <h4> Lead Notification </h4>
+                    <h4 class="bold"> Lead Notification </h4>
                     <span class="notification-count notification-count-warning">{{leadNotification.length}}</span>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
@@ -51,12 +53,13 @@
             </mat-accordion>
         </div>
 
-          <div class="col-md-4 general-notification-grid">
-            <mat-accordion>
-                <mat-expansion-panel [expanded]="paymentNotification.length > 0">
-                  <mat-expansion-panel-header>
+          <div class="general-notification-grid" [ngClass]="paymentNotificationEnable ? 'general-notification-grid-enable' : ''">
+            <mat-accordion [ngClass]="paymentNotificationEnable ? '' : 'general-notification-grid-disable'">
+                <mat-expansion-panel [expanded]="paymentNotification.length > 0"
+                  (closed)="close('payment')" (opened)="open('payment')">
+                  <mat-expansion-panel-header #panelPN (click)="spareNotification.length > 0 ? '' : panelPN._toggle()">
                     <mat-panel-title>
-                      <h4> Payment Notification </h4>
+                      <h4 class="bold"> Payment Notification </h4>
                       <span class="notification-count notification-count-primary">{{paymentNotification.length}}</span>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
@@ -70,7 +73,7 @@
               </mat-accordion>
           </div>
 
-        </div>
+      </div>
       </div>
     </div>
   </div>

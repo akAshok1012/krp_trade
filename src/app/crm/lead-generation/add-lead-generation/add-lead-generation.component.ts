@@ -32,7 +32,7 @@ export class AddLeadGenerationComponent implements OnInit {
   isSampleProvided: any;
   referenceImage: string;
   selectedFile: any = null;
-  otherReferralSourceType:string;
+  otherReferralSourceType: string;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   referralSourceType = ["LINKEDIN", "FACEBOOK", "ADVERTISEMENT", "OTHERS"];
   status = ["Replied",
@@ -120,13 +120,13 @@ export class AddLeadGenerationComponent implements OnInit {
         this.addLeadGeneration.controls["updatedBy"].setValue(data.updatedBy);
         for (let type of this.referralSourceType) {
           console.log(type === data.referralSourceType)
-          if(type === data.referralSourceType){
+          if (type === data.referralSourceType) {
             this.addLeadGeneration.controls["referralSourceType"].setValue(data.referralSourceType);
-            return ;
-          } 
-            this.addLeadGeneration.controls["referralSourceType"].setValue('OTHERS');
-            this.otherReferralSourceType = data.referralSourceType
-      }
+            return;
+          }
+          this.addLeadGeneration.controls["referralSourceType"].setValue('OTHERS');
+          this.otherReferralSourceType = data.referralSourceType
+        }
       })
     } else {
       this.dialogTitle = 'New Lead Generation';
@@ -147,7 +147,7 @@ export class AddLeadGenerationComponent implements OnInit {
       );
     })
   }
-  
+
   ngOnDestroy() {
     this.shared.toEdit = null;
   }
@@ -183,20 +183,12 @@ export class AddLeadGenerationComponent implements OnInit {
     this.ReferralControl.reset();
   }
 
-
-  onCancel() {
-    if (this.LeadGenerationId) {
-      this.router.navigate(['/crm/manage-lead-generation']);
-    } else {
-      this.formValue = new UntypedFormControl({});
-    }
-  }
-
   onNoClick() {
     if (this.LeadGenerationId) {
       this.router.navigate(['/crm/manage-lead-generation']);
     } else {
-      this.formValue = new UntypedFormControl({});
+      this.addLeadGeneration.reset();
+      this.seletedInrestedField = [];
     }
   }
 
@@ -216,7 +208,7 @@ export class AddLeadGenerationComponent implements OnInit {
 
   onRegister() {
 
-    if(this.addLeadGeneration.value.referralSourceType === 'OTHERS'){
+    if (this.addLeadGeneration.value.referralSourceType === 'OTHERS') {
       this.addLeadGeneration.controls["referralSourceType"].setValue(this.otherReferralSourceType);
     }
 
@@ -241,7 +233,6 @@ export class AddLeadGenerationComponent implements OnInit {
         }
         else {
           let message;
-          this.addLeadGeneration.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -271,7 +262,6 @@ export class AddLeadGenerationComponent implements OnInit {
         }
         else {
           let message;
-          this.addLeadGeneration.reset();
           this.notification.showNotification(
             'top',
             'right',

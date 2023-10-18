@@ -17,11 +17,29 @@
               <button routerLink="/employee/add-contract" class="table-header-btn tbl-action-btn mx-2">
                 <i class="material-icons">add</i>Add Contract
               </button>
+              <mat-form-field
+              id="header-dropdown"
+              class="header-dropdown text-white"
+              appearance="outline"
+            >
+              <mat-label style="color: aliceblue"
+                >Select Status Type</mat-label
+              >
+              <mat-select [(ngModel)]="getStatus" class="header-dropdown text-white">
+                <mat-option
+                  *ngFor="let item of status"
+                  (click)="loadData()"
+                  [value]="item.value"
+                >
+                  {{ item.key }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
             </div>
 
             <div>
               <input class="form-control" placeholder="Search by Contract Name" type="text" #filter
-                [(ngModel)]="searchTerm" (ngModelChange)="loadData()" class="browser-default search-field"
+                [(ngModel)]="searchTerm" (ngModelChange)="search()" class="browser-default search-field"
                 aria-label="Search box" />
 
               <button mat-fab color="primary" class="download-btn ml-2 mt-2" [matMenuTriggerFor]="aboveMenu">
@@ -87,9 +105,9 @@
                 </mat-cell>
               </ng-container>
 
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-header-row *matHeaderRowDef="getStatus ==='PARTIALY_CLOSED' || getStatus === 'CLOSED' ? displayedColumns2 : displayedColumns1"></mat-header-row>
               <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-              <mat-row *matRowDef="let row; columns: displayedColumns" (click)="editCall(row)"
+              <mat-row *matRowDef="let row; columns: getStatus ==='PARTIALY_CLOSED' || getStatus === 'CLOSED' ? displayedColumns2 : displayedColumns1" (click)="editCall(row)"
                 [style.cursor]="'pointer'" matRipple>
               </mat-row>
             </mat-table>

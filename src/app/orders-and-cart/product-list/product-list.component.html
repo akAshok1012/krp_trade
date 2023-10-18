@@ -80,7 +80,7 @@
               <td>
                 {{
                   item.itemMaster.fixedPrice *
-                    (item.unitOfMeasure.unitWeight * item.orderedQuantity)
+                    (item.unitOfMeasure.unitWeight * item.orderedQuantity)  | currency : "INR" : "symbol-narrow"
                 }}
               </td>
               <td class="td-actions">
@@ -106,7 +106,7 @@
           >
             <th colspan="5"></th>
             <th>Total :</th>
-            <th>Rs.{{ total | number : '1.0-2' }}</th>
+            <th>Rs.{{ total  | currency : "INR" : "symbol-narrow" }}</th>
           </tfoot>
         </table>
       </div>
@@ -218,5 +218,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="productList?.length === 0 " class="no-results">
+    {{loadString}}
   </div>
 </div>

@@ -2,8 +2,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormBuilder } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'app/core/service/auth.service';
 import { UserService } from 'app/core/service/user.service';
 import { NotificationsComponent } from 'app/additional-components/notifications/notifications.component';
@@ -37,13 +36,12 @@ export class AddContractComponent implements OnInit {
   contractEmployees: any;
   selectedEmployee: Array<any> = [];
   employee:any;
-
-
+  isclosed:boolean;
+  contractStatus:string;
 
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router,
-    private route: ActivatedRoute,
     private authService: AuthService,
     private userService: UserService,
     private notification: NotificationsComponent,
@@ -78,6 +76,7 @@ export class AddContractComponent implements OnInit {
           this.addAssignContract.controls["contractName"].setValue(data.contractName);
           this.addAssignContract.controls["contractor"].setValue(data.contractor),
           this.ContractorControl.setValue(data.contractor),
+          this.onSelectContract(data.contractor)
           this.addAssignContract.controls["startDate"].setValue(data.startDate);
           this.addAssignContract.controls["endDate"].setValue(data.endDate);
           this.addAssignContract.controls["contractAmount"].setValue(data.contractAmount);
@@ -106,24 +105,12 @@ export class AddContractComponent implements OnInit {
         })
       );
     })
-
-    this.userService.getContractEmployee().subscribe((response: any) => {
-      this.employee = response.data;
-      this.filteredEmployeeOptions = this.EmployeeControl.valueChanges.pipe(
-        startWith(""),
-        map((value: any) => {
-          const name = typeof value === "string" ? value : value?.name;
-          return name
-            ? this._filter1(name as string)
-            : this.employee.slice();
-        })
-      );
-    })
   }
   
   ngOnDestroy() {
     this.shared.toEdit = null;
   }
+
   private _filter(name: string): any {
     const filterValue = name.toLowerCase();
     return this.name.filter((option) =>
@@ -157,20 +144,37 @@ export class AddContractComponent implements OnInit {
       this.router.navigate(['/employee/manage-contract']);
     } else {
       this.addAssignContract.reset();
+      this.ContractorControl.reset();
       this.selectedEmployee = []
+      this.employee = []
+      this.EmployeeControl.reset();
     }
   }
   
 
   onSelectContract(event: any) {
-    let data = event.option.value
+    let data = event ? event : ''
     this.addAssignContract.controls["contractor"].setValue(data);
+
+    this.userService.getContractEmployeeByContractor(data?.id).subscribe((response: any) => {
+      if(response.status === "OK"){
+      this.employee = response.data;
+      this.filteredEmployeeOptions = this.EmployeeControl.valueChanges.pipe(
+        startWith(""),
+        map((value: any) => {
+          const name = typeof value === "string" ? value : value?.name;
+          return name
+            ? this._filter1(name as string)
+            : this.employee.slice();
+        })
+      );
+      }
+    })
   }
 
   onSelect(event: MatAutocompleteSelectedEvent): void {
     if (this.selectedEmployee.length != 0) {
       for (let item of this.selectedEmployee) {
-        console.log(item)
         if (item.id === event.option.value.id) {
           this.EmployeeControl.reset();
           return
@@ -184,11 +188,10 @@ export class AddContractComponent implements OnInit {
     this.EmployeeControl.reset();
   }
   onRegister() {
-
     if (this.userId) {
       this.userService.editContract(this.userId, this.addAssignContract.value).subscribe((data: any) => {
-        if (data.status === "OK") {
           let message;
+          if (data.status === "OK") {
           this.addAssignContract.reset();
           this.notification.showNotification(
             'top',
@@ -201,7 +204,6 @@ export class AddContractComponent implements OnInit {
           this.router.navigate(['/employee/manage-contract']);
         }
         else {
-          let message;
           this.notification.showNotification(
             'top',
             'right',
@@ -213,8 +215,8 @@ export class AddContractComponent implements OnInit {
       })
     } else {
       this.userService.postContract(this.addAssignContract.value).subscribe((data: any) => {
-        if (data.status === "OK") {
           let message;
+          if (data.status === "OK") {
           this.addAssignContract.reset();
           this.notification.showNotification(
             'top',
@@ -227,7 +229,6 @@ export class AddContractComponent implements OnInit {
           this.router.navigate(['/employee/manage-contract']);
         }
         else {
-          let message;
           this.notification.showNotification(
             'top',
             'right',

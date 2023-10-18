@@ -31,7 +31,7 @@
               [placeholder]="
                searchField == 'saleId'
                 ? 'Search by Sales Id'
-                : 'Search by Customer Name'" type="text" #filter [(ngModel)]="searchTerm" (ngModelChange)="loadData()
+                : 'Search by Customer Name'" type="text" #filter [(ngModel)]="searchTerm" (ngModelChange)="search()
               " class="browser-default search-field" aria-label="Search box" />
                 <!-- <button type="button" class="btn btn-danger btn-sm mx-2" (click)="loadData()">
                   Search

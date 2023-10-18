@@ -121,8 +121,7 @@
         <input
           matInput
           [matDatepicker]="picker1"
-          [(ngModel)]="fromDate"
-          [max]="toDate || today"
+          [(ngModel)]="toDate"
           (dateChange)="loadData()"
         />
         <mat-datepicker-toggle
@@ -139,9 +138,8 @@
         <input
           matInput
           [matDatepicker]="picker2"
-          [(ngModel)]="toDate"
-          [min]="fromDate"
-          [max]="today"
+          [(ngModel)]="fromDate"
+          [min]="toDate"
           (dateChange)="loadData()"
         />
         <mat-datepicker-toggle
@@ -184,7 +182,7 @@
                 type="text"
                 #filter
                 [(ngModel)]="searchTerm"
-                (ngModelChange)="loadData()"
+                (ngModelChange)="search()"
                 class="browser-default search-field"
                 aria-label="Search box"
               />

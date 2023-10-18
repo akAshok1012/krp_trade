@@ -33,6 +33,7 @@ export class ManageContractorComponent implements OnInit {
   contextMenuPosition = { x: "0px", y: "0px" };
   public focus;
   displayedColumns = [
+    "id",
     "name",
     "phoneNumber",
     "contractorType",
@@ -102,8 +103,8 @@ export class ManageContractorComponent implements OnInit {
   deleteRow(id) {
     this.userService.deleteEmployeeContract(id).subscribe((res: any) => {
       this.loadData();
-      if (res.status === "NO_CONTENT") {
         let message;
+        if (res.status === "NO_CONTENT") {
         this.notification.showNotification(
           'top',
           'right',
@@ -114,7 +115,6 @@ export class ManageContractorComponent implements OnInit {
         );
       }
       else {
-        let message;
         this.notification.showNotification(
           'top',
           'right',
@@ -151,6 +151,7 @@ export class ManageContractorComponent implements OnInit {
         margin: { top: 40 },
         body: data,
         columns: [
+          { header: "Contractor Id", dataKey: "id" },
           { header: "Name", dataKey: "name" },
           { header: "Phone Number", dataKey: "phoneNumber" },
           { header: "Contractor Type", dataKey: "contractorType" },
@@ -164,13 +165,19 @@ export class ManageContractorComponent implements OnInit {
 
   sortData(event: Sort) {
     this.sortEvent = event;
-    this.sort.disableClear=true;
-    this.loadData();
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 

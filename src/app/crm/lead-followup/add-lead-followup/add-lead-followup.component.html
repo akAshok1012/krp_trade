@@ -16,33 +16,21 @@
 
               <div class="form-group col-xl-6 col-lg-6 col-md-12 col-sm-12">
                 <mat-form-field class="example-full-width mb-3">
-                  <mat-label>Select a Lead Generation</mat-label>
-                  <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                  <mat-label>Lead</mat-label>
                   <input
                   type="text"
-                  placeholder="Pick Lead Generation"
-                  aria-label="Number" 
+                  readonly
                   [formControl]="leadGenerationControl"
                   matInput
-                  [matAutocomplete]="leadGeneration"
                 required/>
-                <mat-autocomplete #leadGeneration="matAutocomplete" (optionSelected)="onSelect($event)" [displayWith]="displayProperty">
-                  <mat-option
-                    *ngFor="let option of filteredLeadGenerationOptions | async"
-                    [value]="option"
-                  >
-                    {{ option.name }}
-                  </mat-option>
-                </mat-autocomplete>
                   <mat-icon matSuffix>person</mat-icon>
-                  
                 </mat-form-field>
               </div>
   
               <div class="form-group col-xl-6 col-lg-6 col-md-12 col-sm-12">
                 <mat-form-field>
                   <mat-label>Follow Up Date </mat-label>
-                  <input matInput [matDatepicker]="picker1" [min]="LeadFollowupId ? addLeadFollowup.value.followupDate : today" formControlName="followUpDate" required>
+                  <input matInput [matDatepicker]="picker1" [min]="LeadFollowupId ? addLeadFollowup.value.followUpDate : today" formControlName="followUpDate" required>
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                   <mat-error *ngIf="addLeadFollowup.get('followUpDate').hasError('required')">

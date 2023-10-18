@@ -187,6 +187,7 @@ export class ManageUserComponent implements OnInit {
   sortData(event: Sort) {
     this.sortEvent = event;
     this.sort.disableClear = true;
+    this.paginator.firstPage();
     this.loadData();
   }
 
@@ -196,8 +197,12 @@ export class ManageUserComponent implements OnInit {
     this.loadData();
   }
 
+  search(){
+    this.paginator.firstPage();
+    this.loadData();
+  }
+
   public loadData() {
-    this.loading = true;
     this.userService
       .getUserList(
         this.pageIndex,

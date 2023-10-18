@@ -7,6 +7,24 @@
 <aside class="sidebar-wrapper sidebar-area">
   <div *ngIf="isMobileMenu()">
     <ul class="nav navbar-nav nav-mobile-menu">
+      <li *ngIf="userRole === 'ADMIN' || userRole === 'SUPER_ADMIN'" class="nav-item dropdown">
+        <a
+        class="nav-link"
+        href="javascript:void(0)"
+        id="navbarDropdownMenuLink"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        routerLink="/administrative/failed-notification"
+      >
+        <i class="material-icons text-primary text-large">notification_important</i>
+        <span class="notification" *ngIf="notification_important.length > 0">{{notification_important.length}}</span>
+        <p>
+          <span class="d-lg-none d-md-block">Failed Notifications</span>
+        </p>
+      </a>
+    
+      </li>
         <li class="nav-item dropdown">
           <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="material-icons text-primary text-large">notifications</i>
@@ -38,35 +56,36 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfileMenu">
               <a *ngIf="userRole === 'CUSTOMER'" class="dropdown-item" routerLink="/user/user-profile">My profile</a>
               <a *ngIf="userRole === 'CUSTOMER'" class="dropdown-item" routerLink="/order&cart/my-orders">My Orders</a>
-              <a class="dropdown-item" href="javascript:void(0)">Support</a>
+              <!-- <a class="dropdown-item" href="javascript:void(0)">Support</a> -->
               <a class="dropdown-item" (click)="logout()">Logout</a>
           </div>
       </li>
     </ul>
   </div> 
-  <mat-nav-list class="nav">
-    <mat-list-item [routerLink]="routeRole" [ngClass]="routeRole != activeRoute ? '' : 'isActive'">
+  <mat-nav-list #menu1 class="nav">
+    <mat-list-item [routerLink]="routeRole" [ngClass]="routeRole != activeRoute ? '' : 'isActive'" (click)="clear(routeRole)" >
       <i class="fa fa-braille" aria-hidden="true"></i> <span class="button-title text-uppercase">Dashboard</span>
     </mat-list-item>
     <mat-list-item *ngIf="userRole === 'CUSTOMER'" routerLink="/order&cart/products-list" 
-    [ngClass]="'/order&cart/products-list' != activeRoute ? '' : 'isActive'">
+    [ngClass]="'/order&cart/products-list' != activeRoute ? '' : 'isActive'" (click)="clear('/order&cart/products-list')">
       <i class="fa fa-shopping-bag" aria-hidden="true"></i> <span class="button-title text-uppercase">Place Order</span>
   </mat-list-item>
   <mat-list-item *ngIf="userRole != 'CUSTOMER'" routerLink="/order&cart/admin-cart" 
-  [ngClass]="'/order&cart/admin-cart' != activeRoute ? '' : 'isActive'">
+  [ngClass]="'/order&cart/admin-cart' != activeRoute ? '' : 'isActive'" (click)="clear('/order&cart/admin-cart')">
   <i class="fa fa-shopping-bag" aria-hidden="true"></i> <span class="button-title text-uppercase">Place Order</span>
 </mat-list-item>
 
 <mat-list-item *ngIf="userRole != 'CUSTOMER' && userRole != 'EMPLOYEE'" routerLink="/administrative/notification" 
-[ngClass]="'/administrative/notification' != activeRoute ? '' : 'isActive'">
+[ngClass]="'/administrative/notification' != activeRoute ? '' : 'isActive'" (click)="clear('/administrative/notification')">
 <i class="material-icons">notifications</i> <span class="button-title text-uppercase">Notification</span>
 </mat-list-item>
 
   </mat-nav-list>
     <mat-accordion class="nav mt-0 sidebar-accordion">
         <!-- Top Most level menu   [routerLinkActive]="sidebarItem.submenu.length != 0 ? 'active' : ''" -->
-        <mat-expansion-panel [class.mat-elevation-z0]="true" *ngFor="let sidebarItem of sidebarItems"
-        [routerLinkActive]="sidebarItem.submenu.length !=0 ? 'active' : ''"
+        <mat-expansion-panel #menu2 [class.mat-elevation-z0]="true" *ngFor="let sidebarItem of sidebarItems"
+        [routerLinkActive]="sidebarItem.submenu.length != 0 ? 'active' : ''"
+        [class.active]="menu2?.id === activeRouteContainer1"
         >
           <div class="header" *ngIf="sidebarItem.groupTitle === true">{{sidebarItem.title}}</div>
           <mat-expansion-panel-header *ngIf="!sidebarItem.groupTitle;"
@@ -79,13 +98,15 @@
           <mat-nav-list *ngIf="sidebarItem.submenu.length > 0">
             <div *ngFor="let sidebarSubItem1 of sidebarItem.submenu">
               <a *ngIf="sidebarSubItem1.submenu.length === 0" mat-list-item [routerLink]="sidebarSubItem1.submenu.length > 0 ? null : [sidebarSubItem1.path]"
-                [ngClass]="[sidebarSubItem1.class]+ sidebarSubItem1.path != activeRoute ? '' : 'isActive'" class="submenus" (click)="blockActive()">
+                [ngClass]="[sidebarSubItem1.class]+ sidebarSubItem1.path != activeRoute ? '' : 'isActive'" class="submenus" (click)="blockActive(sidebarSubItem1, menu2)"
+                 [style]="sidebarSubItem1.hide ? 'display: none;' : ''" >
                 <span>{{sidebarSubItem1.title}}</span>
               </a>
 
               <div *ngIf="sidebarSubItem1.submenu.length > 0">
-                <mat-expansion-panel [class.mat-elevation-z0]="true"
+                <mat-expansion-panel #menu3 [class.mat-elevation-z0]="true"
                 [routerLinkActive]="sidebarSubItem1.submenu.length !=0 ? 'active' : ''" 
+                [class.active]="menu3?.id === activeRouteContainer2"
                 >
                   <div class="header" *ngIf="sidebarSubItem1.groupTitle === true">{{sidebarSubItem1.title}}</div>
                   <mat-expansion-panel-header *ngIf="!sidebarSubItem1.groupTitle;"
@@ -95,9 +116,9 @@
                   </mat-expansion-panel-header>
                   <!-- Second level menu -->
                   <mat-nav-list *ngIf="sidebarSubItem1.submenu.length > 0">
-                    <div *ngFor="let sidebarSubItem2 of sidebarSubItem1.submenu">
+                    <div *ngFor="let sidebarSubItem2 of sidebarSubItem1.submenu"> 
                       <a *ngIf="sidebarSubItem2.submenu.length === 0" mat-list-item [routerLink]="sidebarSubItem2.submenu.length > 0 ? null : [sidebarSubItem2.path]"
-                        [ngClass]="[sidebarSubItem2.class]+ sidebarSubItem2.path != activeRoute ? '' : 'isActive'" class="submenus" (click)="blockActive()">
+                        [ngClass]="[sidebarSubItem2.class]+ sidebarSubItem2.path != activeRoute ? '' : 'isActive'" class="submenus" (click)="blockActive(sidebarSubItem2, menu2, menu3)">
                         <span>{{sidebarSubItem2.title}}</span>
                       </a>
       

@@ -125,6 +125,23 @@ export class SalesChartComponent implements OnInit {
               display: true,
               text: "Payments",
             },
+            ticks: {
+              callback: function(value) {
+                 var ranges = [
+                    { divider: 1e7, suffix: 'C' },
+                    { divider: 1e5, suffix: 'L' }
+                 ];
+                 function formatNumber(n) {
+                    for (var i = 0; i < ranges.length; i++) {
+                       if (n >= ranges[i].divider) {
+                          return (n / ranges[i].divider).toString() + ranges[i].suffix;
+                       }
+                    }
+                    return n;
+                 }
+                 return '₹' + formatNumber(value);
+              }
+           }
           },
         }
       },

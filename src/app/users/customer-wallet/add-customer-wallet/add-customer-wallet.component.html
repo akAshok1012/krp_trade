@@ -51,7 +51,7 @@
                             <mat-form-field class="example-full-width">
                                 <mat-label>Add Amount</mat-label>
                                 <input matInput type="number" onmousewheel="return false" min="1" formControlName="addAmount"
-                                    required>
+                                pattern="^[0-9]+" onkeydown="return event.keyCode !== 190"  required>
                                 <span matSuffix>&#8377;</span>
                                 <mat-error *ngIf="addCustomerWallet.get('addAmount').hasError('required')">
                                     Add Amount is required

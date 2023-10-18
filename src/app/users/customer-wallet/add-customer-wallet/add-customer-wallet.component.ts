@@ -116,7 +116,6 @@ export class AddCustomerWalletComponent implements OnInit {
           this.router.navigate(['/user/manage-customer-wallet']);
         }
         else {
-          this.addCustomerWallet.reset();
           this.notification.showNotification(
             'top',
             'right',

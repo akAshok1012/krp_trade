@@ -8,6 +8,9 @@
 
 .chart1-area{
     overflow-y: scroll;
+    position: relative; 
+    height:60vh; 
+    width:100%
 }
 
 #orderAndSalesCountChart{

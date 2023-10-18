@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { PageEvent } from "@angular/material/paginator";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { Chart, registerables } from "chart.js";
 import { AnalyticsService } from "app/core/service/analytics/analytics.service";
 Chart.register(...registerables);
@@ -11,6 +11,7 @@ Chart.register(...registerables);
 })
 export class SuperDashboardComponent implements OnInit {
   @ViewChild('filter', { static: true }) filter: ElementRef;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   public chart: any;
   chartData: any;
   data: any;
@@ -33,7 +34,7 @@ export class SuperDashboardComponent implements OnInit {
     this.chart = new Chart("MyChart", {
       type: "doughnut", //this denotes the type of chart
       data: {
-        labels: ["Total Amount", "Paid Amount", "Balance Amount"],
+        labels: ["Total", "Paid", "Balance"],
         datasets: [
           {
             label: "Rs. ",
@@ -54,15 +55,20 @@ export class SuperDashboardComponent implements OnInit {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: 20,
+        cutout: 19,
         plugins: {
           legend: {
               // display: false,
               position: 'left',
             align: 'center',
             labels : {
-              boxWidth :15,
+              boxWidth :12,
               padding:5
+            },
+            title : {
+              font : {
+                size :14
+              }
             }
            } 
           }
@@ -73,6 +79,11 @@ export class SuperDashboardComponent implements OnInit {
   // get page event
   getPage(event: PageEvent) {
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage()
     this.loadData();
   }
 

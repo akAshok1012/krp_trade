@@ -34,7 +34,7 @@ export class InventoryService {
   }
 
   getItemsList(page:number, size:number, sort:string, dir:string, searchTerm:string){
-    return this.http.get(`${environment.apiUrl}/item-master-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`);
+    return this.http.get(`${environment.apiUrl}/item-master-list?page=${page}&size=${size}&sortByField=${sort}&search=${searchTerm}&sortBy=${dir}`);
   }
 
     getCartItems(page:number, size:number, searchTerm:string): Observable<any> {
@@ -72,7 +72,7 @@ export class InventoryService {
   }
 
   getitemCategoriesList(page:number, size:number, sort:string, dir:string, searchTerm:string){
-    return this.http.get(`${environment.apiUrl}/item-category-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`);
+    return this.http.get(`${environment.apiUrl}/item-category-list?page=${page}&size=${size}&sortByField=${sort}&search=${searchTerm}&sortBy=${dir}`);
   }
 
   getitemCategoriesById(id: number): Observable<any> {
@@ -104,7 +104,7 @@ export class InventoryService {
   }
 
   getBrandList(page:number, size:number, sort:string, dir:string, searchTerm:string){
-    return this.http.get(`${environment.apiUrl}/brand-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`);
+    return this.http.get(`${environment.apiUrl}/brand-list?page=${page}&size=${size}&sortByField=${sort}&search=${searchTerm}&sortBy=${dir}`);
   }
 
   getBrandById(id: number): Observable<any> {
@@ -130,7 +130,7 @@ export class InventoryService {
   }
 
   getUnitList(page:number, size:number, sort:string, dir:string, searchTerm:string){
-    return this.http.get(`${environment.apiUrl}/unit-of-measure-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`);
+    return this.http.get(`${environment.apiUrl}/unit-of-measure-list?page=${page}&size=${size}&sortByField=${sort}&search=${searchTerm}&sortBy=${dir}`);
   }
 
   getUnitById(id: number): Observable<any> {

@@ -23,7 +23,8 @@ export class AddEmployeeComponent implements OnInit {
   cancelButton: string;
   currentUser: any;
   Departments: any;
-  esiNumbers = ''
+  esiNumbers = '';
+  today = new Date();
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -61,7 +62,7 @@ export class AddEmployeeComponent implements OnInit {
         "",
         [
           Validators.pattern(
-            "^[A-Z]{2}[\\s\\/]?[A-Z]{3}[\\s\\/]?[0-9]{7}[\\s\\/]?[0-9]{3}[\\s\\/]?[0-9]{7}$"
+            "^[A-Z]{2}[A-Z]{3}[0-9]{7}[0-9]{3}[0-9]{7}$"
           ),
         ],
       ],
@@ -128,6 +129,33 @@ export class AddEmployeeComponent implements OnInit {
       this.cancelButton = "Reset";
     }
   }
+
+  onPanInput(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const cursorStart = inputElement.selectionStart;
+    const cursorEnd = inputElement.selectionEnd;
+  
+    const newValue = inputElement.value.toUpperCase();
+  
+    this.addEmployee.patchValue({ panNumber: newValue }, { emitEvent: false });
+  
+    // Restore the cursor position
+    inputElement.setSelectionRange(cursorStart, cursorEnd);
+  }
+
+  onPfInput(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const cursorStart = inputElement.selectionStart;
+    const cursorEnd = inputElement.selectionEnd;
+  
+    const newValue = inputElement.value.toUpperCase();
+  
+    this.addEmployee.patchValue({ pfNumber: newValue }, { emitEvent: false });
+  
+    // Restore the cursor position
+    inputElement.setSelectionRange(cursorStart, cursorEnd);
+  }
+  
   
   ngOnDestroy() {
     this.shared.toEdit = null;

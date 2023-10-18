@@ -29,17 +29,11 @@ export class ManageLeadFollowupComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filter', { static: true }) filter: ElementRef;
-  @ViewChild(MatMenuTrigger)
-  contextMenu: MatMenuTrigger;
-  contextMenuPosition = { x: '0px', y: '0px' };
-  public focus;
   displayedColumns = [
-
     'leadGeneration.name',
     'followUpDate',
     'notes',
     'status',
-    'actions',
   ];
   dataSource: any;
   data: any;
@@ -55,14 +49,22 @@ export class ManageLeadFollowupComponent implements OnInit {
     key: ''
   };
   currentDateTime: string;
+  getStatus = "";
+  status: any[] = [
+    { value: "" }, 
+    { value: "Replied" }, 
+    { value: "Opportunity" },
+    { value: "Quotation" },
+    { value: "LostQuotation" },
+    { value: "Interested" },
+    { value: "Converted" },
+    { value: "DoNotContact" },
+  ];
 
   constructor(
     public router: Router,
     private crmService: CrmService,
-    private notification: NotificationsComponent,
     private shared: SharedService,
-    public dialog : MatDialog,
-    private spinner: NgxSpinnerService,
   ) { }
 
   refresh() {
@@ -73,26 +75,9 @@ export class ManageLeadFollowupComponent implements OnInit {
     this.loadData();
   }
 
-
     editCall(row) {
   this.shared.toEdit = row.id;
     this.router.navigate([`/crm/edit-lead-followup`]);
-  }
-
-  deleteCall(row: any) {
-      let name = row.leadGeneration.name
-      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-        data: {
-          message : "Delete",
-          id: name
-        },
-      });
-      dialogRef.afterClosed().subscribe((result) => {
-        console.log(result)
-        if (result) {
-          this.deleteRow(row.id);
-        } 
-      });
   }
 
   cancel() {
@@ -100,36 +85,6 @@ export class ManageLeadFollowupComponent implements OnInit {
     this.deleteItem.key = '';
   }
 
-  deleteRow(id) {
-    
-    this.crmService.deleteLeadFollowup(id).subscribe((res) => {
-      this.loadData();
-      if (res.status === "NO_CONTENT") {
-        let message;
-        this.notification.showNotification(
-          'top',
-          'right',
-          message = {
-            "message": res.message,
-            "status": "danger"
-          },
-        );
-        
-      }
-      else {
-        let message;
-        this.notification.showNotification(
-          'top',
-          'right',
-          message = {
-            "message": res.message,
-            "status": "warning"
-          },
-        );
-        
-      }
-    })
-  }
   exelExport() {
     this.exporter.exportTable(ExportType.XLSX, {
       fileName: "KPR_FollowUp_Details_" + this.currentDateTime,
@@ -161,7 +116,6 @@ export class ManageLeadFollowupComponent implements OnInit {
             if (text && text.length > 0) {
               data.cell.text = text;
             }
-
           }
         }
       }
@@ -171,13 +125,19 @@ export class ManageLeadFollowupComponent implements OnInit {
 
   sortData(event: Sort) {
     this.sortEvent = event;
-    this.sort.disableClear=true;
-    this.loadData();
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 
@@ -187,10 +147,10 @@ export class ManageLeadFollowupComponent implements OnInit {
       this.pageSize,
       this.sortEvent.active,
       this.sortEvent.direction.toUpperCase(),
+      this.getStatus,
       this.searchTerm
     )
       .subscribe((response: any) => {
-        ;
         this.data = response.data;
         this.dataSource = this.data.content;
         this.pageIndex = 0;

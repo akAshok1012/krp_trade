@@ -10,6 +10,7 @@ export class SharedService {
   private leaveDetails = sessionStorage.getItem("u_LD") ? JSON.parse(sessionStorage.getItem("u_LD")) : null;
   private className = sessionStorage.getItem("ie_CN") ? sessionStorage.getItem("ie_CN") : null;
   private notification = sessionStorage.getItem("e_tGN") ? JSON.parse(sessionStorage.getItem("e_tGN")) : null;
+  private activeRoute = sessionStorage.getItem("l_AR") ? sessionStorage.getItem("l_AR") : null;
 
   set toEdit(id) {
     this.id = id;
@@ -63,5 +64,14 @@ export class SharedService {
 
   get generalNotification() {
     return this.notification;
+  }
+
+  set activeLink(data) {
+    this.activeRoute = data;
+    sessionStorage.setItem("l_AR", data);
+  }
+
+  get activeLink() {
+    return this.activeRoute;
   }
 }

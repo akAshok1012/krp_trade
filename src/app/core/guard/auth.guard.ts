@@ -39,6 +39,7 @@ export class AuthGuard implements  CanActivate {
       //   this.authService.logout();
       //   return false;
       // }
+      console.log(tokenDetail)
       if(tokenDetail){
         this.authService.logout();
         return false;

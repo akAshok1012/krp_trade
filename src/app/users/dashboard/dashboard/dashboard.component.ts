@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AnalyticsService } from 'app/core/service/analytics/analytics.service';
 import { AuthService } from 'app/core/service/auth.service';
 import { InventoryService } from 'app/core/service/inventory/inventory.service';
 import { OrdersService } from 'app/core/service/orders/orders.service';
 import { noImg } from "app/inventory-management/inventory-management.module";
 import { Chart, registerables } from "chart.js";
+import { SharedService } from 'app/shared/shared.service';
 Chart.register(...registerables);
 
 @Component({
@@ -32,13 +33,14 @@ export class DashboardComponent implements OnInit {
     private inventoryService: InventoryService,
     private authService: AuthService,
     private analyticsService: AnalyticsService,
-    public route : Router
+    public router : Router,
+    public share:SharedService
   ) { }
   customerAmountChart() {
     this.chart = new Chart("MyChart", {
       type: "doughnut", //this denotes the type of chart
       data: {
-        labels: ["Total Amount", "Paid Amount", "Balance Amount"],
+        labels: ["Total", "Paid", "Balance"],
         datasets: [
           {
             label: "Rs. ",
@@ -96,5 +98,9 @@ export class DashboardComponent implements OnInit {
           this.customerAmountChart();
         }
       });
+  }
+  onClick(){
+    this.router.navigate([`/order&cart/products-list`]);
+    this.share.activeLink = ('/order&cart/products-list');
   }
 }

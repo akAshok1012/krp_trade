@@ -24,13 +24,9 @@
     }
 
     .product-list-area{
-        height: 100vh;
-        // overflow: auto;
+        height: fit-content;
+        padding-bottom: 10px;
     }
-
-    // .product-list-area::-webkit-scrollbar {
-    //     width: 1px;
-    //   }
 
     .item-description {
     text-align: center;
@@ -62,4 +58,10 @@
         border: 1px white dotted;
         padding: 5px 10px;
         border-radius: 10px;
+    }
+    .no-results {
+        display: flex;
+        justify-content: center;
+        font-size: 33px;
+        margin: 226px;
     }

@@ -36,6 +36,7 @@ export class AddContractorPaymentComponent implements OnInit {
   pageSize: number = 5;
   pageIndex: number = 0;
   paymentBasis = ['Cash','NEFT'];
+  today= new Date();
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -87,14 +88,9 @@ export class AddContractorPaymentComponent implements OnInit {
         let data = res.data
         this.addContractorPayment.controls["id"].setValue(data.id);
         this.addContractorPayment.controls["contractDetails"].setValue(data.contractDetails);
-        this.contractControl.setValue(data.contractDetails),
-        this.addContractorPayment.controls["paymentDate"].setValue(data.paymentDate);
-        this.addContractorPayment.controls["amountPaid"].setValue(data.amountPaid);
+        this.contractControl.setValue(data.contractDetails.contractName),
         this.addContractorPayment.controls["amountBalance"].setValue(data.amountBalance);
         this.addContractorPayment.controls["totalAmount"].setValue(data.totalAmount);
-        // this.contractControl.setValue(data.contractAmount);
-        this.addContractorPayment.controls["paymentBasis"].setValue(data.paymentBasis);
-        this.addContractorPayment.controls["notes"].setValue(data.notes);
         this.addContractorPayment.controls["updatedBy"].setValue(data.updatedBy);
       })
     } else {

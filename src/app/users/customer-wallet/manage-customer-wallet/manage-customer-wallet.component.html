@@ -20,7 +20,7 @@
                         </div>
                         <div>
                             <input class="form-control" placeholder="Search by Customer" type="text" #filter
-                                [(ngModel)]="searchTerm" (ngModelChange)="loadData()"
+                                [(ngModel)]="searchTerm" (ngModelChange)="search()"
                                 class="browser-default search-field" aria-label="Search box" />
 
                             <button mat-fab color="primary" class="download-btn ml-2 mt-2"

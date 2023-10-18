@@ -48,6 +48,7 @@ export class PaymentStatusComponent implements OnInit {
   ];
   dataSource: any;
   data: any;
+  searchName:  any = "";
   searchTerm: any = "";
   fromDate: string = "";
   toDate: string = "";
@@ -196,12 +197,18 @@ export class PaymentStatusComponent implements OnInit {
   sortData(event: Sort) {
     this.sortEvent = event;
     this.sort.disableClear = true;
+    this.paginator.firstPage();
     this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 
@@ -256,7 +263,8 @@ export class PaymentStatusComponent implements OnInit {
         this.pageSize,
         this.sortEvent.direction.toUpperCase(),
         this.sortEvent.active,
-        this.searchTerm
+        this.searchTerm,
+        this.searchField,
       )
       .subscribe((response: any) => {
         this.data = response.data;
@@ -267,12 +275,6 @@ export class PaymentStatusComponent implements OnInit {
 
 
   public loadData() {
-    if (this.searchField === 'saleId') {
-      this.filterSalesId();
-    }
-    else {
-      this.filtercustomerUserId();
-    }
-
+    this.filterSalesId();
   }
 }

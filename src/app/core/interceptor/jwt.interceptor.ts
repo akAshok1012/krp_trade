@@ -27,7 +27,7 @@ export class JwtInterceptor implements HttpInterceptor {
       var index = endPoint.lastIndexOf( "-" );
       endPoint = endPoint.slice(index + 1);
       if(endPoint){
-        if(endPoint.substring(0,12) != 'notification'){
+        if(endPoint.substring(0,12) != 'notification' && endPoint.substring(0,12) != 'logs'){
           this.spinner.show();
         }
         }

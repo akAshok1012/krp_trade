@@ -20,7 +20,7 @@
 
                         <div>
                             <input class="form-control" placeholder="Search by Department" type="text" #filter
-                                [(ngModel)]="searchTerm" (ngModelChange)="loadData()"
+                                [(ngModel)]="searchTerm" (ngModelChange)="search()"
                                 class="browser-default search-field" aria-label="Search box" />
                             <button mat-fab color="primary" class="download-btn ml-2 mt-2"
                                 [matMenuTriggerFor]="aboveMenu">
@@ -41,7 +41,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <mat-table #table id="table" matTableExporter style="min-width: 800px" [dataSource]="dataSource"
-                            matSort #exporter="matTableExporter" [hiddenColumns]="[1]"
+                            matSort #exporter="matTableExporter" [hiddenColumns]="[2]"
                             (matSortChange)="sortData($event)" class="mat-cell">
                             <!-- Checkbox Column -->
                             <ng-container matColumnDef="select" id="checkBox" class="form-check">
@@ -64,6 +64,12 @@
                                 <mat-cell *matCellDef="let row; let i = index;"
                                     (contextmenu)="onContextMenu($event, row)" style="justify-content: center;">{{i+1
                                     }}</mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="id">
+                                <mat-header-cell *matHeaderCellDef class="thead-light" mat-sort-header
+                                    style="justify-content: center;">Department Id</mat-header-cell>
+                                <mat-cell *matCellDef="let row" style="justify-content: center;">
+                                    {{row.id}}</mat-cell>
                             </ng-container>
                             <ng-container matColumnDef="departmentName">
                                 <mat-header-cell *matHeaderCellDef class="thead-light" mat-sort-header

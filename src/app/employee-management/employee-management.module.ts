@@ -51,6 +51,10 @@ import { AddContractorPaymentComponent } from './contractor-payment/add-contract
 import { ManageContractorPaymentComponent } from "./contractor-payment/manage-contractor-payment/manage-contractor-payment.component";
 import { AddContractEmployeeComponent } from './contract-employee/add-contract-employee/add-contract-employee.component';
 import { ManageContractEmployeeComponent } from './contract-employee/manage-contract-employee/manage-contract-employee.component';
+import { AddEmployeePayHoursComponent } from './employee-pay-hours/add-employee-pay-hours/add-employee-pay-hours.component';
+import { ManageEmployeePayHoursComponent } from './employee-pay-hours/manage-employee-pay-hours/manage-employee-pay-hours.component';
+import { AddEmployeeWeeklyWagesComponent } from './employee-weekly-wages/add-employee-weekly-wages/add-employee-weekly-wages.component';
+import { ManageEmployeeWeeklyWagesComponent } from './employee-weekly-wages/manage-employee-weekly-wages/manage-employee-weekly-wages.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -71,6 +75,10 @@ import { ManageContractEmployeeComponent } from './contract-employee/manage-cont
     ManageContractorPaymentComponent,
     AddContractEmployeeComponent,
     ManageContractEmployeeComponent,
+    AddEmployeePayHoursComponent,
+    ManageEmployeePayHoursComponent,
+    AddEmployeeWeeklyWagesComponent,
+    ManageEmployeeWeeklyWagesComponent,
   ],
   imports: [
     CommonModule,

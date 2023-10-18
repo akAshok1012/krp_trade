@@ -4,6 +4,7 @@ import { NotificationsComponent } from "app/additional-components/notifications/
 import { AuthService } from "app/core/service/auth.service";
 import { InventoryService } from "app/core/service/inventory/inventory.service";
 import { noImg } from "app/inventory-management/inventory-management.module";
+import { NgxSpinnerService } from "ngx-spinner";
 
 export class list {
   itemMaster: any;
@@ -25,19 +26,21 @@ export class ProductListComponent implements OnInit {
   units: any;
   quantity = 0;
   page: number = 0;
-  size: number = 6;
+  size: number = 7;
   searchTerm: string = '';
   productList: Array<list> = [];
   itemList: Array<list> = [];
   orderData: any;
   total = 0;
-  noImg = noImg
+  noImg = noImg;
+  loadString = "No results Found";
 
   constructor(
     private fb: UntypedFormBuilder,
     private authService: AuthService,
     private inventoryService: InventoryService,
     private notification: NotificationsComponent,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit(): void {
@@ -55,27 +58,32 @@ export class ProductListComponent implements OnInit {
 
   onSearch() {
     this.page = 0;
-    this.productList = [];
     this.getData();
+    this.productList = [];
+    this.orderForm.reset();
   }
 
   getData() {
-    
+    this.loadString = '';
     this.inventoryService.getCartItems(
       this.page,
       this.size,
       this.searchTerm
-    ).subscribe((response: any) => {
+    ).subscribe((response: any) => {      
       for (let item of response.data.content) {
         this.productList.push(item);
       }
+      this.loadString = 'No results Found';
+    }, (error) => {
+      this.loadString = 'No results Found';
     });
+  
     
   }
 
   scrollEvent = (event: any): void => {
 
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+    if (event.target.offsetHeight + event.target.scrollTop + 1 >= event.target.scrollHeight) {
       this.page = this.page + 1;
       this.getData();
     }

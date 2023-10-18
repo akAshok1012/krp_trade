@@ -9,6 +9,8 @@ import { OrdersService } from "app/core/service/orders/orders.service";
 import { interval, switchMap } from "rxjs";
 import { SharedService } from "app/shared/shared.service";
 import { ApproveOrderComponent } from "app/orders-and-cart/approve-order/approve-order.component";
+import { AdministrativeService } from "app/core/service/administrative/administrative.service";
+import { response } from "express";
 
 @Component({
   selector: "app-navbar",
@@ -23,6 +25,7 @@ export class NavbarComponent implements OnInit {
   currentUser: any;
   currentUserRole: string;
   notification:any = [];
+  notification_important:any = [];
   dataSubscription:any;
 
   constructor(
@@ -32,8 +35,10 @@ export class NavbarComponent implements OnInit {
     public authService: AuthService,
     public orderService: OrdersService,
     public ac: ApproveOrderComponent,
+    private administrativeService: AdministrativeService,
   ) {
     this.location = location;
+    this.currentUserRole = authService.currentUserValue.role;
   }
 
   ngOnInit() {
@@ -69,18 +74,21 @@ showDetails(data:any){
   if (this.currentUserRole === "EMPLOYEE") {
     this.shared.leaveDetail = data;
     this.router.navigate([`/admin/leave-history`]);
+    this.clear('/admin/leave-history')
     if(this.getTitle() ==='leave history'){
      this.renderCall();
     }
   } else if(this.currentUserRole === "CUSTOMER") {
     this.shared.orderStatus = data;
     this.router.navigate([`/order&cart/my-orders`]);
+    this.clear('/order&cart/my-orders')
     if(this.getTitle() ==='my orders'){
      this.renderCall();
     }
   } else {
   this.shared.orderDetail = data;
     this.router.navigate([`/order&cart/approve-orders`]);
+    this.clear('/order&cart/approve-orders')
     if(this.getTitle() ==='approve orders'){
      this.renderCall();
     }
@@ -91,6 +99,16 @@ showDetails(data:any){
     setTimeout(()=>{
       window.location.reload();
     }, 500);
+  }
+
+  clear(data){
+    sessionStorage.setItem("_ARC1", null);
+    sessionStorage.setItem("_ARC2", null);
+    if(data) {
+      this.shared.activeLink = data;
+    } else {
+      this.shared.activeLink = null;
+    }
   }
 
   getData() {
@@ -106,9 +124,12 @@ showDetails(data:any){
       this.orderService.getOrderId_Notification().subscribe((response)=>{
         this.notification = response.data
       })
+      this.administrativeService.getFailedNotification().subscribe((response)=>{
+        this.notification_important= response.data
+      })
+
     }
   }
-
   getTitle() {
     var titlee = this.location.prepareExternalUrl(this.location.path());
    if(titlee){

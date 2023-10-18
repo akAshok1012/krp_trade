@@ -37,14 +37,14 @@ export class ManageEmployeeComponent implements OnInit {
   contextMenuPosition = { x: '0px', y: '0px' };
   public focus;
   displayedColumns = [
-    // 'select',
+    'id',
     // "index",
     'name',
     'phoneNumber',
     // 'email',
     'address',
-    'dateOfBirth',
-    'dateOfJoining',
+    // 'dateOfBirth',
+    // 'dateOfJoining',
     'employeeDepartment',
     'actions',
   ];
@@ -166,12 +166,13 @@ export class ManageEmployeeComponent implements OnInit {
       margin: { top: 40 },
       body: data,
       columns: [
+        // { header: "Employee Id", dataKey: "id" },
         { header: "Name", dataKey: "name" },
         { header: "Phone Number", dataKey: "phoneNumber" },
         { header: "Email", dataKey: "email" },
         { header: "Address", dataKey: "address" },
-        { header: "Date Of Birth", dataKey: "dateOfBirth" },
-        { header: "Date Of Joining", dataKey: "dateOfJoining" },
+        // { header: "Date Of Birth", dataKey: "dateOfBirth" },
+        // { header: "Date Of Joining", dataKey: "dateOfJoining" },
         { header: "Employee Department", dataKey: "employeeDepartment"},
       ],
       didParseCell: function(data) {
@@ -191,13 +192,19 @@ export class ManageEmployeeComponent implements OnInit {
 
   sortData(event: Sort) {
     this.sortEvent = event;
-    this.sort.disableClear=true;
-    this.loadData();
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AnalyticsService {
   }
 
   customerSalesOrdersCount(page:number, data:string) {
-    return this.http.get(`${environment.apiUrl}/customer-sales-orders-count?page=${page}&size=5&sortBy=DESC&search=${data}`);
+    return this.http.get(`${environment.apiUrl}/customer-sales-orders-count?page=${page}&size=5&search=${data}&sortBy=DESC`);
   }
 
   customerSalesOrdersChartCount(id:any) {
@@ -83,6 +84,30 @@ export class AnalyticsService {
   MonthlyCount() {
     return this.http.get(`${environment.apiUrl}/monthly-sales-orders-payment-count`);
   }
+//PRODUCTION CHART
+  
+itemsByBrandCount(id:any) {
+  return this.http.get(`${environment.apiUrl}/production-count?id=${id}`);
+}
 
+brandByUnitCount(id:any) {
+  return this.http.get(`${environment.apiUrl}/production-uom-by-brand?id=${id}`);
+}
+
+itemByUnitCount(id:any) {
+  return this.http.get(`${environment.apiUrl}/production-uom-by-item?id=${id}`);
+}
+
+brandCount() {
+  return this.http.get(`${environment.apiUrl}/production-count-by-brand`);
+}
+
+durationProduction(duration:string) {
+  return this.http.get(`${environment.apiUrl}/${duration}-production-count`);
+}
+
+dateFilterProduction(fromDate:string, toDate:string):Observable<any> {
+  return this.http.get(`${environment.apiUrl}/date-production-count?fromDate=${fromDate}&toDate=${toDate}`);
+}
 
 }

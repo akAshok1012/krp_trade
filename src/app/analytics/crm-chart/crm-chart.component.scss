@@ -5,10 +5,15 @@
     flex-wrap: wrap;
 }
 
-.chart1-area{
+.chart1-area {
     overflow-y: scroll;
+    position: relative;
+    height: 60vh;
+    width: 100%
 }
 
-#LeadCountChart{
-    min-width: 400px !important;
+.chart2-area {
+    position: relative;
+    height: 42vh;
+    width: 100%
 }

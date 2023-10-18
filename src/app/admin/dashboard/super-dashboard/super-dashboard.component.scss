@@ -1,5 +1,11 @@
 .das-card {
+  height: 100px;
   box-shadow: 4px 4px 4px 6px #00000024;
+}
+
+.custom-col{
+  min-width: 23%;
+  width: fit-content;
 }
 
 .das-card-count-success_s {
@@ -29,7 +35,7 @@
 
 .das-card-label-line{
   width: 100%;
-  margin: 0 5%;
+  margin: 0 2%;
 }
 
 .das-card-count {
@@ -104,7 +110,7 @@ body {
   }
 }
 
-table {
+  table {
   width: 100%;
   text-align: center;
   td,

@@ -37,6 +37,7 @@
                             <mat-form-field class="example-full-width">
                                 <mat-label>Vehicle Number</mat-label>
                                 <input matInput formControlName="vehicleRegistrationNumber"
+                                    (input)="onVehicleNo($event)"
                                     (input)="addVehicle.patchValue({vehicleRegistrationNumber: $event.target.value.toUpperCase()})"
                                     maxlength="10" required>
                                 <mat-icon matSuffix>123</mat-icon>
@@ -64,6 +65,7 @@
                             <mat-form-field class="example-full-width">
                                 <mat-label>Vehicle Model</mat-label>
                                 <input matInput formControlName="vehicleModel"
+                                (input)="onVehicleModel($event)"
                                     (input)="addVehicle.patchValue({vehicleModel: $event.target.value.toUpperCase()})"
                                     maxlength="20" required>
                                 <mat-icon matSuffix>event_seat</mat-icon>
@@ -99,8 +101,9 @@
                             <mat-form-field class="example-full-width">
                                 <mat-label>Chassis Number</mat-label>
                                 <input matInput formControlName="chassisNumber"
+                                (input)="onVehicleChase($event)"
                                     (input)="addVehicle.patchValue({chassisNumber: $event.target.value.toUpperCase()})"
-                                    maxlength="17" required>
+                                    maxlength="17"  required>
                                 <mat-icon matSuffix>123</mat-icon>
                                 <mat-error *ngIf="addVehicle.get('chassisNumber').hasError('required')">
                                     Chassis Number is required
@@ -115,8 +118,9 @@
                             <mat-form-field class="example-full-width">
                                 <mat-label>Rc Number</mat-label>
                                 <input matInput formControlName="rcNumber"
+                                    (input)="onVehicleRc($event)"
                                     (input)="addVehicle.patchValue({rcNumber: $event.target.value.toUpperCase()})"
-                                    maxlength="10" required>
+                                    maxlength="10"  required>
                                 <mat-icon matSuffix>123</mat-icon>
                                 <mat-error *ngIf="addVehicle.get('rcNumber').hasError('required')">
                                     Rc Number is required
@@ -130,7 +134,7 @@
                         <div class="form-group col-xl-4 col-lg-4 col-md-12 col-sm-12">
                             <mat-form-field>
                                 <mat-label>Purchase Date</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="purchaseDate" required>
+                                <input matInput [matDatepicker]="picker" [max]="today" formControlName="purchaseDate" required>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                                 <mat-error *ngIf="addVehicle.get('purchaseDate').hasError('required')">
@@ -179,16 +183,10 @@
                         <div class="form-group col-xl-4 col-lg-4 col-md-12 col-sm-12">
                             <mat-form-field class="example-full-width">
                                 <mat-label>Policy Number</mat-label>
-                                <input matInput type="number" formControlName="policyNo" onmousewheel="return false;" pattern="[0-9]{13}"
-                                    maxlength="13" minlength="13"
-                                    oninput="this.value.length > this.maxLength ? this.value = this.value.slice(0, this.maxLength): this.value"
-                                    required>
-                                <mat-icon matSuffix>123</mat-icon>
+                                <input matInput formControlName="policyNo" required>
+                                    <mat-icon matSuffix>filter_1</mat-icon>
                                 <mat-error *ngIf="addVehicle.get('policyNo').hasError('required')">
                                     Policy Number is required
-                                </mat-error>
-                                <mat-error *ngIf="addVehicle.get('policyNo').hasError('pattern')">
-                                    Policy Number should like (e.g. 8731923791827 )
                                 </mat-error>
                             </mat-form-field>
                         </div>
@@ -196,7 +194,7 @@
                         <div class="form-group col-xl-4 col-lg-4 col-md-12 col-sm-12">
                             <mat-form-field>
                                 <mat-label>Start Date</mat-label>
-                                <input matInput [matDatepicker]="picker3" formControlName="insuranceStartDate" [max]="addVehicle.value.insuranceEndDate" required>
+                                <input matInput [matDatepicker]="picker3" formControlName="insuranceStartDate" [min]="addVehicle.value.purchaseDate" [max]="addVehicle.value.insuranceEndDate" required>
                                 <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                                 <mat-datepicker #picker3></mat-datepicker>
                                 <mat-error *ngIf="addVehicle.get('insuranceStartDate').hasError('required')">

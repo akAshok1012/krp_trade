@@ -1,5 +1,16 @@
 .das-card {
+  height: 100px;
   box-shadow: 4px 4px 4px 6px #00000024;
+}
+
+.custom-col{
+  min-width: 23%;
+  width: fit-content;
+}
+
+.custom-col-large{
+  min-width: 30%;
+  width: auto;
 }
 
 .das-card-count-success_s {
@@ -29,18 +40,18 @@
 }
 .das-card-label-line{
   width: 100%;
-  margin: 0 5%;
+  margin: 0 2%;
 }
 
 .das-card-label-line-danger {
   background: rgb(255, 31, 31);
   width: 100%;
-  margin: 0 5%;
+  margin: 0 2%;
 }
 .das-card-label-line-primary {
   background: rgb(0, 235, 39);
   width: 100%;
-  margin: 0 5%;
+  margin: 0 2%;
 }
 
 /* .das-card-count-walletamount{

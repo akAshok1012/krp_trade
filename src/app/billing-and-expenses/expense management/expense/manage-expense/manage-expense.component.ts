@@ -175,13 +175,19 @@ export class ManageExpenseComponent implements OnInit {
 
   sortData(event: Sort) {
     this.sortEvent = event;
-    this.sort.disableClear=true;
-    this.loadData();
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 

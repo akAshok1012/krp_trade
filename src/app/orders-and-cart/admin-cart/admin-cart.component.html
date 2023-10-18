@@ -137,19 +137,7 @@
           <div class="d-flex flex-wrap justify-content-between mb-4">
             <h3 class="text-bold">Order Item Details</h3>
             <div class="d-flex justify-content-end">
-              <div class="pt-3 mx-3">
-                <mat-form-field class="example-full-width">
-                  <mat-label>Select Payment Type</mat-label>
-                  <mat-select [(ngModel)] ="paymentType">
-                    <mat-option
-                      *ngFor="let item of paymentTypes" 
-                      [value]="item"
-                    >
-                      {{ item }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
+             
               <button
                 class="btn btn-success px-3 my-3"
                 [disabled]="itemList.length < 1"
@@ -197,8 +185,8 @@
                   <td>{{ item.itemMaster?.fixedPrice }}</td>
                   <td>
                     {{
-                      item.itemMaster?.fixedPrice *
-                        (item.unitOfMeasure?.unitWeight * item.orderedQuantity)
+                      (item.itemMaster?.fixedPrice *
+                        (item.unitOfMeasure?.unitWeight * item.orderedQuantity))  | currency : "INR" : "symbol-narrow"
                     }}
                   </td>
                   <td class="td-actions">
@@ -224,7 +212,7 @@
               >
                 <th colspan="5"></th>
                 <th>Total :</th>
-                <th>Rs.{{ total | number : '1.0-2' }}</th>
+                <th>{{ total  | currency : "INR" : "symbol-narrow" }}</th>
               </tfoot>
             </table>
           </div>

@@ -21,7 +21,7 @@ export class ProductsComponent {
   brands: any[]
   productList: Array<list> = [];
   page: number = 0;
-  size: number = 6;
+  size: number = 10;
   selectedBrand: any = ''
   isMobile = false
   noImg = noImg
@@ -45,7 +45,7 @@ export class ProductsComponent {
   }
 
   scrollEvent = (event: any): void => {
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+    if (event.target.offsetHeight + event.target.scrollTop + 1 >= event.target.scrollHeight) {
       this.page = this.page + 1;
       this.loadData();
     }

@@ -128,7 +128,6 @@ export class ShipmentStatusComponent implements OnInit {
           { header: "Sales id ", dataKey: "salesId" },
           { header: "Customer Name", dataKey: "customerName" },
           { header: "Shipment Stauts", dataKey: "shipmentStatus" },
-          { header: "Shipement Date", dataKey: "shipmentDate" },
         ],
       }
     );
@@ -146,13 +145,19 @@ export class ShipmentStatusComponent implements OnInit {
 
   sortData(event: Sort) {
     this.sortEvent = event;
-    this.sort.disableClear=true;
-    this.loadData();
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
   filterSalesId() {

@@ -112,3 +112,36 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: inherit;
   color: blue;
 }
+
+::ng-deep .header-dropdown .mat-select-value {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: white;
+  font-size: 20px;
+}
+
+::ng-deep .header-dropdown .mat-select-arrow {
+  color: rgb(0 0 0);
+}
+
+::ng-deep .header-dropdown .mat-form-field-label {
+  color: white !important;
+}
+
+::ng-deep .header-dropdown .mat-form-field-outline {
+  color: white !important;
+}
+
+::ng-deep .header-dropdown .mat-form-field-wrapper {
+padding-bottom: 0px !important;
+}
+
+::ng-deep .header-dropdown .mat-form-field-underline{
+  display: none !important;
+}
+
+::ng-deep .header-dropdown .mat-form-field-subscript-wrapper {
+  display: none !important;
+}

@@ -40,7 +40,7 @@
                   : 'Search by Customer Name'"
                 class="browser-default search-field mt-2"
                 #filter [(ngModel)]="searchTerm"
-                (ngModelChange)="loadData()"
+                (ngModelChange)="search()"
                 aria-label="Search box"
               />
               <!-- <button

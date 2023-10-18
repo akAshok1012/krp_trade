@@ -114,10 +114,16 @@ deleteItem = {
     this.loadData();
   }
 
+  search(){
+    this.paginator.firstPage();
+    this.loadData();
+  }
+
   sortData(event: Sort) {
     this.sortEvent = event;
-    this.sort.disableClear=true;
-    this.loadData();
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
   deleteCall(row: any) {

@@ -29,9 +29,13 @@ export class BillingService {
   getPaymentBySalesId(page:number, size:number, dir:string, sort:string, searchTerm: string): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/payments-bySalesId?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&salesId=${searchTerm}`);
   }
-  getPaymentStatusBySalesId(id:number, data:any, page:number, size:number, dir:string, sort:string, searchTerm: number):Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/payment-status-salesid?paymentStatus=${data}&salesId=${searchTerm}&page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&id=${id}`);
-   }
+  getPaymentStatusBySalesId(id:number, data:any, page:number, size:number, dir:string, sort:string, searchTerm: number,searchType :string):Observable<any> {
+    if(searchType === 'saleId'){
+      return this.http.get<any>(`${environment.apiUrl}/payment-status-salesid?paymentStatus=${data}&salesId=${searchTerm}&page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&id=${id}`);
+    } else {
+    return this.http.get<any>(`${environment.apiUrl}/payment-status-salesid?paymentStatus=${data}&search=${searchTerm}&page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&id=${id}`); 
+  }
+  }
 
   getPaymentByCustomer(data:any, page:number, size:number, dir:string, sort:string): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/payment-customer?name=${data}&page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}`);
@@ -58,11 +62,11 @@ export class BillingService {
   }
   
   getPaymentStatus(data:any, page:number, size:number, dir:string, sort:string, searchTerm: string):Observable<any> {
-  return this.http.get<any>(`${environment.apiUrl}/payment-status?paymentStatus=${data}&page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+  return this.http.get<any>(`${environment.apiUrl}/payment-status?paymentStatus=${data}&page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
  }
 
  getPaymentinvoice(page:number, size:number, dir:string, sort:string, searchTerm: string):Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/customer-sales-paymentStatus?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+    return this.http.get<any>(`${environment.apiUrl}/customer-sales-paymentStatus?page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
    }
 
    getPaymentinvoiceBySalesId(page:number, size:number, dir:string, sort:string, searchTerm: string):Observable<any> {
@@ -74,11 +78,11 @@ export class BillingService {
    }
 
  getPaymentinvoiceCustomer(id:number,page:number, size:number, dir:string, sort:string, searchTerm: string):Observable<any> {
-  return this.http.get<any>(`${environment.apiUrl}/customer-sales-paymentStatus?id=${id}&page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+  return this.http.get<any>(`${environment.apiUrl}/customer-sales-paymentStatus?id=${id}&page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
  }
 
  getPaymentCustomerUserId(id:number,data:any, page:number, size:number, dir:string, sort:string, searchTerm: string):Observable<any> {
-  return this.http.get<any>(`${environment.apiUrl}/payment-status-salesid?id=${id}&PaymentStatus=${data}&page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+  return this.http.get<any>(`${environment.apiUrl}/payment-status-salesid?id=${id}&PaymentStatus=${data}&page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
  }
 
  getPaymentHistory(id:number):Observable<any> {
@@ -157,7 +161,7 @@ getExpensesCategoryList(page:number, size:number, sort:string, dir:string, searc
 //paymentType
 
 getPaymentType(page:number, size:number, dir:string, sort:string, searchTerm: string): Observable<any> {
-  return this.http.get<any>(`${environment.apiUrl}/payment-type-list?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+  return this.http.get<any>(`${environment.apiUrl}/payment-type-list?page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
 }
 
 getAllPaymentType(): Observable<any> {
@@ -183,7 +187,7 @@ deletePaymentType(paymentType:any): Observable<any> {
 
 //Credit Payment Track
 getAllCreditPaymentTracker(page:number, size: number, dir: string, sort: string, searchTerm: string): Observable<any> {
-  return this.http.get<any>(`${environment.apiUrl}/credit-payment-details?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+  return this.http.get<any>(`${environment.apiUrl}/credit-payment-details?page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
 }
 
 editCreditPaymentTracker(id:number,data:any):Observable<any>{
@@ -218,7 +222,7 @@ getOrderInvoices(){
 // Employee pay
 
  getEmployeePayList(page:number, size: number, dir: string, sort: string, searchTerm: string): Observable<any>{
-  return this.http.get<any>(`${environment.apiUrl}/employee-pay-list?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+  return this.http.get<any>(`${environment.apiUrl}/employee-pay-list?page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
  }
 
  getIdPayroll(id:number): Observable<any> {
@@ -238,7 +242,7 @@ deletePayroll(id:number): Observable<any> {
 
 //employee - pay - configuration
 getEmployeePayConfigurationlist(page:number, size: number, dir: string, sort: string, searchTerm: string): Observable<any>{
-  return this.http.get<any>(`${environment.apiUrl}/employee-pay-configuration-list?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+  return this.http.get<any>(`${environment.apiUrl}/employee-pay-configuration-list?page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
  }
 
  getIdEmployeePayConfigurationById(id:number): Observable<any> {
@@ -264,6 +268,6 @@ downloadEmployeePay(id:number){
   return this.http.get<Blob>(`${environment.apiUrl}/employee-monthly-payslip?id=${id}`,{ observe: 'response', responseType: 'blob' as 'json'});
 }
 getEmployeeMonthlyPay(page:number, size: number, dir: string, sort: string, searchTerm: string): Observable<any>{
-  return this.http.get<any>(`${environment.apiUrl}/employee-monthly-pay-list?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}`);
+  return this.http.get<any>(`${environment.apiUrl}/employee-monthly-pay-list?page=${page}&size=${size}&sortBy=${dir}&search=${searchTerm}&sortByField=${sort}`);
 }
 }

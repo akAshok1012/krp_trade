@@ -9,6 +9,10 @@ import { CrmChartComponent } from './crm-chart/crm-chart.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { ProductionChartComponent } from './production-chart/production-chart.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -16,7 +20,8 @@ import { MatSelectModule } from '@angular/material/select';
     // ChartComponent,
     CustomerChartComponent,
     SalesChartComponent,
-    CrmChartComponent
+    CrmChartComponent,
+    ProductionChartComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +29,10 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule
   ]
 })
 export class AnalyticsModule { }

@@ -45,6 +45,7 @@ export class AuthService {
               userId: decodeData.userId,
               userName: decodeData.userName,
               role: decodeData.role,
+              isFL: decodeData.isFirstLogin,
               token: user.data.token,
             };
             localStorage.setItem("currentUser", JSON.stringify(userDetail));
@@ -89,6 +90,7 @@ export class AuthService {
             userId: decodeData.userId,
             userName: decodeData.userName,
             role: decodeData.role,
+            isFL: decodeData.isFirstLogin,
             token: user.data,
           };
           localStorage.setItem("currentUser", JSON.stringify(userDetail));
@@ -102,6 +104,7 @@ export class AuthService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem("currentUser");
+    sessionStorage.clear();
     this.currentUserSubject.next(null);
     this.router.navigate(['/authentication/login']);
   }

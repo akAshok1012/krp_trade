@@ -30,13 +30,13 @@
               <td>{{item.orderedQuantity}}</td>
               <td>{{item.unitOfMeasure.unitWeight * item.orderedQuantity}}Kg</td>
               <td>{{item.unitPrice}}</td>
-              <td>{{item.unitPrice * (item.unitOfMeasure.unitWeight * item.orderedQuantity)}}</td>
+              <td>{{item.unitPrice * (item.unitOfMeasure.unitWeight * item.orderedQuantity)  | currency : "INR" : "symbol-narrow"}}</td>
             </tr>
           </tbody>
           <tfoot class="text-center" style="border-top: 1px solid #eee !important;">
             <th colspan="5"></th>
             <th>Total : </th>
-            <th>Rs.{{total | number : '1.0-2'}}</th>
+            <th>{{total  | currency : "INR" : "symbol-narrow"}}</th>
           </tfoot>
         </table>
       </div>
@@ -62,7 +62,7 @@
 
             <div>
               <input class="form-control" placeholder="Search by Customer" type="text" #filter [(ngModel)]="searchTerm"
-                (ngModelChange)="loadData()" class="browser-default search-field" aria-label="Search box" />
+                (ngModelChange)="search()" class="browser-default search-field" aria-label="Search box" />
 
               <button  mat-fab color="primary" class="download-btn ml-2 mt-2" [matMenuTriggerFor]="aboveMenu">
                 <mat-icon>download</mat-icon>

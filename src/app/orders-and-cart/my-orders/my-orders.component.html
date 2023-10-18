@@ -101,14 +101,14 @@
           <div class="materialTableHeader">
             <div>
               <mat-form-field
-                id="order-status"
-                class="order-status text-white"
+                id="header-dropdown"
+                class="header-dropdown text-white"
                 appearance="outline"
               >
                 <mat-label style="color: aliceblue"
                   >Select Status Type</mat-label
                 >
-                <mat-select value="APPROVED" class="order-status text-white">
+                <mat-select value="APPROVED" class="header-dropdown text-white">
                   <mat-option
                     *ngFor="let item of status"
                     (click)="onSelect(item.value)"
@@ -120,7 +120,7 @@
               </mat-form-field>
             </div>
             <!-- <input class="form-control" placeholder="Search" type="text" #filter [(ngModel)]="searchTerm"
-              (ngModelChange)="loadData()" class="browser-default search-field" aria-label="Search box" /> -->
+              (ngModelChange)="search()" class="browser-default search-field" aria-label="Search box" /> -->
           </div>
         </div>
         <div class="card-body">

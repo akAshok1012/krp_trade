@@ -32,8 +32,11 @@ export class AddVehicleComponent implements OnInit {
   cancelButton:string;
   formValue: any;
   currentUser: any;
+  today = new Date();
   filteredVehicleOptions: Observable<any>;
   vehicleControl= new FormControl("");
+  isKeyPressedNumeric: any;
+  input: any;
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -46,6 +49,39 @@ export class AddVehicleComponent implements OnInit {
   ) { 
     this.vehicleId = shared.toEdit;
     this.currentUser = authService.currentUserValue.userId
+  }
+
+  onVehicleNo(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const cursorStart = inputElement.selectionStart;
+    const cursorEnd = inputElement.selectionEnd;
+    const newValue = inputElement.value.toUpperCase();
+    this.addVehicle.patchValue({ vehicleRegistrationNumber: newValue }, { emitEvent: false });
+    inputElement.setSelectionRange(cursorStart, cursorEnd);
+  }
+  onVehicleModel(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const cursorStart = inputElement.selectionStart;
+    const cursorEnd = inputElement.selectionEnd;
+    const newValue = inputElement.value.toUpperCase();
+    this.addVehicle.patchValue({ vehicleModel: newValue }, { emitEvent: false });
+    inputElement.setSelectionRange(cursorStart, cursorEnd);
+  }
+  onVehicleChase(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const cursorStart = inputElement.selectionStart;
+    const cursorEnd = inputElement.selectionEnd;
+    const newValue = inputElement.value.toUpperCase();
+    this.addVehicle.patchValue({ chassisNumber: newValue }, { emitEvent: false });
+    inputElement.setSelectionRange(cursorStart, cursorEnd);
+  }
+  onVehicleRc(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const cursorStart = inputElement.selectionStart;
+    const cursorEnd = inputElement.selectionEnd;
+    const newValue = inputElement.value.toUpperCase();
+    this.addVehicle.patchValue({ rcNumber: newValue }, { emitEvent: false });
+    inputElement.setSelectionRange(cursorStart, cursorEnd);
   }
 
   ngOnInit(): void {
@@ -166,7 +202,6 @@ export class AddVehicleComponent implements OnInit {
         }
         else {
           let message;
-          this.addVehicle.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -194,7 +229,6 @@ export class AddVehicleComponent implements OnInit {
         }
         else {
           let message;
-          this.addVehicle.reset();
           this.notification.showNotification(
             'top',
             'right',

@@ -18,6 +18,10 @@ import { AddContractorPaymentComponent } from "./contractor-payment/add-contract
 import { ManageContractEmployeeComponent } from "./contract-employee/manage-contract-employee/manage-contract-employee.component";
 import { AddContractEmployeeComponent } from "./contract-employee/add-contract-employee/add-contract-employee.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
+import { ManageEmployeePayHoursComponent } from "./employee-pay-hours/manage-employee-pay-hours/manage-employee-pay-hours.component";
+import { AddEmployeePayHoursComponent } from "./employee-pay-hours/add-employee-pay-hours/add-employee-pay-hours.component";
+import { ManageEmployeeWeeklyWagesComponent } from "./employee-weekly-wages/manage-employee-weekly-wages/manage-employee-weekly-wages.component";
+import { AddEmployeeWeeklyWagesComponent } from "./employee-weekly-wages/add-employee-weekly-wages/add-employee-weekly-wages.component";
 
 const routes: Routes = [
   { path: "dashboard", component: DashboardComponent },
@@ -135,6 +139,33 @@ const routes: Routes = [
     component: AddContractEmployeeComponent,
   },
 
+  //Employee-pay-hours
+  {
+    path: "manage-employee-pay-hours",
+    component: ManageEmployeePayHoursComponent,
+  },
+  {
+    path: "add-employee-pay-hours",
+    component:AddEmployeePayHoursComponent,
+  },
+  {
+    path: "edit-employee-pay-hours",
+    component: AddEmployeePayHoursComponent,
+  },
+
+  //Employee-weekly-hours
+  {
+    path: "manage-employee-weekly-wages",
+    component: ManageEmployeeWeeklyWagesComponent,
+  },
+  {
+    path: "add-employee-weekly-wages",
+    component:AddEmployeeWeeklyWagesComponent,
+  },
+  {
+    path: "edit-employee-weekly-wages",
+    component: AddEmployeeWeeklyWagesComponent,
+  },
 
   //contract pay
 

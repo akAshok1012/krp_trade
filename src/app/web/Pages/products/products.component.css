@@ -8,11 +8,6 @@
   
   /* Sidebar */
   .web-sidebar {
-    /* flex: 1; */
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* margin-right: 2%; */
     overflow-y: auto;
     padding: 20px;
     background-color: #ffffff;

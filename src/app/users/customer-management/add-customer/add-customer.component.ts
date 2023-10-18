@@ -76,6 +76,34 @@ export class AddCustomerComponent implements OnInit {
     }
   }
 
+  onPanInput(event: Event) {
+  const inputElement = event.target as HTMLInputElement;
+  const cursorStart = inputElement.selectionStart;
+  const cursorEnd = inputElement.selectionEnd;
+
+  const newValue = inputElement.value.toUpperCase();
+
+  this.addCustomer.patchValue({ panNo: newValue }, { emitEvent: false });
+
+  // Restore the cursor position
+  inputElement.setSelectionRange(cursorStart, cursorEnd);
+}
+
+onGstInput(event: Event) {
+  const inputElement = event.target as HTMLInputElement;
+  const cursorStart = inputElement.selectionStart;
+  const cursorEnd = inputElement.selectionEnd;
+
+  const newValue = inputElement.value.toUpperCase();
+
+  this.addCustomer.patchValue({ gstNo: newValue }, { emitEvent: false });
+
+  // Restore the cursor position
+  inputElement.setSelectionRange(cursorStart, cursorEnd);
+}
+
+
+
   ngOnDestroy() {
     this.shared.toEdit = null;
   }
@@ -107,7 +135,6 @@ export class AddCustomerComponent implements OnInit {
             }
           }
           else {
-            this.addCustomer.reset();
             this.notification.showNotification(
               'top',
               'right',
@@ -136,7 +163,6 @@ export class AddCustomerComponent implements OnInit {
             this.router.navigate(["/user/manage-customer"]);
           }
           else {
-            this.addCustomer.reset();
             this.notification.showNotification(
               'top',
               'right',

@@ -140,6 +140,11 @@ back(){
     this.pageIndex = event.pageIndex;
     this.loadData();
   }
+
+  search(){
+    this.paginator.firstPage();
+    this.loadData();
+  }
   convert(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),

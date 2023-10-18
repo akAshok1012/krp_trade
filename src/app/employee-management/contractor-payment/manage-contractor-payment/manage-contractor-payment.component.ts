@@ -33,31 +33,16 @@ export class ManageContractorPaymentComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild('filter', { static: true }) filter: ElementRef;
-  @ViewChild(MatMenuTrigger)
-  contextMenu: MatMenuTrigger;
-  contextMenuPosition = { x: '0px', y: '0px' };
-  public focus;
   displayedColumns = [
     'contractDetails.contractName',
     'paymentDate',
     'totalAmount',
     'amountPaid',
     'amountBalance',
-    'paymentBasis',
     'actions'
   ];
   dataSource: any;
-  selection = new SelectionModel<any>(true, []);
-  rows = [];
-  loading = false;
-  hide = false;
-  userDetails: any;
   data :any=[];
-  filteredData = [];
-  selectedOption: string;
-  id: number;
-role: any | null;
-isLoading = true;
 searchTerm: string = "";
 sortEvent: sort = {
   active: "",
@@ -65,23 +50,25 @@ sortEvent: sort = {
 };
 pageSize: number = 5;
 pageIndex: number = 0;
-deleteItem = {
-  id:0,
-  key : ''
-};
+getStatus = "ONGOING";
+status: any[] = [
+  { key: "Upcoming", value: "UPCOMING" },
+  { key: "Ongoing", value: "ONGOING" },
+  { key: "Pending", value: "PARTIALY_CLOSED" },
+];
+contractName = '';
+hidePayHistory = false
+paymentList = []
 
   constructor(
-    private fb: UntypedFormBuilder,
     public httpClient: HttpClient,
     public router: Router,
     public dialog: MatDialog,
     private userService: UserService,
     private notification: NotificationsComponent,
     private shared: SharedService,
-    private spinner : NgxSpinnerService,
     public datepipe:DatePipe
   ) {
-    
   }
 
   refresh() {
@@ -91,7 +78,6 @@ deleteItem = {
   ngOnInit() {
     this.loadData();
   }
-
 
     editCall(row) {
   this.shared.toEdit = row.id;
@@ -104,52 +90,23 @@ deleteItem = {
     this.loadData();
   }
 
-  sortData(event: Sort) {
-    this.sortEvent = event;
-    this.sort.disableClear=true;
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 
-  deleteCall(row: any) {
-    let name = row.contractDetails.contractName
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: {
-        message : "Delete",
-        id: name
-      },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result)
-      if (result) {
-        this.deleteRow(row.id);
-      } 
-    });
+  sortData(event: Sort) {
+    this.sortEvent = event;
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
-  deleteRow(id) {
-    this.userService.deleteContractorPayment(id).subscribe((res: any) => {
-      this.loadData();
-      if (res.status === "NO_CONTENT") {
-        let message;
-        this.notification.showNotification(
-          'top',
-          'right',
-          message = {
-            "message": res.message,
-            "status": "danger"
-          },
-        );
-      }
-      else {
-        let message;
-        this.notification.showNotification(
-          'top',
-          'right',
-          message = {
-            "message": res.message,
-            "status": "warning"
-          });
-      }
+  viewHistory(row) {
+    this.contractName = row.contractDetails.contractName;
+    this.userService.getContractorPaymentHistory(row.id).subscribe((res: any) => {
+        this.paymentList = res.data;
+      this.hidePayHistory = true;
     })
   }
 
@@ -199,19 +156,17 @@ deleteItem = {
 
  
   public loadData() {
-    this.loading = true;
-
   this.userService.getContractorPaymentList(
     this.pageIndex,
     this.pageSize,
     this.sortEvent.active,
     this.sortEvent.direction.toUpperCase(),
+    this.getStatus,
     this.searchTerm
   ).subscribe((response:any)=>{
     this.data = response.data;
     this.dataSource = this.data.content
   })
-    
   }
 }
 

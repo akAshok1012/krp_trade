@@ -36,7 +36,7 @@ export class ManageDepartmentComponent implements OnInit {
   contextMenuPosition = { x: "0px", y: "0px" };
   public focus;
   displayedColumns = [
-    // // "index",
+    "id",
     "departmentName",
     "actions",
   ];
@@ -160,6 +160,7 @@ export class ManageDepartmentComponent implements OnInit {
         margin: { top: 40 },
         body: data,
         columns: [
+          { header: "Department Id", dataKey: "id" },
           { header: "Department Name", dataKey: "departmentName" },
         ],
       }
@@ -171,12 +172,18 @@ export class ManageDepartmentComponent implements OnInit {
   sortData(event: Sort) {
     this.sortEvent = event;
     this.sort.disableClear = true;
+    this.paginator.firstPage();
     this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 

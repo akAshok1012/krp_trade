@@ -15,6 +15,10 @@ export class GeneralNotificationComponent implements OnInit {
   paymentNotification = [];
   leadNotification = [];
 
+  spareNotificationEnable = false
+  paymentNotificationEnable = false
+  leadNotificationEnable = false
+
   constructor(
     private machineryService: MachineryService,
     private router: Router,
@@ -36,7 +40,29 @@ export class GeneralNotificationComponent implements OnInit {
     if (type === "spare") {
       this.router.navigate(['/machinery/edit-spares']);
     } else if (type === "lead") {
+      this.router.navigate(['/crm/edit-lead-followup']);
     } else {
+      this.router.navigate(['/billing/credit-payment-tracker']);
+    }
+  }
+
+  close(type){
+    if (type === "spare") {
+      this.spareNotificationEnable = false
+    } else if (type === "lead") {
+      this.leadNotificationEnable = false
+    } else {
+      this.paymentNotificationEnable = false
+    }
+  }
+
+  open(type){
+    if (type === "spare") {
+      this.spareNotificationEnable = true
+    } else if (type === "lead") {
+      this.leadNotificationEnable = true
+    } else {
+      this.paymentNotificationEnable = true
     }
   }
 

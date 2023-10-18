@@ -126,7 +126,6 @@ export class AddDailyStatusComponent_U implements OnInit {
         }
         else {
           let message;
-          // this.addDailyStatus.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -157,7 +156,6 @@ export class AddDailyStatusComponent_U implements OnInit {
         }
         else {
           let message;
-          // this.addDailyStatus.reset();
           this.notification.showNotification(
             'top',
             'right',

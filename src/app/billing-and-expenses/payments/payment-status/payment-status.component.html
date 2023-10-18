@@ -94,11 +94,10 @@
                               [type]="searchField == 'saleId'
                                         ? 'number'
                                         : 'text'"
-                                        
                                         pattern="check.value ? [0-9]"
                                   onmousewheel="return false;"
                                 #filter [(ngModel)]="searchTerm"
-                                (ngModelChange)="loadData()"
+                                (ngModelChange)="search()"
                                  class="browser-default search-field"
                                 aria-label="Search box" />
                             <!-- <button type="button" class="btn btn-danger btn-sm mx-2" (click)="loadData()">

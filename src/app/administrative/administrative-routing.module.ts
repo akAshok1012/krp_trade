@@ -9,6 +9,7 @@ import { GeneralNotificationComponent } from './general-notification/general-not
 import { HolidayTrackerComponent } from './holiday-tracker/holiday-tracker.component';
 import { PayConfigurationComponent } from './pay-configuration/pay-configuration.component';
 import { EmployeeMonthlyPayComponent } from './employee-monthly-pay/employee-monthly-pay.component';
+import { FailedNotificationComponent } from './failed-notification/failed-notification.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: "notification",
     component: GeneralNotificationComponent,
+  },
+  {
+    path: "failed-notification",
+    component: FailedNotificationComponent,
   },
   {
     path: "holiday-tracker",

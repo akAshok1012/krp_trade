@@ -28,20 +28,19 @@ export class ManageContractComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("filter", { static: true }) filter: ElementRef;
-  @ViewChild(MatMenuTrigger)
-  contextMenu: MatMenuTrigger;
-  contextMenuPosition = { x: "0px", y: "0px" };
-  public focus;
-  displayedColumns = [
+  displayedColumns1 = [
     "contractName",
     "contractor.name",
     "contractAmount",
-    // "contractEmployees",
     "actions",
+  ];
+  displayedColumns2 = [
+    "contractName",
+    "contractor.name",
+    "contractAmount",
   ];
 
   dataSource: any;
-  loading = false;
   data: any;
   searchTerm: string = "";
   sortEvent: sort = {
@@ -54,6 +53,14 @@ export class ManageContractComponent implements OnInit {
     id: 0,
     key: ''
   };
+  getStatus = "ONGOING";
+  status: any[] = [
+    { key: "Upcoming", value: "UPCOMING" },
+    { key: "Ongoing", value: "ONGOING" },
+    { key: "Pending", value: "PARTIALY_CLOSED" },
+    { key: "Closed", value: "CLOSED" },
+  ];
+
 
   constructor(
     public router: Router,
@@ -102,8 +109,8 @@ export class ManageContractComponent implements OnInit {
   deleteRow(id) {
     this.userService.deleteContract(id).subscribe((res: any) => {
       this.loadData();
-      if (res.status === "NO_CONTENT") {
         let message;
+        if (res.status === "NO_CONTENT") {
         this.notification.showNotification(
           'top',
           'right',
@@ -114,7 +121,6 @@ export class ManageContractComponent implements OnInit {
         );
       }
       else {
-        let message;
         this.notification.showNotification(
           'top',
           'right',
@@ -172,8 +178,9 @@ export class ManageContractComponent implements OnInit {
 
   sortData(event: Sort) {
     this.sortEvent = event;
-    this.sort.disableClear=true;
-    this.loadData();
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
   getPage(event: PageEvent) {
@@ -182,14 +189,19 @@ export class ManageContractComponent implements OnInit {
     this.loadData();
   }
 
+  search(){
+    this.paginator.firstPage();
+    this.loadData();
+  }
+
   public loadData() {
-    this.loading = true;
     this.userService
       .getContractList(
         this.pageIndex,
         this.pageSize,
         this.sortEvent.active,
         this.sortEvent.direction.toUpperCase(),
+        this.getStatus,
         this.searchTerm
       )
       .subscribe((response: any) => {

@@ -23,7 +23,7 @@ export class MachineryService  {
     return this.http.get<any>(`${environment.apiUrl}/machineries`)
   }
   getMachineryList(page:number, size:number, sort:string, dir:string, searchTerm:string): Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}/machinery-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`)
+    return this.http.get<any>(`${environment.apiUrl}/machinery-list?page=${page}&size=${size}&sortByField=${sort}&search=${searchTerm}&sortBy=${dir}`)
   }
   getMachineryById(id:number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/machinery/${id}`);
@@ -40,7 +40,7 @@ export class MachineryService  {
 
   //Maintenance Service
   getMaintenanceList(page:number, size:number, sort:string, dir:string, searchTerm:string): Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}/maintenance-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`)
+    return this.http.get<any>(`${environment.apiUrl}/maintenance-list?page=${page}&size=${size}&sortByField=${sort}&search=${searchTerm}&sortBy=${dir}`)
   }
   getMaintenanceById(id:number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/maintenance/${id}`);

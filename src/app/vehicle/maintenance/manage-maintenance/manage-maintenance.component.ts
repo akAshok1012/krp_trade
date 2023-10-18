@@ -147,9 +147,7 @@ export class ManageMaintenanceComponent implements OnInit {
         columns: [
           { header: "Vehicle Number", dataKey: "vehicleDetails" },
           { header: "Vehicle Model", dataKey: "vehicleTypeName" },
-          { header: "Service Type", dataKey: "serviceItem" },
           { header: "Service Provider", dataKey: "serviceProvider" },
-          { header: "Cost", dataKey: "cost" },
           { header: "Notes", dataKey: "notes" },
           { header: "Current Service", dataKey: "currentService" },
           { header: "Next Service", dataKey: "nextService" },
@@ -157,12 +155,6 @@ export class ManageMaintenanceComponent implements OnInit {
         didParseCell: function (data) {
           if (data.column.dataKey === 'vehicleDetails') {
             var text = data.row.raw["vehicleDetails"].vehicleRegistrationNumber;
-            if (text && text.length > 0) {
-              data.cell.text = text;
-            }
-          }
-          if(data.column.dataKey === 'serviceItem') {
-            var text = data.row.raw["serviceItem"].itemName;
             if (text && text.length > 0) {
               data.cell.text = text;
             }
@@ -176,13 +168,19 @@ export class ManageMaintenanceComponent implements OnInit {
 
   sortData(event: Sort) {
     this.sortEvent = event;
-    this.sort.disableClear=true;
-    this.loadData();
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 

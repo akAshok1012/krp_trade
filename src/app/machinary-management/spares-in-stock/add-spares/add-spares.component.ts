@@ -49,8 +49,7 @@ export class AddSparesComponent implements OnInit {
   ) {
     this.sparesId = shared.toEdit;
     if(!this.sparesId){
-      console.log(shared.generalNotification)
-      this.sparesId = shared.generalNotification.machinerySpareId;
+      this.sparesId = shared.generalNotification?.machinerySpareId;
     }
     this.currentUser = authService.currentUserValue.userId
   }
@@ -89,6 +88,7 @@ export class AddSparesComponent implements OnInit {
 
   ngOnDestroy() {
     this.shared.toEdit = null;
+    this.shared.generalNotification = null;
   }
 
   back(){
@@ -162,7 +162,6 @@ export class AddSparesComponent implements OnInit {
         }
         else {
           let message;
-          this.addSpareItems.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -191,7 +190,6 @@ export class AddSparesComponent implements OnInit {
         }
         else {
           let message;
-          this.addSpareItems.reset();
           this.notification.showNotification(
             'top',
             'right',

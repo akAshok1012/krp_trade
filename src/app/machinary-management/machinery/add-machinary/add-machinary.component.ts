@@ -127,7 +127,6 @@ export class AddMachinaryComponent implements OnInit {
         }
         else {
           let message;
-          this.addMachinery.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -157,7 +156,6 @@ export class AddMachinaryComponent implements OnInit {
         }
         else {
           let message;
-          this.addMachinery.reset();
           this.notification.showNotification(
             'top',
             'right',

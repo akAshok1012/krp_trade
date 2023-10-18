@@ -256,7 +256,6 @@ export class AddMaintenanceComponent implements OnInit {
         }
         else {
           let message;
-          this.addMaintenance.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -284,7 +283,6 @@ export class AddMaintenanceComponent implements OnInit {
         }
         else {
           let message;
-          this.addMaintenance.reset();
           this.notification.showNotification(
             'top',
             'right',

@@ -124,6 +124,35 @@ uploadContractEmployeeExcel() {
           }
         });
       }
+      if(this.className=='EmployeePayHours'){
+        this.userService
+        .uploadEmployeePayHours(this.importForm.value.file)
+        .subscribe((response: any) => {
+          this.hide = true
+          this.importRes = response
+          if (this.importRes?.failureCount > 0) {
+           this.byteCharacters = atob(this.importRes.errorCsvData);
+            this.hideMessage = true
+          } else {
+            this.hideMessage = false
+            // alert("contract employee details inserted successfully");
+          }
+        });
+      }
+      if(this.className=='EmployeeWeeklyWages'){
+        this.userService
+        .uploadEmployeeWeeklyWages(this.importForm.value.file)
+        .subscribe((response: any) => {
+          this.hide = true
+          this.importRes = response
+          if (this.importRes?.failureCount > 0) {
+           this.byteCharacters = atob(this.importRes.errorCsvData);
+            this.hideMessage = true
+          } else {
+            this.hideMessage = false
+          }
+        });
+      }
       
     } else {
       alert("please select excel file");

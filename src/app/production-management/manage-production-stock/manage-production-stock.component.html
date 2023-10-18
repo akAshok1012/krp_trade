@@ -18,7 +18,7 @@
                         </div>
                         <div>
                             <input class="form-control" placeholder="Search by Item Name" type="text" #filter
-                                [(ngModel)]="searchTerm" (ngModelChange)="loadData()"
+                                [(ngModel)]="searchTerm" (ngModelChange)="search()"
                                 class="browser-default search-field" aria-label="Search box" />
 
                             <button mat-fab color="primary" class="download-btn ml-2 mt-2"
@@ -61,13 +61,18 @@
                                 <mat-header-cell *matHeaderCellDef class="thead-light" mat-sort-header
                                     style="justify-content: center;">Unit Of Measure</mat-header-cell>
                                 <mat-cell *matCellDef="let row" style="justify-content: center;">
-                                    {{row.unitOfMeasure.unitName}}</mat-cell>
+                                    <div class="status-label1">
+                                        {{row.unitOfMeasure.unitName}}
+                                    </div>
+                                    </mat-cell>
                             </ng-container>
                             <ng-container matColumnDef="inStock">
                                 <mat-header-cell *matHeaderCellDef class="thead-light" mat-sort-header
                                     style="justify-content: center;">In Stock</mat-header-cell>
                                 <mat-cell *matCellDef="let row" style="justify-content: center;">
-                                    {{row.inStock}}</mat-cell>
+                                    <div class="status-label2">
+                                        {{row.inStock}}</div>
+                                    </mat-cell>
                             </ng-container>
 
                             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

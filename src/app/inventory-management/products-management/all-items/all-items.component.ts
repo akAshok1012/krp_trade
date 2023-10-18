@@ -167,7 +167,6 @@ export class AllItemsComponent implements OnInit {
         body: data,
         columns: [
           { header: "ItemName", dataKey: "itemName" },
-          { header: "Item Description", dataKey: "itemDescription" },
           { header: "Item Category", dataKey: "itemCategory" },
           { header: "Brand", dataKey: "brand" },
           { header: "Fixed Price", dataKey: "fixedPrice" },
@@ -197,13 +196,19 @@ export class AllItemsComponent implements OnInit {
 
   sortData(event: Sort) {
     this.sortEvent = event;
-    this.sort.disableClear=true;
-    this.loadData();
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 

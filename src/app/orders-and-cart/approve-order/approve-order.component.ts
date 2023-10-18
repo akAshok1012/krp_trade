@@ -113,6 +113,10 @@ export class ApproveOrderComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.shared.orderDetail = null;
+  }
+
   viewListCall(row) {
     this.backupList = [];
     this.reject = false;
@@ -371,13 +375,19 @@ export class ApproveOrderComponent implements OnInit {
 
   sortData(event: Sort) {
     this.sortEvent = event;
-    this.sort.disableClear=true;
-    this.loadData();
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 
@@ -399,8 +409,7 @@ export class ApproveOrderComponent implements OnInit {
       });
 
     this.orderService.getReason("OrderRejection").subscribe((response: any) => {
-      this.data = response.data;
-      this.rejectReason = this.data;
+      this.rejectReason = response.data;
     });
   }
 }

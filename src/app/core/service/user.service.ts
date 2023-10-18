@@ -18,7 +18,7 @@ export class UserService {
     return this.http.get<any>(`${environment.apiUrl}/user-roles`)
   }
   getUserRoleList(page:number, size:number, sort:string, dir:string, searchTerm:string): Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}/user-role-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`)
+    return this.http.get<any>(`${environment.apiUrl}/user-role-list?page=${page}&size=${size}&sortByField=${sort}&search=${searchTerm}&sortBy=${dir}`)
   }
   getUserRoleById(id:number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/user-role/${id}`);
@@ -39,7 +39,7 @@ export class UserService {
     }
   
     getEmployeeDepartmentList(page:number, size:number, sort:string, dir:string, searchTerm:string): Observable<any>{
-      return this.http.get<any>(`${environment.apiUrl}/employee-department-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`)
+      return this.http.get<any>(`${environment.apiUrl}/employee-department-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}`)
     }
   
     getEmployeeDepartmentById(id:number): Observable<any> {
@@ -65,7 +65,7 @@ export class UserService {
   }
 
   getEmployeeList(page:number, size:number, sort:string, dir:string, searchTerm:string){
-    return this.http.get(`${environment.apiUrl}/employee-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`);
+    return this.http.get(`${environment.apiUrl}/employee-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}`);
   }
 
   getEmployeeById(id:number): Observable<any>{
@@ -94,7 +94,7 @@ export class UserService {
   }
 
   getEmployeeContractList(page:number, size:number, sort:string, dir:string, searchTerm:string){
-    return this.http.get(`${environment.apiUrl}/contractor-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`);
+    return this.http.get(`${environment.apiUrl}/contractor-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}`);
   }
 
   getEmployeeContractById(id:number): Observable<any>{
@@ -123,7 +123,7 @@ export class UserService {
   }
 
   getCustomerList(page:number, size:number, sort:string, dir:string, searchTerm:string){
-    return this.http.get(`${environment.apiUrl}/customer-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`);
+    return this.http.get(`${environment.apiUrl}/customer-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}`);
   }
 
   getCustomerTypeLists(page:number, size:number, sort:string, dir:string, searchTerm:string, customerType:string): Observable<any>{
@@ -171,7 +171,7 @@ export class UserService {
     return this.http.get(`${environment.apiUrl}/customer-wallets`);
   }
   getCustomerWalletList(page:number, size:number, sort:string, dir:string, searchTerm:string): Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}/customer-wallet-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`);
+    return this.http.get<any>(`${environment.apiUrl}/customer-wallet-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}`);
   }
 
    getCustomerWalletHistoryList(roll:string, id:number,page:number, size:number, sort:string, dir:string, searchTerm:string, fromDate:string, toDate:string):Observable<any> {
@@ -197,7 +197,7 @@ export class UserService {
   }
 
   getUserList(page:number, size:number, sort:string, dir:string, searchTerm:string): Observable<any>{
-    return this.http.get<any>(`${environment.apiUrl}/user-list?page=${page}&size=${size}&sortByField=${sort}&sortBy=${dir}&search=${searchTerm}`)
+    return this.http.get<any>(`${environment.apiUrl}/user-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}`)
   }
 
   getUserById(id:number): Observable<any>{
@@ -227,15 +227,27 @@ changeViewStatus(id:number): Observable<any>{
 }
 
 getLeaveRequestById(id: number, page:number, size:number, sort:string, dir:string, searchTerm:string, from:string, to:string, status:string): Observable<any>{
-  return this.http.get<any>(`${environment.apiUrl}/employee-leaves?id=${id}&page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}&fromDate=${from}&toDate=${to}&employeeLeaveStatus=${status}`)
+  if(from && to){
+    return this.http.get<any>(`${environment.apiUrl}/employee-leaves?id=${id}&page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}&fromDate=${from}&toDate=${to}&employeeLeaveStatus=${status}`)
+  } else {
+    return this.http.get<any>(`${environment.apiUrl}/employee-leaves?id=${id}&page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}&employeeLeaveStatus=${status}`)
+  }
 }
 
 getLeaveRequestByStatus(page:number, size:number, sort:string, dir:string, searchTerm:string, from:string, to:string, status:string): Observable<any>{
+  if(from && to){
     return this.http.get<any>(`${environment.apiUrl}/employee-leaves?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}&fromDate=${from}&toDate=${to}&employeeLeaveStatus=${status}`)
+  }else{
+    return this.http.get<any>(`${environment.apiUrl}/employee-leaves?page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}&employeeLeaveStatus=${status}`)
+  }
 }
 
 getLeaveHistoryByStatus(id:number, page:number, size:number, sort:string, dir:string, searchTerm:string, from:string, to:string, status:string): Observable<any>{
+  if(from && to){
   return this.http.get<any>(`${environment.apiUrl}/employee-leaves?id=${id}&page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}&fromDate=${from}&toDate=${to}&employeeLeaveStatus=${status}`)
+  }else{
+  return this.http.get<any>(`${environment.apiUrl}/employee-leaves?id=${id}&page=${page}&size=${size}&sortBy=${dir}&sortByField=${sort}&search=${searchTerm}&employeeLeaveStatus=${status}`)
+  }
 }
 
 postLeave(data:any){
@@ -281,8 +293,8 @@ deleteLeave(id:number){
     return this.http.get(`${environment.apiUrl}/employee-contracts`);
   }
 
-  getContractList(page:number, size:number, sort:string, dir:string, searchTerm:string){
-    return this.http.get(`${environment.apiUrl}/employee-contract-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}`);
+  getContractList(page:number, size:number, sort:string, dir:string, status:string, searchTerm:string){
+    return this.http.get(`${environment.apiUrl}/employee-contract-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}&contractStatus=${status}`);
   }
 
   getContractById(id:number): Observable<any>{
@@ -332,8 +344,12 @@ getContractorPayment(){
   return this.http.get(`${environment.apiUrl}/employee-contract-payments`);
 }
 
-getContractorPaymentList(page:number, size:number, sort:string, dir:string, searchTerm:string){
-  return this.http.get(`${environment.apiUrl}/employee-contract-payment-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}`);
+getContractorPaymentList(page:number, size:number, sort:string, dir:string, status:string, searchTerm:string){
+  return this.http.get(`${environment.apiUrl}/employee-contract-payment-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}&contractStatus=${status}`);
+}
+
+getContractorPaymentHistory(id:number): Observable<any>{
+  return this.http.get<any>(`${environment.apiUrl}/employee-contract-payment-history?id=${id}`)
 }
 
 getContractorPaymentById(id:number): Observable<any>{
@@ -356,6 +372,10 @@ deleteContractorPayment(id:number){
 
 getContractEmployee(){
   return this.http.get(`${environment.apiUrl}/contract-employees`);
+}
+
+getContractEmployeeByContractor(id:number){
+  return this.http.get(`${environment.apiUrl}/contract-employees-by-contractor?id=${id}`);
 }
 
 getContractEmployeeList(page:number, size:number, sort:string, dir:string, searchTerm:string){
@@ -400,5 +420,17 @@ uploadEmployeeExcel(data:any){
   let formParams = new FormData();
   formParams.append('file', data)
   return this.http.post(`${environment.apiUrl}/upload-employees`, formParams)
+}
+
+uploadEmployeePayHours(data:any){
+  let formParams = new FormData();
+  formParams.append('file', data)
+  return this.http.post(`${environment.apiUrl}/upload-employee-pay-hours`, formParams)
+}
+
+uploadEmployeeWeeklyWages(data:any){
+  let formParams = new FormData();
+  formParams.append('file', data)
+  return this.http.post(`${environment.apiUrl}/upload-employee-weekly-wages`, formParams)
 }
 }

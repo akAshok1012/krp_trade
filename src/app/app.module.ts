@@ -46,7 +46,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AdminLayoutComponent,
     AuthLayoutComponent,
     NotificationsComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
   ],
   providers: [
     JwtHelperService,

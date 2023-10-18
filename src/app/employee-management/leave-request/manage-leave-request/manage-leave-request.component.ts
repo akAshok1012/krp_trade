@@ -31,16 +31,13 @@ export class ManageLeaveRequestComponent_U implements OnInit {
   contextMenuPosition = { x: '0px', y: '0px' };
   public focus;
   displayedColumns = [
-    // 'select',
-    // "index",
-    // 'employee',
+
     'leaveType',
     'reason',
     'startDate',
     'endDate',
     'duration',
     'employeeLeaveStatus',
-    'compensationDate',
     'actions',
   ];
   dataSource: any;
@@ -159,13 +156,19 @@ export class ManageLeaveRequestComponent_U implements OnInit {
 
   sortData(event: Sort) {
     this.sortEvent = event;
-    this.sort.disableClear=true;
-    this.loadData();
+    this.sort.disableClear = true;
+    this.paginator.firstPage();
+this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 
@@ -175,7 +178,6 @@ export class ManageLeaveRequestComponent_U implements OnInit {
       day = ("0" + date.getDate()).slice(-2);
     return [date.getFullYear(), mnth, day].join("-");
   }
-
 
   public loadData() {
     this.loading = true;

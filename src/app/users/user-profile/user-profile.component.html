@@ -39,7 +39,12 @@
                       placeholder="Email address"
                       formControlName="email"
                       type="email"
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+$"
+                      (input)="updateProfile.patchValue({email: $event.target.value.toLowerCase()})"
                     />
+                    <mat-error *ngIf="updateProfile.get('email').hasError('pattern')">
+                      Email should like (e.g. abcd@gmail.com)
+                    </mat-error>
                   </mat-form-field>
                 </div>
               </div>
@@ -59,16 +64,21 @@
                     <input
                       type="number" onmousewheel="return false;"
                       matInput
-                      placeholder="Phone" maxlength="10"  [readonly]="!check.checked"
+                      placeholder="Phone" maxlength="10"  [readonly]="!check.checked"   pattern="[6-9]{1}[0-9]{9}"
                       oninput="this.value.length > this.maxLength ? this.value = this.value.slice(0, this.maxLength): this.value"
                       formControlName="phoneNumber"
-                      type="text"
                     />
+                    <mat-error *ngIf="updateProfile.get('phoneNumber').hasError('required')">
+                      Phone Number is required
+                    </mat-error>
+                    <mat-error *ngIf="updateProfile.get('phoneNumber').hasError('pattern')">
+                      Phone Number should like (e.g. 6012238791)
+                    </mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
                   <section class="example-section my-3">
-                    <mat-checkbox #check class="example-margin mt-1">Change Number</mat-checkbox>
+                    <mat-checkbox #check class="example-margin mt-1" formControlName="changeUserName"  (change)="checkValue(check.checked)" >Change Number</mat-checkbox>
                     <p *ngIf="check.checked">Note : This Number Will be your Username</p>
                   </section>
                 </div>
@@ -90,7 +100,7 @@
                 type="submit"
                 class="btn btn-danger pull-right"
                 [disabled]="!updateProfile.valid || !detectChange"
-                (click)="update()"
+                (click)="updateCall() ; check.checked = false"
               >
                 Update Profile
               </button>
@@ -108,17 +118,17 @@
           </div>
           <div class="card-body">
             <h6 class="card-category text-gray">
-              {{ userDetail.organization }}
+              {{ userDetail?.organization }}
             </h6>
-            <h4 class="card-title">{{ userDetail.name }}</h4>
+            <h4 class="card-title">{{ userDetail?.name }}</h4>
             <div class="card-description text-left pl-5">
-              <strong *ngIf="userDetail.email">Email :</strong> {{ userDetail.email }} <br />
-              <strong>Phone :</strong> {{ userDetail.phoneNumber }} <br />
-              <strong>Address :</strong> {{ userDetail.address }} <br />
+              <strong *ngIf="userDetail?.email">Email :</strong> {{ userDetail?.email }} <br />
+              <strong>Phone :</strong> {{ userDetail?.phoneNumber }} <br />
+              <strong>Address :</strong> {{ userDetail?.address }} <br />
             </div>
-            <a href="javascript:void(0)" class="btn btn-danger btn-round"
+            <!-- <a href="javascript:void(0)" class="btn btn-danger btn-round"
               >Follow</a
-            >
+            > -->
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from "@angular/core";
+import { Component, OnInit} from "@angular/core";
 import { Role } from "app/core/models/role";
 import { ROUTES } from "./sidebarItems";
 import { Router } from "@angular/router";
@@ -6,7 +6,7 @@ import { AuthService } from "app/core/service/auth.service";
 import { OrdersService } from "app/core/service/orders/orders.service";
 import { interval, switchMap } from "rxjs";
 import { SharedService } from "app/shared/shared.service";
-import { Location } from "@angular/common";
+import { AdministrativeService } from "app/core/service/administrative/administrative.service";
 
 declare const $: any;
 
@@ -20,20 +20,26 @@ export class SidebarComponent implements OnInit {
   userType: string;
   userRole: string;
   routeRole: string;
+  currentUser: any;
   notification: any = [];
   dataSubscription: any;
   activeRoute:string;
+  activeRouteContainer1:string;
+  activeRouteContainer2:string;
+  notification_important:any = [];
+
 
   constructor(
     private router: Router,
     private shared: SharedService,
     public authService: AuthService,
-    public location: Location,
-    public orderService: OrdersService
+    public orderService: OrdersService,
+    private administrativeService: AdministrativeService,
   ) {
   }
 
   ngOnInit() {
+    this.currentUser =  this.authService.currentUserValue;
     this.userRole = this.authService.currentUserValue.role;
     this.blockActive();
     this.router.events.subscribe((event:any) => {
@@ -72,32 +78,48 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  blockActive(){
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-    if(titlee){
-      if (titlee.charAt(0) === "#") {
-       var index = titlee.lastIndexOf( "/" );
-       titlee = titlee.slice(index + 1);
-     if(titlee.slice(0,4) === 'edit' || titlee.slice(0,4) === 'add-' || titlee.slice(0,4) === 'crea'){
-     } else {
-      this.activeRoute = this.router.url;
-     }
+  clear(data){
+    sessionStorage.setItem("_ARC1", null);
+    sessionStorage.setItem("_ARC2", null);
+    if(data) {
+      this.shared.activeLink = data;
+    } 
+    this.activeRoute = this.shared.activeLink
+    this.activeRouteContainer1 = sessionStorage.getItem("_ARC1") ? sessionStorage.getItem("_ARC1") : null;
+    this.activeRouteContainer2 = sessionStorage.getItem("_ARC2") ? sessionStorage.getItem("_ARC2") : null;
   }
-  }
+
+  blockActive(data?, menu?: HTMLDivElement, menu2?: HTMLDivElement){
+    if(menu){
+    sessionStorage.setItem("_ARC1", menu.id);
+    sessionStorage.setItem("_ARC2", menu2?.id);
+    }
+    if(data) {
+      this.shared.activeLink = data.path;
+    } 
+    this.activeRoute = this.shared.activeLink
+    this.activeRouteContainer1 = sessionStorage.getItem("_ARC1") ? sessionStorage.getItem("_ARC1") : null;
+    this.activeRouteContainer2 = sessionStorage.getItem("_ARC2") ? sessionStorage.getItem("_ARC2") : null;
 }
+
 
   getData() {
     if (this.userRole === "EMPLOYEE") {
-      
+      this.orderService.getApprovalStatus_Notification(this.currentUser.userId).subscribe((response)=>{
+        this.notification = response.data
+      })
     } else if(this.userRole === "CUSTOMER") {
-      // let userId =  this.authService.currentUserValue.userId;
-      // this.orderService.getOrderIdByCustomerId_Notification(userId).subscribe((response)=>{
-      //   this.notification = response.data
-      // })
+      this.orderService.getOrderIdByCustomerId_Notification(this.currentUser.userId).subscribe((response)=>{
+        this.notification = response.data
+      })
     } else {
       this.orderService.getOrderId_Notification().subscribe((response)=>{
         this.notification = response.data
       })
+      this.administrativeService.getNotification().subscribe((response)=>{
+        this.notification_important= response.data
+      })
+
     }
   }
 
@@ -105,6 +127,7 @@ export class SidebarComponent implements OnInit {
     if ($(window).width() < 768) {
       this.dataSubscription.unsubscribe(); // Unsubscribe when the component is destroyed
     }
+    this.shared.activeLink = null;
   }
 
   showDetails(data: any) {

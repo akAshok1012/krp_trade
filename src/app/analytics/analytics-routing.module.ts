@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CustomerChartComponent } from './customer-chart/customer-chart.component';
 import { SalesChartComponent } from './sales-chart/sales-chart.component';
 import { CrmChartComponent } from './crm-chart/crm-chart.component';
+import { ProductionChartComponent } from './production-chart/production-chart.component';
 
 const routes: Routes = [
   //  {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'crm-chart',
     component: CrmChartComponent
+  },
+  {
+    path: 'production-chart',
+    component: ProductionChartComponent
   },
 ];
 

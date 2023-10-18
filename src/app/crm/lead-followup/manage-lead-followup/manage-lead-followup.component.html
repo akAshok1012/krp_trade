@@ -14,12 +14,18 @@
       <div class="card">
         <div class="card-header card-header-default">
           <div class="materialTableHeader">
-            <button routerLink="/crm/add-lead-followup" class="table-header-btn tbl-action-btn mx-2">
-              <i class="material-icons">add</i>Add Lead Follow Ups
-            </button>
+            <mat-form-field id="header-dropdown" class="header-dropdown text-white" appearance="outline">
+              <mat-label style="color: aliceblue;">Select Status Type</mat-label>
+              <mat-select [(ngModel)]="getStatus" class="header-dropdown text-white">
+                  <mat-option *ngFor="let item of status" (click)="loadData()"
+                      [value]="item.value">
+                      {{item.value ? item.value : "All"}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
             <div>
               <input class="form-control" placeholder="Search by Lead" type="text" #filter [(ngModel)]="searchTerm"
-                (ngModelChange)="loadData()" class="browser-default search-field" aria-label="Search box" />
+                (ngModelChange)="search()" class="browser-default search-field" aria-label="Search box" />
 
               <button mat-fab color="primary" class="download-btn ml-2 mt-2" [matMenuTriggerFor]="aboveMenu">
                 <mat-icon>download</mat-icon>
@@ -53,12 +59,6 @@
                     [ngClass]="'tbl-checkbox'" />
                 </mat-cell>
               </ng-container>
-              <ng-container matColumnDef="index">
-                <mat-header-cell *matHeaderCellDef class="thead-light" style="justify-content: center;"
-                  mat-sort-header>S No. </mat-header-cell>
-                <mat-cell *matCellDef="let row; let i = index;" (contextmenu)="onContextMenu($event, row)"
-                  style="justify-content: center;">{{i+1 }}</mat-cell>
-              </ng-container>
 
               <ng-container matColumnDef="leadGeneration.name">
                 <mat-header-cell *matHeaderCellDef class="thead-light" mat-sort-header
@@ -86,19 +86,6 @@
                   style="justify-content: center;">Status</mat-header-cell>
                 <mat-cell *matCellDef="let row" style="justify-content: center;">
                   {{row.status}}</mat-cell>
-              </ng-container>
-
-
-              <!-- actions -->
-              <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef class="thead-light"
-                  style="justify-content: center;">Actions</mat-header-cell>
-                <mat-cell *matCellDef="let row; let i=index;" class="pr-0" style="justify-content: center;">
-                  <button mat-icon-button (click)="$event.stopPropagation()" (click)="deleteCall(row)"
-                    class="tbl-action-btn mx-2">
-                    <i class="material-icons" style="color: red">delete_outline</i>
-                  </button>
-                </mat-cell>
               </ng-container>
 
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -46,3 +46,7 @@ padding-bottom: 0px !important;
 ::ng-deep .wallet-search-type .mat-form-field-infix {
     padding: 10px;
 }
+
+input:read-only{
+    color:#ffffff;
+}

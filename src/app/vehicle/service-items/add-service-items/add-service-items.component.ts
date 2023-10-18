@@ -104,7 +104,6 @@ export class AddServiceItemsComponent implements OnInit {
         }
         else {
           let message;
-          this.addServiceItems.reset();
           this.notification.showNotification(
             'top',
             'right',
@@ -132,7 +131,6 @@ export class AddServiceItemsComponent implements OnInit {
         }
         else {
           let message;
-          this.addServiceItems.reset();
           this.notification.showNotification(
             'top',
             'right',

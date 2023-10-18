@@ -167,8 +167,8 @@ export class CrmChartComponent implements OnInit {
         {
           label: 'Lead Count',
           data: this.G_countChart.map(d => d.leads),
-          backgroundColor: 'rgb(255,15,0)',
-          borderColor: 'rgb(255,15,0)',
+          backgroundColor: 'rgb(54, 162, 235,0.7)',
+          borderColor: 'rgb(54, 162, 235, 0.6)',
         }
       ]
       },

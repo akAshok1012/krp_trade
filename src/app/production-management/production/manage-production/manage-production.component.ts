@@ -74,10 +74,10 @@ export class ManageProductionComponent implements OnInit {
     this.loadData();
   }
 
-  editCall(row) {
-    this.shared.toEdit = row.id;
-    this.router.navigate([`/production/edit-production`]);
-  }
+  // editCall(row) {
+  //   this.shared.toEdit = row.id;
+  //   this.router.navigate([`/production/edit-production`]);
+  // }
 
   deleteCall(row: any) {
     let name = row.itemMaster?.itemName;
@@ -103,8 +103,8 @@ export class ManageProductionComponent implements OnInit {
   deleteRow(id) {
     this.productionService.deleteProduction(id).subscribe((res) => {
       this.loadData();
-      if (res.status === "NO_CONTENT") {
         let message;
+        if (res.status === "NO_CONTENT") {
         this.notification.showNotification(
           "top",
           "right",
@@ -114,7 +114,6 @@ export class ManageProductionComponent implements OnInit {
           })
         );
       } else {
-        let message;
         this.notification.showNotification(
           "top",
           "right",
@@ -167,12 +166,18 @@ export class ManageProductionComponent implements OnInit {
   sortData(event: Sort) {
     this.sortEvent = event;
     this.sort.disableClear = true;
+    this.paginator.firstPage();
     this.loadData();
   }
 
   getPage(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
+    this.loadData();
+  }
+
+  search(){
+    this.paginator.firstPage();
     this.loadData();
   }
 

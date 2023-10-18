@@ -44,6 +44,7 @@ import { HolidayTrackerComponent } from './holiday-tracker/holiday-tracker.compo
 import { PayConfigurationComponent } from './pay-configuration/pay-configuration.component';
 import { EmployeeMonthlyPayComponent } from './employee-monthly-pay/employee-monthly-pay.component';
 import { EventDialogComponent } from 'app/additional-components/event-dialog/event-dialog.component';
+import { FailedNotificationComponent } from './failed-notification/failed-notification.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { EventDialogComponent } from 'app/additional-components/event-dialog/eve
     HolidayTrackerComponent,
     PayConfigurationComponent,
     EmployeeMonthlyPayComponent,
-    EventDialogComponent
+    EventDialogComponent,
+    FailedNotificationComponent,
   ],
   imports: [
     CommonModule,

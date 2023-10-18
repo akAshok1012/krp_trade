@@ -74,6 +74,7 @@ export class ManageShipmentComponent implements OnInit {
   }
 
   refresh() {
+    this.shipmentLoad.controls['remark'].reset();
     this.selection.clear();
     this.loadData();
   }

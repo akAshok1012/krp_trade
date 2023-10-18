@@ -29,7 +29,7 @@
                 <mat-form-field class="example-full-width mb-3">
                   <mat-label> Date Of Birth </mat-label>
 
-                  <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+                  <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" [max]="today">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <mat-error *ngIf="addEmployee.get('dateOfBirth').hasError('required')">
@@ -57,7 +57,7 @@
               <div class="form-group col-xl-4 col-lg-4 col-md-12 col-sm-12">
                 <mat-form-field>
                   <mat-label> Date Of Joining </mat-label>
-                  <input matInput [matDatepicker]="picker1" formControlName="dateOfJoining">
+                  <input matInput [matDatepicker]="picker1" formControlName="dateOfJoining" [min]="addEmployee.value.dateOfBirth">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                   <mat-error *ngIf="addEmployee.get('dateOfJoining').hasError('required')">
@@ -101,22 +101,15 @@
               <div class="form-group col-xl-4 col-lg-4 col-md-12 col-sm-12">
                 <mat-form-field class="example-full-width">
                   <mat-label>PF Number</mat-label>
-                  <input matInput formControlName="pfNumber" maxlength="26" (input)="addEmployee.patchValue({pfNumber: $event.target.value.toUpperCase()})">
+                  <input matInput formControlName="pfNumber" maxlength="22" 
+                  (input)="onPfInput($event)" (input)="addEmployee.patchValue({pfNumber: $event.target.value.toUpperCase()})">
                   <mat-icon matSuffix>123</mat-icon>
                   <mat-icon matSuffix>abc</mat-icon>
                   <mat-error *ngIf="addEmployee.get('pfNumber').hasError('required')">
                     PF Number is required
                   </mat-error>
                   <mat-error *ngIf="addEmployee.get('pfNumber').hasError('pattern')">
-                    PF Number should like
-                    <ul>
-                      <li>
-                        TN MAS 1207199 123 1234567
-                      </li>
-                      <li>
-                        TN/MAS/1207199/123/1234567
-                      </li>
-                    </ul>
+                    PF Number should like :  (TNMAS12071991231234567)
                   </mat-error>
                 </mat-form-field>
 
@@ -124,7 +117,11 @@
               <div class="form-group col-xl-4 col-lg-4 col-md-12 col-sm-12">
                 <mat-form-field class="example-full-width">
                   <mat-label>PAN Number</mat-label>
-                  <input matInput formControlName="panNumber" maxlength="10" minlength="10" (input)="addEmployee.patchValue({panNumber: $event.target.value.toUpperCase()})" >
+                  <input matInput type="text" formControlName="panNumber" maxlength="10" minlength="10"
+                  (input)="onPanInput($event)"
+                   (input)="addEmployee.patchValue({panNumber: $event.target.value.toUpperCase()})"
+                  value="{this.state.value}"
+                  onChange="{(e) => this.setState({value: e.target.value})}">
                   <mat-icon matSuffix>123</mat-icon>
                   <mat-icon matSuffix>abc</mat-icon>
                   <mat-error *ngIf="addEmployee.get('panNumber').hasError('required')">
@@ -172,8 +169,8 @@
               <div class="form-group col-xl-4 col-lg-4 col-md-12 col-sm-12">
                 <mat-form-field class="example-full-width">
                   <mat-label>Email</mat-label>
-                  <input matInput type="email" formControlName="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-                  >
+                  <input matInput type="email" formControlName="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+$"
+                  (input)="addEmployee.patchValue({email: $event.target.value.toLowerCase()})">
                   <mat-icon matSuffix>email</mat-icon>
                   <mat-error *ngIf="addEmployee.get('email').hasError('required')">
                     Email is required
