@@ -10,12 +10,12 @@ COPY ./ /Demo
 
 #COPY ./ /usr/local/app	
 
-RUN npm install -g npm@9.6.7 && \
+RUN npm install -g npm@10.2.0 && \
     npm install -g @angular/cli && \
     npm i --force  
 
 # Build the Angular app
-RUN ng build --configuration=kubeTest			
+RUN ng build --configuration=kubeTest		
 
 # ng build --configuration=production      	#--output-path= xylo-trade-manager-UI/dist
 
