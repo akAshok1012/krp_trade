@@ -98,6 +98,10 @@ itemByUnitCount(id:any) {
   return this.http.get(`${environment.apiUrl}/production-uom-by-item?id=${id}`);
 }
 
+uomById(id:any) {
+  return this.http.get(`${environment.apiUrl}/production-count-by-uom?id=${id}`);
+}
+
 brandCount() {
   return this.http.get(`${environment.apiUrl}/production-count-by-brand`);
 }
@@ -107,7 +111,7 @@ durationProduction(duration:string) {
 }
 
 dateFilterProduction(fromDate:string, toDate:string):Observable<any> {
-  return this.http.get(`${environment.apiUrl}/date-production-count?fromDate=${fromDate}&toDate=${toDate}`);
+  return this.http.get(`${environment.apiUrl}/production-count-by-date?fromDate=${fromDate}&toDate=${toDate}`);
 }
 
 }

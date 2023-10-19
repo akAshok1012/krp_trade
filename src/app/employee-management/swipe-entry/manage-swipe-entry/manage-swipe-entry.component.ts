@@ -15,6 +15,9 @@ import { MatTableExporterDirective, ExportType } from 'mat-table-exporter';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'app/additional-components/confirmation-dialog/confirmation-dialog.component';
+import { FormControl, FormGroup, UntypedFormBuilder } from '@angular/forms';
+import { Observable, map, startWith } from 'rxjs';
+import { Validators } from 'ngx-editor';
 
 @Component({
   selector: 'app-manage-swipe-entry',
@@ -38,13 +41,15 @@ export class ManageSwipeEntryComponent implements OnInit {
     // "index",
     "employee.name",
     "swipeDate",
-    "swipeType",
+    // "swipeType",
     "actions",
   ];
 
   dataSource: any;
   loading = false;
   data: any;
+  fromDate: any;
+  toDate: any;
   searchTerm: string = "";
   sortEvent: sort = {
     active: "",
@@ -56,27 +61,27 @@ export class ManageSwipeEntryComponent implements OnInit {
     id: 0,
     key: ''
   };
-
   constructor(
+    private fb: UntypedFormBuilder,
     public router: Router,
     public userService: UserService,
     private notification: NotificationsComponent,
     private shared: SharedService,
-    public dialog : MatDialog,
+    public dialog: MatDialog,
     private spinner: NgxSpinnerService,
-    public datepipe:DatePipe
+    public datepipe: DatePipe
   ) { }
 
   refresh() {
     this.loadData();
   }
 
+  
   ngOnInit() {
     this.loadData();
   }
-
-    editCall(row) {
-  this.shared.toEdit = row.id;
+  editCall(row) {
+    this.shared.toEdit = row.id;
     this.router.navigate([`/employee/edit-swipe-entry`]);
   }
 
@@ -84,15 +89,14 @@ export class ManageSwipeEntryComponent implements OnInit {
     let name = row.employee.name
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
-        message : "Delete",
+        message: "Delete",
         id: name
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result)
       if (result) {
         this.deleteRow(row.id);
-      } 
+      }
     });
 
   }
@@ -101,9 +105,9 @@ export class ManageSwipeEntryComponent implements OnInit {
     this.deleteItem.id = 0;
     this.deleteItem.key = '';
   }
-
+  
   deleteRow(id) {
-    
+
     this.userService.deleteSwipeEntry(id).subscribe((res: any) => {
 
       this.loadData();
@@ -117,7 +121,7 @@ export class ManageSwipeEntryComponent implements OnInit {
             "status": "danger"
           },
         );
-        
+
       }
       else {
         let message;
@@ -129,7 +133,7 @@ export class ManageSwipeEntryComponent implements OnInit {
             "status": "warning"
           },
         );
-        
+
       }
     })
   }
@@ -161,7 +165,7 @@ export class ManageSwipeEntryComponent implements OnInit {
         columns: [
           { header: "EMployee", dataKey: "employee" },
           { header: "Swipe Date", dataKey: "swipeDate" },
-          { header: "Swipe Type", dataKey: "swipeType" },          
+          { header: "Swipe Type", dataKey: "swipeType" },
 
         ],
         didParseCell: function (data) {
@@ -181,8 +185,7 @@ export class ManageSwipeEntryComponent implements OnInit {
   sortData(event: Sort) {
     this.sortEvent = event;
     this.sort.disableClear = true;
-    this.paginator.firstPage();
-this.loadData();
+    this.loadData();
   }
 
   getPage(event: PageEvent) {
@@ -191,9 +194,11 @@ this.loadData();
     this.loadData();
   }
 
-  search(){
-    this.paginator.firstPage();
-    this.loadData();
+    convert(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
   }
 
   public loadData() {
@@ -204,15 +209,16 @@ this.loadData();
         this.pageSize,
         this.sortEvent.active,
         this.sortEvent.direction.toUpperCase(),
-        this.searchTerm
+        this.searchTerm,
+        this.fromDate ? this.convert(this.fromDate) : '',
+        this.toDate ? this.convert(this.toDate) : ''
       )
       .subscribe((response: any) => {
-        ;
         this.data = response.data;
         this.dataSource = this.data.content;
         this.pageIndex = 0;
       });
-    
+
   }
 
 }

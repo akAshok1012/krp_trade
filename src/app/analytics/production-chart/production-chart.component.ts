@@ -13,24 +13,25 @@ export class ProductionChartComponent implements OnInit {
   dataSource: any[];
   hideChart = false;
   brands: Array<any> = [];
-  units: Array<any> = [];
   allItem: Array<any> = [];
-  allUnits: Array<any> = [];
+  unit: Array<any> = [];
   brandId = '';
   itemId = '';
+  unitId = ''; protected
   chartType: string = '';
   duration = 'daily'
   durations = [
     { key: 'Today', value: "daily" },
     { key: 'Week', value: "weekly" },
     { key: 'Month', value: "monthly" },
-    // { key: 'Custom', value: "custom" },
+    { key: 'Custom', value: "custom" },
 
   ];
   selectType = 'items'
   selectedType: any[] = [
     { key: 'Items', value: "items" },
     { key: 'Duration', value: "duration" },
+    { key: 'Units', value: "units" },
   ]
 
   productionChart: any;
@@ -58,39 +59,42 @@ export class ProductionChartComponent implements OnInit {
       this.ratio = 1;
     }
   }
-
   onClickChart(data) {
-    this.hideChart = true;
-    if (!this.brandId) {
-      this.analyticsService
-        .brandByUnitCount(data)
-        .subscribe((response: any) => {
-          if (response) {
-            this.data = response.data ? response.data : [];
-            this.allUnits = [];
-            this.data.map((c) => {
-              let unit = {
-                name: c.uom
-              }
-              this.allUnits.push(unit)
-              console.log(unit)
-            })
-            this.unitChartEnable();
-          }
-        });
-    } else {
-      console.log("---------")
-      this.analyticsService
-        .itemByUnitCount(data)
-        .subscribe((response: any) => {
-          if (response) {
-            this.data = response.data ? response.data : [];
-            this.unitChartEnable();
-          }
-        });
-    }
-    console.log(data)
+    this.chartType = 'bar';
+    this.unitChartEnable();
   }
+  // onClickChart(data) {
+  //   this.hideChart = true;
+  //   if (!this.brandId) {
+  //     this.analyticsService
+  //       .brandByUnitCount(data)
+  //       .subscribe((response: any) => {
+  //         if (response) {
+  //           this.data = response.data ? response.data : [];
+  //           this.allUnits = [];
+  //           this.data.map((c) => {
+  //             let unit = {
+  //               name: c.uom
+  //             }
+  //             this.allUnits.push(unit)
+  //             console.log(unit)
+  //           })
+  //           this.unitChartEnable();
+  //         }
+  //       });
+  //   } else {
+  //     console.log("---------")
+  //     this.analyticsService
+  //       .itemByUnitCount(data)
+  //       .subscribe((response: any) => {
+  //         if (response) {
+  //           this.data = response.data ? response.data : [];
+  //           this.unitChartEnable();
+  //         }
+  //       });
+  //   }
+  //   console.log(data)
+  // }
 
   reset() {
     this.hideChart = false;
@@ -101,11 +105,11 @@ export class ProductionChartComponent implements OnInit {
       type: this.chartType === "line" ? "line" : "bar", //this denotes tha type of chart
 
       data: {
-        labels: this.data?.map((d) => (d.item ? d.item : d.brandname ? d.brandname : d.date)),
+        labels: this.data?.map((d) => (d.item ? d.item : d.uom ? (this.unitId ? d.brandname : d.uom) : d.brandname ? d.brandname : d.date ? d.date : d.brandName)),
         datasets: [
           {
             label: "Production",
-            data: this.data?.map((d) => (d.quantity ? d.quantity : d.date)),
+            data: this.data?.map((d) => (d.quantity)),
             backgroundColor: ["#03A9F5"],
             borderColor: "#03A9F5",
             borderWidth: 3,
@@ -169,7 +173,7 @@ export class ProductionChartComponent implements OnInit {
             display: true,
             title: {
               display: true,
-              text: this.selectType != "duration" ? (this.brandId ? "ITEMS" : "BRAND") : this.duration.toUpperCase()
+              text: this.selectType != "duration" ? (this.brandId ? "ITEMS" : "BRAND") : (this.selectType != "duration" ? (this.unitId ? "BRAND" : "UNIT OF MEASURE") : this.duration.toUpperCase())
             },
           },
         },
@@ -212,7 +216,7 @@ export class ProductionChartComponent implements OnInit {
   }
 
   loadData() {
-    if (this.selectType != "duration") {
+    if (this.selectType != "duration" && this.selectType != 'units') {
       if (this.brandId) {
         this.analyticsService
           .itemsByBrandCount(this.brandId)
@@ -272,14 +276,29 @@ export class ProductionChartComponent implements OnInit {
       }
     }
     else if (this.duration === 'custom') {
-      this.analyticsService.dateFilterProduction(this.fromDate ? this.convert(this.fromDate) : "",
-        this.toDate ? this.convert(this.toDate) : "",).subscribe((response: any) => {
-          if (response) {
-            this.data = response.data ? response.data : [];
-            this.chartType = 'bar';
-            this.productionChartEnable();
-          }
-        });
+      this.analyticsService.durationProduction('daily').subscribe((response: any) => {
+        if (response) {
+          this.data = response.data ? response.data : [];
+          this.chartType = 'bar';
+          this.productionChartEnable();
+        }
+      });
+    } else if (this.selectType === 'units') {
+      this.analyticsService.uomById(this.unitId).subscribe((response: any) => {
+        if (response) {
+          this.data = response.data ? response.data : [];
+          this.unit = [];
+          this.data.map((b) => {
+            let units = {
+              id: b.uomid,
+              name: b.uom
+            }
+            this.unit.push(units);
+          })
+          this.chartType = 'bar';
+          this.productionChartEnable();
+        }
+      });
     } else {
       this.analyticsService.durationProduction(this.duration).subscribe((response: any) => {
         if (response) {
@@ -290,6 +309,17 @@ export class ProductionChartComponent implements OnInit {
       });
     }
   }
+  dateFilter(){
+    this.analyticsService.dateFilterProduction(this.fromDate ? this.convert(this.fromDate) : "",
+    this.toDate ? this.convert(this.toDate) : "",).subscribe((response: any) => {
+      if (response) {
+        this.data = response.data ? response.data : [];
+        this.productionChart.destroy();
+        this.chartType = 'bar';
+        this.productionChartEnable();
+      }
+    });
+  }
 
   convert(str) {
     var date = new Date(str),
@@ -298,7 +328,7 @@ export class ProductionChartComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
   }
 
-  onSelect(data?) {
+  onSelect(data) {
     this.brandId = '';
     if (data) {
       this.brandId = data.id
@@ -307,4 +337,17 @@ export class ProductionChartComponent implements OnInit {
     this.loadData();
   }
 
+  onSelectUnit(data?) {
+    this.unitId = '';
+    if (data) {
+      this.unitId = data.id;
+    }
+    this.analyticsService.uomById(this.unitId).subscribe((response: any) => {
+      this.data = response.data ? response.data : [];
+      console.log(this.unitId);
+      console.log(data);
+      this.productionChart.destroy();
+      this.productionChartEnable();
+    })
+  }
 }

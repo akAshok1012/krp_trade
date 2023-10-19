@@ -53,15 +53,19 @@ export class ChangePasswordComponent implements OnInit {
   back() {
     if (this.currentUser.role === "SUPER_ADMIN") {
       this.router.navigate(['/admin/dashboard/super/dashboard']);
+      this.shared.activeLink='/admin/dashboard/super/dashboard';
     }
     if (this.currentUser.role === "ADMIN") {
       this.router.navigate(['/admin/dashboard']);
+      this.shared.activeLink='/admin/dashboard';
     }
     if (this.currentUser.role === "CUSTOMER") {
       this.router.navigate(['/user/dashboard']);
+      this.shared.activeLink='/user/dashboard';
     }
     if (this.currentUser.role === "EMPLOYEE") {
       this.router.navigate(['/employee/dashboard']);
+      this.shared.activeLink='/employee/dashboard';
     }
   }
 

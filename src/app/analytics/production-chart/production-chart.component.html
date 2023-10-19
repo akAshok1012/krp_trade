@@ -10,23 +10,9 @@
                                     Unit Of Measure
                                 </h4>
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <mat-form-field class="chart-filter text-white mx-2" appearance="outline">
-                                    <mat-label>Select Units </mat-label>
-                                    <mat-select value="AllUnits" class="chart-filter text-white">
-                                        <mat-option (click)="onClickChart()" value="AllUnits">
-                                            All Units
-                                        </mat-option>
-                                        <mat-option *ngFor="let option of allUnits" (click)="onClickChart(option)"
-                                            [value]="option">
-                                            {{ option.name }}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <button mat-raised-button type="button" class="btn btn-link btn-md btn-just-icon">
-                                    <i class="material-icons" (click)="reset()">close</i>
-                                </button>
-                            </div>
+                            <button mat-raised-button type="button" class="btn btn-link btn-md btn-just-icon">
+                                <i class="material-icons" (click)="reset()">close</i>
+                            </button>
                         </div>
                         <div class="chart2-area row justify-content-center">
                             <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
@@ -41,51 +27,34 @@
                     </div>
 
                     <div class="row">
-                        <!-- <mat-form-field *ngIf="selectType === 'items'" class="example-full-width date"
-                            appearance="outline">
-                            <mat-label> Search by From Date </mat-label>
-                            <input matInput [matDatepicker]="picker1" [(ngModel)]="fromDate" [max]="toDate || today"
-                                (dateChange)="loadData()">
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
-                        </mat-form-field>
-                        
-                        <mat-form-field *ngIf="selectType === 'items'" class="example-full-width date"
-                            appearance="outline">
-                            <mat-label> Search by To Date </mat-label>
-                            <input matInput [matDatepicker]="picker2" [(ngModel)]="toDate" [min]="fromDate"
-                                [max]="today" (dateChange)="loadData()">
-                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                            <mat-datepicker #picker2></mat-datepicker>
-                        </mat-form-field> -->
 
-                        <mat-form-field *ngIf="selectType === 'duration' && duration === 'custom'" class="example-full-width-daterange mx-2"
-                            appearance="outline">
+                        <mat-form-field *ngIf="selectType === 'duration' && duration === 'custom'"
+                            class="example-full-width-daterange mx-2" appearance="outline">
                             <mat-label>Enter a date range</mat-label>
                             <mat-date-range-input [rangePicker]="picker">
                                 <input matStartDate [(ngModel)]="fromDate" placeholder="Start date">
-                                <input matEndDate [(ngModel)]="toDate" (dateChange)="loadData()" placeholder="End date">
+                                <input matEndDate [(ngModel)]="toDate" placeholder="End date">
                             </mat-date-range-input>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-date-range-picker #picker>
                                 <mat-date-range-picker-actions>
                                     <button mat-raised-button matDateRangePickerCancel>Cancel</button>
-                                    <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
-                                  </mat-date-range-picker-actions>
+                                    <button mat-raised-button color="primary" (click)="dateFilter()" matDateRangePickerApply>Apply</button>
+                                </mat-date-range-picker-actions>
                             </mat-date-range-picker>
                         </mat-form-field>
-
-                        <!-- <mat-form-field *ngIf="brandId" class="chart-filter text-white mx-2" appearance="outline">
-                            <mat-label>Select Item </mat-label>
-                            <mat-select value="All_Items" class="chart-filter text-white">
-                                <mat-option (click)="onSelect()" value="All_Items">
-                                    All Items
+                        <mat-form-field *ngIf="selectType === 'units'" class="chart-filter text-white mx-2" appearance="outline">
+                            <mat-label>Select Units </mat-label>
+                            <mat-select value="All" class="chart-filter text-white">
+                                <mat-option (click)="onSelectUnit()" value="All">
+                                    All Units
                                 </mat-option>
-                                <mat-option *ngFor="let option of allItem" (click)="onSelect(option)" [value]="option">
+                                <mat-option *ngFor="let option of unit" (click)="onSelectUnit(option)"
+                                    [value]="option">
                                     {{ option.name }}
                                 </mat-option>
                             </mat-select>
-                        </mat-form-field> -->
+                        </mat-form-field>
 
                         <mat-form-field *ngIf="selectType === 'items'" class="chart-filter text-white"
                             appearance="outline">

@@ -315,12 +315,19 @@ deleteLeave(id:number){
 
 //Swipe Entry
 
+getSwipeList(id:number,swipeDate:any){
+  return this.http.get<any>(`${environment.apiUrl}/swipe-entry-date-employee?id=${id}&swipeDate=${swipeDate}`)
+}
 getSwipeEntry(){
   return this.http.get(`${environment.apiUrl}/employee-swipe-entries`);
 }
 
-getSwipeEntryList(page:number, size:number, sort:string, dir:string, searchTerm:string){
+getSwipeEntryList(page:number, size:number, sort:string, dir:string, searchTerm:string, from:string, to:string){
+  if(from && to){
+  return this.http.get(`${environment.apiUrl}/employee-swipe-entries-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}&fromDate=${from}&toDate=${to}`);
+  } else {
   return this.http.get(`${environment.apiUrl}/employee-swipe-entries-list?page=${page}&size=${size}&search=${searchTerm}&sortByField=${sort}&sortBy=${dir}`);
+  }
 }
 
 getSwipeEntryById(id:number): Observable<any>{

@@ -19,9 +19,24 @@
                 <i class="material-icons">add</i>Add Entry Swipe
               </button>
             </div>
-            <div>
+            <div class="d-flex">
+              <mat-form-field class="example-full-width mb-3 header-dropdown mx-2" appearance="outline" >
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="rangePicker">
+                  <input matStartDate [(ngModel)]="fromDate" placeholder="From date" (change)="loadData()">
+                  <input matEndDate [(ngModel)]="toDate" placeholder="To date" (change)="loadData()">
+                </mat-date-range-input>
+                <mat-hint>DD/MM/YYYY - DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                <mat-date-range-picker #rangePicker>
+                  <mat-date-range-picker-actions>
+                    <button mat-button matDateRangePickerCancel>Cancel</button>
+                    <button mat-raised-button color="primary" (click)="loadData()" matDateRangePickerApply>Apply</button>
+                  </mat-date-range-picker-actions>
+                </mat-date-range-picker>
+              </mat-form-field>
               <input class="form-control" placeholder="Search by Employee" type="text" #filter [(ngModel)]="searchTerm"
-                (ngModelChange)="search()" class="browser-default search-field" aria-label="Search box" />
+                (ngModelChange)="loadData()" class="browser-default search-field" aria-label="Search box" />
 
               <button mat-fab color="primary" class="download-btn ml-2 mt-2" [matMenuTriggerFor]="aboveMenu">
                 <mat-icon>download</mat-icon>
@@ -73,7 +88,7 @@
                 <mat-header-cell *matHeaderCellDef class="thead-light" mat-sort-header
                   style="justify-content: center;">Swipe Type</mat-header-cell>
                 <mat-cell *matCellDef="let row" style="justify-content: center;">
-                  {{row.swipeType}}</mat-cell>
+                  {{row.employeeSwipeEntryDetails[0].swipeType}}</mat-cell>
               </ng-container>
 
               <!-- actions -->
